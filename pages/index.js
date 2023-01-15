@@ -62,16 +62,16 @@ export default function Home() {
                 resources, and your number!
               </p>
               <p>
-                <Link href={"/register"} legacyBehavior>
+                <Link href={"/auth/register"} legacyBehavior>
                   <a
                     className={
                       "uk-button uk-button-primary uk-button-large uk-margin-right"
                     }
                   >
-                    Start for FREE!
+                    Join for FREE!
                   </a>
                 </Link>
-                <Link href={"/login"}>Login</Link>
+                <Link href={"/auth/login"}>Login</Link>
               </p>
             </div>
           </div>
