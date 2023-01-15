@@ -19,7 +19,7 @@ export default function Navigation() {
             href={"/register"}
             className={"uk-button uk-button-primary uk-button-small"}
           >
-            Register
+            Start FREE!
           </a>
         </div>
       </div>
