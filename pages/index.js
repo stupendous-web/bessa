@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import Navigation from "../components/Navigation";
+
 export default function Home() {
   return (
     <>
@@ -9,13 +11,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navigation />
       <div
-        className={"uk-section uk-section-primary"}
-        data-uk-height-viewport={""}
+        className={"uk-section"}
+        data-uk-height-viewport={"offset-top: true"}
       >
         <div className={"uk-container uk-container-xsmall"}>
-          <h2>Bessa</h2>
-          <p>The gay supper club</p>
+          <h1>Welcome to the gay supper club.</h1>
+          <p>
+            Meet other people in the community. Share your profile, your
+            resources, and your number!
+          </p>
         </div>
       </div>
     </>
