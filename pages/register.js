@@ -74,6 +74,18 @@ export default function Register() {
                   required
                 />
               </div>
+              <div className={"uk-margin"}>
+                <label className={"uk-form-label"}>
+                  <input type={"checkbox"} className={"uk-checkbox"} required />{" "}
+                  I am at least 18 years or older.
+                </label>
+              </div>
+              <div className={"uk-margin"}>
+                <label className={"uk-form-label"}>
+                  <input type={"checkbox"} className={"uk-checkbox"} required />{" "}
+                  I agree to play nice!
+                </label>
+              </div>
               {error && (
                 <div className={"uk-alert-danger"} data-uk-alert={""}>
                   <p>
