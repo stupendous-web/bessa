@@ -40,10 +40,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Bessa</title>
-        <meta name="description" content="Welcome to the gay supper club." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Bessa | Welcome to the gay supper club</title>
       </Head>
       <Navigation />
       <div
