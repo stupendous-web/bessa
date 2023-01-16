@@ -10,7 +10,7 @@ export default function Navigation() {
       data-uk-sticky={""}
     >
       <div className={"uk-navbar-left"}>
-        <a href={"/"} className={"uk-navbar-item uk-logo"}>
+        <a href={"/app"} className={"uk-navbar-item uk-logo"}>
           Bessa
         </a>
         <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
