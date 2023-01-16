@@ -45,7 +45,9 @@ export default function Register() {
         <div className={"uk-width-1-3@s"}>
           <div className={"uk-section"}>
             <div className={"uk-container"}>
-              <p className={"uk-text-bold uk-margin-remove"}>Bessa</p>
+              <Link href={"/"} legacyBehavior>
+                <a className={"uk-text-bold uk-margin-remove"}>Bessa</a>
+              </Link>
               <h1 className={"uk-margin-remove-top"}>Join for FREE!</h1>
               <form onSubmit={handleSubmit}>
                 <div className={"uk-margin"}>
