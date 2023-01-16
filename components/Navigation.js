@@ -12,11 +12,11 @@ export default function Navigation() {
       </div>
       <div className={"uk-navbar-right"}>
         <div className={"uk-navbar-item"}>
-          <a href={"/auth/login"} className={"uk-button uk-button-small"}>
+          <a href={"/login"} className={"uk-button uk-button-small"}>
             Login
           </a>
           <a
-            href={"/auth/register"}
+            href={"/register"}
             className={"uk-button uk-button-primary uk-button-small"}
           >
             Join FREE!

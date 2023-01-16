@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -74,7 +75,7 @@ export default function Register() {
                 />
               </div>
               {error && (
-                <div class={"uk-alert-danger"} data-uk-alert={""}>
+                <div className={"uk-alert-danger"} data-uk-alert={""}>
                   <p>
                     {error} Please try again or email{" "}
                     <Link
