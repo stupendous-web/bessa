@@ -1,6 +1,8 @@
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navigation() {
+  const { data: session } = useSession();
+
   return (
     <nav
       className={"uk-navbar-container"}
@@ -11,6 +13,7 @@ export default function Navigation() {
         <a href={"/"} className={"uk-navbar-item uk-logo"}>
           Bessa
         </a>
+        <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
       </div>
       <div className={"uk-navbar-right"}>
         <div className={"uk-navbar-item"}>
