@@ -6,11 +6,12 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Style
  */
+@import "https://use.typekit.net/uji1mwq.css";
 html {
   /* 1 */
-  font-family: 'Roboto', sans-serif;
+  font-family: bilo, sans-serif;
   font-size: 18px;
-  font-weight: normal;
+  font-weight: 600;
   line-height: 2;
   /* 2 */
   -webkit-text-size-adjust: 100%;
@@ -58,7 +59,7 @@ abbr[title] {
  */
 b,
 strong {
-  font-weight: bolder;
+  font-weight: 700;
 }
 /*
  * 1. Consolas has a better baseline in running text compared to `Courier`
@@ -218,8 +219,8 @@ h6,
 .uk-heading-xlarge,
 .uk-heading-2xlarge {
   margin: 0 0 18px 0;
-  font-family: 'Titan One', cursive;
-  font-weight: normal;
+  font-family: bilo, sans-serif;
+  font-weight: 900;
   color: #fa4d56;
   text-transform: none;
 }
@@ -4964,7 +4965,7 @@ ul.uk-nav-sub {
   min-height: 80px;
   /* 4 */
   font-size: 18px;
-  font-family: 'Roboto', sans-serif;
+  font-family: bilo, sans-serif;
   /* 5 */
   text-decoration: none;
 }
@@ -7895,7 +7896,7 @@ iframe[data-uk-cover] {
 .uk-logo {
   /* 1 */
   font-size: 2rem;
-  font-family: 'Titan One', cursive;
+  font-family: bilo, sans-serif;
   color: #fa4d56;
   /* 2 */
   text-decoration: none;
@@ -11884,29 +11885,18 @@ iframe[data-uk-cover] {
     page-break-after: avoid;
   }
 }
-@font-face {
-  font-family: 'Roboto';
-  font-style: italic;
-  font-weight: 100;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOiCnqEu92Fr1Mu51QrIzc.ttf) format('truetype');
+.uk-logo {
+  font-weight: 900;
+  text-transform: uppercase;
 }
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOkCnqEu92Fr1MmgWxP.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Titan One';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/titanone/v13/mFTzWbsGxbbS_J5cQcjykw.ttf) format('truetype');
+.uk-button {
+  text-transform: uppercase;
 }
 a:hover {
   text-decoration: none;
+}
+h2 {
+  text-transform: uppercase;
 }
 ::selection {
   background: #fa4d56;

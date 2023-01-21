@@ -31,7 +31,7 @@ export default function Login() {
           <div className={"uk-section"}>
             <div className={"uk-container"}>
               <Link href={"/"} legacyBehavior>
-                <a className={"uk-text-bold uk-margin-remove"}>Bessa</a>
+                <a className={"uk-logo"}>Bessa</a>
               </Link>
               <h1 className={"uk-margin-remove-top"}>Login</h1>
               <form onSubmit={handleSubmit}>
