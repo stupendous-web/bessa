@@ -5,6 +5,7 @@ import { unstable_getServerSession } from "next-auth/next";
 
 export default async function handler(request, response) {
   const body = request.body;
+  const query = request.query;
 
   const client = new MongoClient(process.env.MONGO_DB_URI);
   const collection = client.db("bessa").collection("users");
@@ -16,17 +17,30 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET":
-      await collection
-        .findOne({ _id: ObjectId(request.query._id) })
-        .then((results) => {
-          delete results.password;
-          response.status(200).json(results);
-        })
-        .catch((error) => {
-          response.status(500).send(error);
-        })
-        .finally(() => client.close());
-
+      if (query._id) {
+        await collection
+          .findOne({ _id: ObjectId(query._id) })
+          .then((results) => {
+            delete results.password;
+            response.status(200).send(results);
+          })
+          .catch((error) => {
+            response.status(500).send(error);
+          })
+          .finally(() => client.close());
+      } else {
+        await collection
+          .find()
+          .toArray()
+          .then((results) => {
+            console.log(results);
+            response.status(200).send(results);
+          })
+          .catch((error) => {
+            response.status(500).send(error);
+          })
+          .finally(() => client.close());
+      }
       break;
     case "POST":
       const user = await collection.findOne({ email: body?.email });
