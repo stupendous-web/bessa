@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navigation() {
   return (
     <nav
@@ -6,9 +8,9 @@ export default function Navigation() {
       data-uk-sticky={""}
     >
       <div className={"uk-navbar-left"}>
-        <a href={"/"} className={"uk-navbar-item uk-logo"}>
-          Bessa
-        </a>
+        <Link href={"/app"} legacyBehavior>
+          <a className={"uk-navbar-item uk-logo uk-visible@s"}>Bessa</a>
+        </Link>
       </div>
       <div className={"uk-navbar-right"}>
         <div className={"uk-navbar-item"}>

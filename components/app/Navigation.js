@@ -38,32 +38,31 @@ export default function Navigation() {
       data-uk-sticky={""}
     >
       <div className={"uk-navbar-left"}>
-        <a href={"/app"} className={"uk-navbar-item uk-logo uk-visible@s"}>
-          Bessa
-        </a>
+        <Link href={"/app"} legacyBehavior>
+          <a className={"uk-navbar-item uk-logo uk-visible@s"}>Bessa</a>
+        </Link>
         <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
       </div>
       <div className={"uk-navbar-right"}>
         <div className={"uk-navbar-item"}>
           <div className={"uk-navbar-item"}>
             <Link href={"/app/inbox"}>
-              <i class={"ri-mail-fill"} />
+              <i className={"ri-mail-fill"} />
             </Link>
           </div>
           <div className={"uk-navbar-item"}>
             <a data-uk-toggle={"#account-menu"}>
               <img
-                className="uk-border-circle"
-                src="https://getuikit.com/docs/images/avatar.jpg"
-                width="40"
-                height="40"
-                alt="Border circle"
+                className={"uk-border-circle"}
+                src={"https://getuikit.com/docs/images/avatar.jpg"}
+                width={"40"}
+                height={"40"}
               />
             </a>
           </div>
           <div id={"account-menu"} data-uk-offcanvas={"flip: true; mode: push"}>
-            <div class={"uk-offcanvas-bar"}>
-              <ul class="uk-nav uk-nav-default">
+            <div className={"uk-offcanvas-bar"}>
+              <ul className={"uk-nav uk-nav-default"}>
                 {links.map((link) => (
                   <li key={link.href}>
                     <Link href={`/app/${link.href}`} legacyBehavior>
@@ -72,6 +71,9 @@ export default function Navigation() {
                   </li>
                 ))}
                 <div className={"uk-nav-divider"} />
+                <li>
+                  <Link href={"/app/edit-profile"}>Edit Profile</Link>
+                </li>
                 <li>
                   <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
                 </li>

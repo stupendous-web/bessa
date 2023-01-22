@@ -1,5 +1,7 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
+import { authOptions } from "./auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth/next";
 
 export default async function handler(request, response) {
   const body = request.body;
@@ -8,7 +10,24 @@ export default async function handler(request, response) {
   const collection = client.db("bessa").collection("users");
   await client.connect();
 
+  const req = request;
+  const res = response;
+  const session = await unstable_getServerSession(req, res, authOptions);
+
   switch (request.method) {
+    case "GET":
+      await collection
+        .findOne({ _id: ObjectId(request.query._id) })
+        .then((results) => {
+          delete results.password;
+          response.status(200).json(results);
+        })
+        .catch((error) => {
+          response.status(500).send(error);
+        })
+        .finally(() => client.close());
+
+      break;
     case "POST":
       const user = await collection.findOne({ email: body?.email });
 
@@ -32,6 +51,20 @@ export default async function handler(request, response) {
           .status(422)
           .json({ title: "That email is already registered." });
       }
+      break;
+    case "PATCH":
+      await collection
+        .updateOne(
+          { _id: ObjectId(session?.user?._id) },
+          { $set: { name: body?.name, description: body?.description } }
+        )
+        .then(() => {
+          response.status(200).send("Good things come to those who wait.");
+        })
+        .catch((error) => {
+          response.status(500).send(error);
+        })
+        .finally(() => client.close());
       break;
     default:
       response.status(405).send();
