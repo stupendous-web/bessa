@@ -1,7 +1,35 @@
+import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
 export default function Navigation() {
   const { data: session } = useSession();
+
+  const links = [
+    {
+      title: "Feed",
+      href: "feed",
+    },
+    {
+      title: "Members",
+      href: "members",
+    },
+    {
+      title: "Map",
+      href: "map",
+    },
+    {
+      title: "Events",
+      href: "events",
+    },
+    {
+      title: "Services",
+      href: "services",
+    },
+    {
+      title: "Places",
+      href: "places",
+    },
+  ];
 
   return (
     <nav
@@ -10,19 +38,46 @@ export default function Navigation() {
       data-uk-sticky={""}
     >
       <div className={"uk-navbar-left"}>
-        <a href={"/app"} className={"uk-navbar-item uk-logo"}>
+        <a href={"/app"} className={"uk-navbar-item uk-logo uk-visible@s"}>
           Bessa
         </a>
         <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
       </div>
       <div className={"uk-navbar-right"}>
         <div className={"uk-navbar-item"}>
-          <a
-            className={"uk-button uk-button-small"}
-            onClick={() => signOut({ callbackUrl: "/" })}
-          >
-            Logout
-          </a>
+          <div className={"uk-navbar-item"}>
+            <Link href={"/app/inbox"}>
+              <i class={"ri-mail-fill"} />
+            </Link>
+          </div>
+          <div className={"uk-navbar-item"}>
+            <a data-uk-toggle={"#account-menu"}>
+              <img
+                className="uk-border-circle"
+                src="https://getuikit.com/docs/images/avatar.jpg"
+                width="40"
+                height="40"
+                alt="Border circle"
+              />
+            </a>
+          </div>
+          <div id={"account-menu"} data-uk-offcanvas={"flip: true; mode: push"}>
+            <div class={"uk-offcanvas-bar"}>
+              <ul class="uk-nav uk-nav-default">
+                {links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={`/app/${link.href}`} legacyBehavior>
+                      <a>{link.title}</a>
+                    </Link>
+                  </li>
+                ))}
+                <div className={"uk-nav-divider"} />
+                <li>
+                  <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
