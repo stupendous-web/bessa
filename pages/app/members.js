@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import axios from "axios";
+import dayjs from "dayjs";
+let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Navigation from "@/components/app/Navigation";
 
@@ -8,6 +10,8 @@ export default function Members() {
   const [users, setUsers] = useState();
 
   axios.get("/api/users").then((response) => setUsers(response.data));
+
+  dayjs.extend(relativeTime);
 
   return (
     <>
@@ -32,9 +36,11 @@ export default function Members() {
                       <div className={"uk-text-small uk-text-muted"}>
                         3 mi. away
                       </div>
-                      <div className={"uk-text-small uk-text-muted"}>
-                        Online 5 minutes ago
-                      </div>
+                      {user?.lastLogin && (
+                        <div className={"uk-text-small uk-text-muted"}>
+                          Online {dayjs(user?.lastLogin).fromNow()}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Link>
