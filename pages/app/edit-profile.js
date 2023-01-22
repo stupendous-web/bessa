@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
 
+import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 
 export default function EditProfile() {
@@ -41,39 +42,41 @@ export default function EditProfile() {
 
   return (
     <>
-      <Navigation />
-      <div className={"uk-section uk-section-xsmall"}>
-        <div className={"uk-container uk-container-small"}>
-          <form onSubmit={(event) => handleSubmit(event)}>
-            <div className={"uk-margin"}>
-              <label>Name</label>
+      <Authentication>
+        <Navigation />
+        <div className={"uk-section uk-section-xsmall"}>
+          <div className={"uk-container uk-container-small"}>
+            <form onSubmit={(event) => handleSubmit(event)}>
+              <div className={"uk-margin"}>
+                <label>Name</label>
+                <input
+                  type={"text"}
+                  value={user?.name}
+                  className={"uk-input"}
+                  onChange={(event) =>
+                    setUser({ ...user, name: event.currentTarget.value })
+                  }
+                />
+              </div>
+              <div className={"uk-margin"}>
+                <label>Description</label>
+                <textarea
+                  className={"uk-textarea"}
+                  value={user?.description}
+                  onChange={(event) =>
+                    setUser({ ...user, description: event.currentTarget.value })
+                  }
+                />
+              </div>
               <input
-                type={"text"}
-                value={user?.name}
-                className={"uk-input"}
-                onChange={(event) =>
-                  setUser({ ...user, name: event.currentTarget.value })
-                }
+                type={"submit"}
+                value={"Publish"}
+                className={"uk-button uk-button-primary"}
               />
-            </div>
-            <div className={"uk-margin"}>
-              <label>Description</label>
-              <textarea
-                className={"uk-textarea"}
-                value={user?.description}
-                onChange={(event) =>
-                  setUser({ ...user, description: event.currentTarget.value })
-                }
-              />
-            </div>
-            <input
-              type={"submit"}
-              value={"Publish"}
-              className={"uk-button uk-button-primary"}
-            />
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
+      </Authentication>
     </>
   );
 }

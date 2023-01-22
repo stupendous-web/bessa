@@ -1,8 +1,15 @@
 import { useSession } from "next-auth/react";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import axios from "axios";
+
 export default function Authentication({ children }) {
   const { data: session } = useSession();
+
+  useEffect(() => {
+    session && axios.patch("/api/update-activity");
+  }, [session]);
 
   return (
     <>
