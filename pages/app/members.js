@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -6,6 +7,8 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
+
+import avatar from "../../images/avatar.jpg";
 
 export default function Members() {
   const [users, setUsers] = useState();
@@ -33,9 +36,7 @@ export default function Members() {
                   <Link href={"https://google.com"}>
                     <div className={"uk-card uk-card-default uk-card-small"}>
                       <div className={"uk-card-media-top"}>
-                        <img
-                          src={"https://getuikit.com/docs/images/avatar.jpg"}
-                        />
+                        <Image src={avatar} alt={"Pride Flag"} />
                       </div>
                       <div className={"uk-card-body"}>
                         <div className={"uk-text-bold"}>{user?.name}</div>

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
+
+import avatar from "../../images/avatar.jpg";
 
 export default function EditProfile() {
   const [user, setUser] = useState({ name: "", description: "" });
@@ -47,7 +50,7 @@ export default function EditProfile() {
     axios
       .patch("/api/photos")
       .then(() => setIsUploading(false))
-      .catch((error) => {
+      .catch(() => {
         UIkit.notification({
           message: "Try something else",
           status: "danger",
@@ -75,14 +78,16 @@ export default function EditProfile() {
                       </div>
                     ) : (
                       <div className={"uk-inline"}>
-                        <img
+                        <Image
+                          src={avatar}
+                          alt={"Pride Flag"}
                           className={"uk-border-circle"}
-                          src={"https://getuikit.com/docs/images/avatar.jpg"}
-                          width={"160"}
+                          height={160}
+                          width={160}
                         />
                         <i
                           className={
-                            "ri-add-circle-fill uk-position-bottom-right uk-text-large"
+                            "ri-add-circle-fill uk-position-bottom-right uk-text-large uk-link"
                           }
                           style={{ lineHeight: 1 }}
                         />

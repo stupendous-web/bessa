@@ -33,7 +33,6 @@ export default async function handler(request, response) {
           .find()
           .toArray()
           .then((results) => {
-            console.log(results);
             response.status(200).send(results);
           })
           .catch((error) => {
