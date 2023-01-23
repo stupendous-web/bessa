@@ -72,7 +72,7 @@ export default function Navigation() {
                 ))}
                 <div className={"uk-nav-divider"} />
                 <li>
-                  <Link href={"/app/edit-profile"}>Edit Profile</Link>
+                  <Link href={"/app/edit-profile"}>Profile</Link>
                 </li>
                 <li>
                   <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>

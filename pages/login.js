@@ -12,7 +12,7 @@ export default function Login() {
     signIn("credentials", {
       email: email,
       password: password,
-      callbackUrl: "/app",
+      callbackUrl: "/app/members",
     });
   };
 
