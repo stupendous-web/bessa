@@ -8,7 +8,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 
-import avatar from "../../images/avatar.jpg";
+import avatar from "../../../images/avatar.jpg";
 
 export default function Members() {
   const [users, setUsers] = useState();
@@ -33,7 +33,7 @@ export default function Members() {
             >
               {users?.map((user) => (
                 <div key={user._id}>
-                  <Link href={"https://google.com"}>
+                  <Link href={`/app/members/${user._id}`}>
                     <div className={"uk-card uk-card-default uk-card-small"}>
                       <div className={"uk-card-media-top"}>
                         <Image src={avatar} alt={"Pride Flag"} />

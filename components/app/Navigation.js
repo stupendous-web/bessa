@@ -8,30 +8,30 @@ export default function Navigation() {
   const { data: session } = useSession();
 
   const links = [
-    {
-      title: "Feed",
-      href: "feed",
-    },
+    // {
+    //   title: "Feed",
+    //   href: "feed",
+    // },
     {
       title: "Members",
       href: "members",
     },
-    {
-      title: "Map",
-      href: "map",
-    },
-    {
-      title: "Events",
-      href: "events",
-    },
-    {
-      title: "Services",
-      href: "services",
-    },
-    {
-      title: "Places",
-      href: "places",
-    },
+    // {
+    //   title: "Map",
+    //   href: "map",
+    // },
+    // {
+    //   title: "Events",
+    //   href: "events",
+    // },
+    // {
+    //   title: "Services",
+    //   href: "services",
+    // },
+    // {
+    //   title: "Places",
+    //   href: "places",
+    // },
   ];
 
   return (
@@ -41,7 +41,7 @@ export default function Navigation() {
       data-uk-sticky={""}
     >
       <div className={"uk-navbar-left"}>
-        <Link href={"/app"} legacyBehavior>
+        <Link href={"/app/members"} legacyBehavior>
           <a className={"uk-navbar-item uk-logo uk-visible@s"}>Bessa</a>
         </Link>
         <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
