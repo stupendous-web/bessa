@@ -10,10 +10,10 @@ export default function Authentication({ children }) {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        // axios.patch("/api/update-activity", {
-        //   latitude: position.coords.latitude,
-        //   longitude: position.coords.longitude,
-        // });
+        axios.patch("/api/update-activity", {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
       },
       (error) => console.log(error),
       { enableHighAccuracy: true, timeout: 5000 }
