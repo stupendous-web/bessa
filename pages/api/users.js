@@ -30,7 +30,22 @@ export default async function handler(request, response) {
           .finally(() => client.close());
       } else {
         await collection
-          .find()
+          .aggregate(
+            query?.latitude && query?.longitude
+              ? [
+                  {
+                    $geoNear: {
+                      near: {
+                        type: "Point",
+                        coordinates: [query.longitude, query.latitude],
+                      },
+                      distanceField: "location",
+                      spherical: true,
+                    },
+                  },
+                ]
+              : []
+          )
           .toArray()
           .then((results) => {
             response.status(200).send(results);
