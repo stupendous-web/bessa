@@ -1,11 +1,24 @@
-import { useSession } from "next-auth/react";
-
-import Link from "next/link";
 import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+
 import axios from "axios";
 
 export default function Authentication({ children }) {
   const { data: session } = useSession();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // axios.patch("/api/update-activity", {
+        //   latitude: position.coords.latitude,
+        //   longitude: position.coords.longitude,
+        // });
+      },
+      (error) => console.log(error),
+      { enableHighAccuracy: true, timeout: 5000 }
+    );
+  }, []);
 
   useEffect(() => {
     session && axios.patch("/api/update-activity");
