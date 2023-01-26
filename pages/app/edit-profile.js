@@ -52,11 +52,11 @@ export default function EditProfile() {
     event.preventDefault();
     setIsUploading(true);
     axios
-      .patch("/api/photos")
+      .post("/api/avatars")
       .then(() => setIsUploading(false))
       .catch(() => {
         UIkit.notification({
-          message: "Try something else",
+          message: "Try something else.",
           status: "danger",
         });
         setIsUploading(false);
@@ -81,7 +81,10 @@ export default function EditProfile() {
                         <div data-uk-spinner={""} />
                       </div>
                     ) : (
-                      <div className={"uk-inline"}>
+                      <div
+                        className={"uk-inline"}
+                        data-uk-tooltip={"No NSFW profile pictures!"}
+                      >
                         <Image
                           src={avatar}
                           alt={"Pride Flag"}
