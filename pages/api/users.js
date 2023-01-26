@@ -29,26 +29,6 @@ export default async function handler(request, response) {
           })
           .finally(() => client.close());
       } else {
-        console.log(parseFloat(query?.latitude));
-        console.log(
-          query?.latitude && query?.longitude
-            ? [
-                {
-                  $geoNear: {
-                    near: {
-                      type: "Point",
-                      coordinates: [
-                        parseFloat(query.longitude),
-                        parseFloat(query.latitude),
-                      ],
-                    },
-                    distanceField: "location",
-                    spherical: true,
-                  },
-                },
-              ]
-            : []
-        );
         await collection
           .aggregate(
             query?.latitude && query?.longitude

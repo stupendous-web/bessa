@@ -13,7 +13,10 @@ import avatar from "../../../images/avatar.jpg";
 
 export default function Members() {
   const [users, setUsers] = useState();
-  const [coords, setCoords] = useState({});
+  const [coords, setCoords] = useState({
+    latitude: undefined,
+    longitude: undefined,
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -22,19 +25,27 @@ export default function Members() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
-        axios
-          .get("/api/users", {
-            params: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            },
-          })
-          .then((response) => setUsers(response.data));
       },
       (error) => console.log(error),
       { enableHighAccuracy: true, timeout: 10000 }
     );
   }, []);
+
+  useEffect(() => {
+    console.log({
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    });
+    axios
+      .get("/api/users", {
+        params: {
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+        },
+      })
+      .then((response) => setUsers(response.data))
+      .catch((error) => console.log(error));
+  }, [coords]);
 
   dayjs.extend(relativeTime);
 
@@ -59,19 +70,22 @@ export default function Members() {
                       </div>
                       <div className={"uk-card-body"}>
                         <div className={"uk-text-bold"}>{user?.name}</div>
-                        <div className={"uk-text-small uk-text-muted"}>
-                          {haversine(
-                            {
-                              latitude: user?.location?.coordinates[1],
-                              longitude: user?.location?.coordinates[0],
-                            },
-                            coords
-                          )}{" "}
-                          mi. away
-                        </div>
+                        {coords && user?.location?.coordinates && (
+                          <div className={"uk-text-small uk-text-muted"}>
+                            {haversine(
+                              {
+                                latitude: user.location.coordinates[1],
+                                longitude: user.location.coordinates[0],
+                              },
+                              coords,
+                              { unit: "mile" }
+                            )}{" "}
+                            mi. away
+                          </div>
+                        )}
                         {user?.lastActiveAt && (
                           <div className={"uk-text-small uk-text-muted"}>
-                            Active {dayjs(user?.lastActiveAt).fromNow()}
+                            {dayjs(user?.lastActiveAt).fromNow()}
                           </div>
                         )}
                       </div>
