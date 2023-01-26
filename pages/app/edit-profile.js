@@ -19,10 +19,10 @@ export default function EditProfile() {
   useEffect(() => {
     session &&
       axios
-        .get("/api/users", { params: { _id: session?.user?._id } })
+        .get("/api/users", { params: { userId: session?.user?._id } })
         .then((response) => {
-          setName(response.data.name);
-          setDescription(response.data.description);
+          setName(response.data[0].name);
+          setDescription(response.data[0].description);
         })
         .catch((error) => {
           console.log(error);
