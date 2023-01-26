@@ -43,7 +43,10 @@ export default function Members() {
           longitude: coords.longitude,
         },
       })
-      .then((response) => setUsers(response.data))
+      .then((response) => {
+        console.log(response.data);
+        setUsers(response.data);
+      })
       .catch((error) => console.log(error));
   }, [coords]);
 
