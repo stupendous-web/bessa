@@ -67,12 +67,11 @@ export default function Members() {
                       </div>
                       <div className={"uk-card-body"}>
                         <div className={"uk-text-bold"}>{user?.name}</div>
-                        {user?.distance ||
-                          (user?.distance === 0 && (
-                            <div className={"uk-text-small uk-text-muted"}>
-                              {user.distance} mi. away
-                            </div>
-                          ))}
+                        {(user?.distance || user?.distance === 0) && (
+                          <div className={"uk-text-small uk-text-muted"}>
+                            {user.distance} mi. away
+                          </div>
+                        )}
                         <div className={"uk-text-small uk-text-muted"}>
                           {dayjs(user?.lastActiveAt).fromNow()}
                         </div>
