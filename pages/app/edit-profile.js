@@ -10,7 +10,8 @@ import Navigation from "@/components/app/Navigation";
 import avatar from "../../images/avatar.jpg";
 
 export default function EditProfile() {
-  const [user, setUser] = useState({ name: "", description: "" });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [isUploading, setIsUploading] = useState(false);
 
   const { data: session } = useSession();
@@ -19,7 +20,10 @@ export default function EditProfile() {
     session &&
       axios
         .get("/api/users", { params: { _id: session?.user?._id } })
-        .then((response) => setUser(response.data))
+        .then((response) => {
+          setName(response.data.name);
+          setDescription(response.data.description);
+        })
         .catch((error) => {
           console.log(error);
         });
@@ -28,7 +32,7 @@ export default function EditProfile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .patch("/api/users", user)
+      .patch("/api/users", { name: name, description: description })
       .then(() =>
         UIkit.notification({
           message: "Saved!",
@@ -109,11 +113,9 @@ export default function EditProfile() {
                 <div className={"uk-width-expand"}>
                   <input
                     type={"text"}
-                    value={user?.name}
+                    value={name}
                     className={"uk-input"}
-                    onChange={(event) =>
-                      setUser({ ...user, name: event.currentTarget.value })
-                    }
+                    onChange={(event) => setName(event.currentTarget.value)}
                     required
                   />
                 </div>
@@ -122,9 +124,9 @@ export default function EditProfile() {
                 <label>Description</label>
                 <textarea
                   className={"uk-textarea"}
-                  value={user?.description}
+                  value={description}
                   onChange={(event) =>
-                    setUser({ ...user, description: event.currentTarget.value })
+                    setDescription(event.currentTarget.value)
                   }
                 />
               </div>

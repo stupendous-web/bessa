@@ -10,19 +10,17 @@ export default function Authentication({ children }) {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        axios.patch("/api/update-activity", {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+        axios.patch("/api/users", {
+          location: {
+            type: "Point",
+            coordinates: [position.coords.longitude, position.coords.latitude],
+          },
         });
       },
       (error) => console.log(error),
-      { enableHighAccuracy: true, timeout: 5000 }
+      { enableHighAccuracy: true, timeout: 10000 }
     );
   }, []);
-
-  useEffect(() => {
-    session && axios.patch("/api/update-activity");
-  }, [session]);
 
   return (
     <>

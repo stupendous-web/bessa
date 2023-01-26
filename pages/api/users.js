@@ -29,6 +29,26 @@ export default async function handler(request, response) {
           })
           .finally(() => client.close());
       } else {
+        console.log(parseFloat(query?.latitude));
+        console.log(
+          query?.latitude && query?.longitude
+            ? [
+                {
+                  $geoNear: {
+                    near: {
+                      type: "Point",
+                      coordinates: [
+                        parseFloat(query.longitude),
+                        parseFloat(query.latitude),
+                      ],
+                    },
+                    distanceField: "location",
+                    spherical: true,
+                  },
+                },
+              ]
+            : []
+        );
         await collection
           .aggregate(
             query?.latitude && query?.longitude
@@ -37,7 +57,10 @@ export default async function handler(request, response) {
                     $geoNear: {
                       near: {
                         type: "Point",
-                        coordinates: [query.longitude, query.latitude],
+                        coordinates: [
+                          parseFloat(query.longitude),
+                          parseFloat(query.latitude),
+                        ],
                       },
                       distanceField: "location",
                       spherical: true,
@@ -84,7 +107,7 @@ export default async function handler(request, response) {
       await collection
         .updateOne(
           { _id: ObjectId(session?.user?._id) },
-          { $set: { name: body?.name, description: body?.description } }
+          { $set: { ...body, lastActiveAt: new Date() } }
         )
         .then(() => {
           response.status(200).send("Good things come to those who wait.");
