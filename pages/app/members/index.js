@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
+import { formatDistance } from "@/utils/helpers";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
@@ -69,7 +70,7 @@ export default function Members() {
                         <div className={"uk-text-bold"}>{user?.name}</div>
                         {(user?.distance || user?.distance === 0) && (
                           <div className={"uk-text-small uk-text-muted"}>
-                            {user.distance * 3.28084} ft. away
+                            {formatDistance(user.distance)}
                           </div>
                         )}
                         <div className={"uk-text-small uk-text-muted"}>
