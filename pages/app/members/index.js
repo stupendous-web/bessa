@@ -32,22 +32,17 @@ export default function Members() {
   }, []);
 
   useEffect(() => {
-    console.log({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
-    });
-    axios
-      .get("/api/users", {
-        params: {
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setUsers(response.data);
-      })
-      .catch((error) => console.log(error));
+    coords?.latitude &&
+      coords?.longitude &&
+      axios
+        .get("/api/users", {
+          params: {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+          },
+        })
+        .then((response) => setUsers(response.data))
+        .catch((error) => console.log(error));
   }, [coords]);
 
   dayjs.extend(relativeTime);
