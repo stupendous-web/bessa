@@ -69,7 +69,7 @@ export default function Members() {
                         <div className={"uk-text-bold"}>{user?.name}</div>
                         {(user?.distance || user?.distance === 0) && (
                           <div className={"uk-text-small uk-text-muted"}>
-                            {user.distance} mi. away
+                            {user.distance * 3.28084} ft. away
                           </div>
                         )}
                         <div className={"uk-text-small uk-text-muted"}>
