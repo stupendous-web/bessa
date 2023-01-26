@@ -17,47 +17,41 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET":
-      if (query._id) {
-        await collection
-          .findOne({ _id: ObjectId(query._id) })
-          .then((results) => {
-            delete results.password;
-            response.status(200).send(results);
-          })
-          .catch((error) => {
-            response.status(500).send(error);
-          })
-          .finally(() => client.close());
-      } else {
-        await collection
-          .aggregate(
-            query?.latitude && query?.longitude
-              ? [
-                  {
-                    $geoNear: {
-                      near: {
-                        type: "Point",
-                        coordinates: [
-                          parseFloat(query.longitude),
-                          parseFloat(query.latitude),
-                        ],
-                      },
-                      distanceField: "distance",
-                      spherical: true,
-                    },
-                  },
-                ]
-              : []
-          )
-          .toArray()
-          .then((results) => {
-            response.status(200).send(results);
-          })
-          .catch((error) => {
-            response.status(500).send(error);
-          })
-          .finally(() => client.close());
-      }
+      const geoNear = [
+        {
+          $geoNear: {
+            near: {
+              type: "Point",
+              coordinates: [
+                parseFloat(query.longitude),
+                parseFloat(query.latitude),
+              ],
+            },
+            distanceField: "distance",
+            spherical: true,
+          },
+        },
+      ];
+      const match = [
+        {
+          $match: {
+            _id: ObjectId(query.userId),
+          },
+        },
+      ];
+      await collection
+        .aggregate([
+          ...(query?.latitude && query?.longitude ? geoNear : []),
+          ...(query?.userId ? match : []),
+        ])
+        .toArray()
+        .then((results) => {
+          response.status(200).send(results);
+        })
+        .catch((error) => {
+          response.status(500).send(error);
+        })
+        .finally(() => client.close());
       break;
     case "POST":
       const user = await collection.findOne({ email: body?.email });

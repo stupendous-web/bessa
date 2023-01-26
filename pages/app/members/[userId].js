@@ -12,18 +12,42 @@ import avatar from "../../../images/avatar.jpg";
 
 export default function ShowProfile() {
   const [user, setUser] = useState({});
+  const [coords, setCoords] = useState({
+    latitude: undefined,
+    longitude: undefined,
+  });
 
   const router = useRouter();
   const { userId } = router.query;
 
   useEffect(() => {
-    axios
-      .get("/api/users", { params: { _id: userId } })
-      .then((response) => setUser(response.data))
-      .catch((error) => {
-        console.log(error);
-      });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCoords({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (error) => console.log(error),
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
   }, []);
+
+  useEffect(() => {
+    userId &&
+      coords?.latitude &&
+      coords?.longitude &&
+      axios
+        .get("/api/users", {
+          userId: userId,
+          params: {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+          },
+        })
+        .then((response) => setUser(response.data[0]))
+        .catch((error) => console.log(error));
+  }, [userId, coords]);
 
   dayjs.extend(relativeTime);
 
@@ -47,11 +71,15 @@ export default function ShowProfile() {
               </div>
               <div className={"uk-width-expand"}>
                 <div className={"uk-text-bold"}>{user?.name}</div>
-                {user?.lastActiveAt && (
-                  <div className={"uk-text-small uk-text-muted"}>
-                    Active {dayjs(user?.lastActiveAt).fromNow()}
-                  </div>
-                )}
+                {user?.distance ||
+                  (user?.distance === 0 && (
+                    <div className={"uk-text-small uk-text-muted"}>
+                      {user.distance} mi. away
+                    </div>
+                  ))}
+                <div className={"uk-text-small uk-text-muted"}>
+                  {dayjs(user?.lastActiveAt).fromNow()}
+                </div>
               </div>
             </div>
             <div className={"uk-margin"}>{user?.description}</div>

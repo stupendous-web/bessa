@@ -73,11 +73,9 @@ export default function Members() {
                               {user.distance} mi. away
                             </div>
                           ))}
-                        {user?.lastActiveAt && (
-                          <div className={"uk-text-small uk-text-muted"}>
-                            {dayjs(user?.lastActiveAt).fromNow()}
-                          </div>
-                        )}
+                        <div className={"uk-text-small uk-text-muted"}>
+                          {dayjs(user?.lastActiveAt).fromNow()}
+                        </div>
                       </div>
                     </div>
                   </Link>
