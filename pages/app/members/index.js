@@ -70,19 +70,21 @@ export default function Members() {
                       </div>
                       <div className={"uk-card-body"}>
                         <div className={"uk-text-bold"}>{user?.name}</div>
-                        {coords && user?.location?.coordinates && (
-                          <div className={"uk-text-small uk-text-muted"}>
-                            {haversine(
-                              {
-                                latitude: user.location.coordinates[1],
-                                longitude: user.location.coordinates[0],
-                              },
-                              coords,
-                              { unit: "mile" }
-                            )}{" "}
-                            mi. away
-                          </div>
-                        )}
+                        {coords?.latitude &&
+                          coords?.longitude &&
+                          user?.location?.coordinates && (
+                            <div className={"uk-text-small uk-text-muted"}>
+                              {haversine(
+                                {
+                                  latitude: user.location.coordinates[1],
+                                  longitude: user.location.coordinates[0],
+                                },
+                                coords,
+                                { unit: "mile" }
+                              )}{" "}
+                              mi. away
+                            </div>
+                          )}
                         {user?.lastActiveAt && (
                           <div className={"uk-text-small uk-text-muted"}>
                             {dayjs(user?.lastActiveAt).fromNow()}
