@@ -42,7 +42,7 @@ export default async function handler(request, response) {
                           parseFloat(query.latitude),
                         ],
                       },
-                      distanceField: "location",
+                      distanceField: "distance",
                       spherical: true,
                     },
                   },

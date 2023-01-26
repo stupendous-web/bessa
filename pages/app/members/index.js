@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-import haversine from "haversine-distance";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
@@ -68,21 +67,12 @@ export default function Members() {
                       </div>
                       <div className={"uk-card-body"}>
                         <div className={"uk-text-bold"}>{user?.name}</div>
-                        {coords?.latitude &&
-                          coords?.longitude &&
-                          user?.location?.coordinates && (
+                        {user?.distance ||
+                          (user?.distance === 0 && (
                             <div className={"uk-text-small uk-text-muted"}>
-                              {haversine(
-                                {
-                                  latitude: user.location.coordinates[1],
-                                  longitude: user.location.coordinates[0],
-                                },
-                                coords,
-                                { unit: "mile" }
-                              )}{" "}
-                              mi. away
+                              {user.distance} mi. away
                             </div>
-                          )}
+                          ))}
                         {user?.lastActiveAt && (
                           <div className={"uk-text-small uk-text-muted"}>
                             {dayjs(user?.lastActiveAt).fromNow()}
