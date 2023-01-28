@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
+import StupendousImage from "@/components/StupendousImage";
+
 export default function Navigation() {
   const { data: session } = useSession();
 
@@ -62,16 +64,12 @@ export default function Navigation() {
             </div>
             <div className={"uk-navbar-item"}>
               <a data-uk-toggle={"#account-menu"}>
-                <img
-                  src={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
-                  alt={session?.user?.name}
+                <StupendousImage
+                  path={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
+                  fallback={"/images/avatar.jpg"}
+                  className={"uk-border-circle"}
                   height={40}
                   width={40}
-                  className={"uk-border-circle"}
-                  onError={(event) => {
-                    event.currentTarget.src = "/images/avatar.jpg";
-                    event.onerror = null;
-                  }}
                 />
               </a>
             </div>
@@ -102,7 +100,7 @@ export default function Navigation() {
         </div>
       </nav>
       <div id={"publish-modal"} data-uk-modal={""}>
-        <div class={"uk-modal-dialog uk-modal-body"}>
+        <div className={"uk-modal-dialog uk-modal-body"}>
           Publish
           <form onSubmit={(event) => handlePublish(event)}>
             <div className={"uk-margin"}>

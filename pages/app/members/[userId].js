@@ -7,6 +7,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
+import StupendousImage from "@/components/StupendousImage";
 
 export default function ShowProfile() {
   const [user, setUser] = useState({});
@@ -58,16 +59,12 @@ export default function ShowProfile() {
             <div className={"uk-flex-middle"} data-uk-grid={""}>
               <div className={"uk-width-auto"}>
                 <div>
-                  <img
-                    src={`https://cdn.bessssssa.com/avatars/${user?._id}`}
-                    alt={user?.name}
+                  <StupendousImage
+                    path={`https://cdn.bessssssa.com/avatars/${user?._id}`}
+                    fallback={"/images/avatar.jpg"}
+                    className={"uk-border-circle"}
                     height={160}
                     width={160}
-                    className={"uk-border-circle"}
-                    onError={(event) => {
-                      event.currentTarget.src = "/images/avatar.jpg";
-                      event.onerror = null;
-                    }}
                   />
                 </div>
               </div>
