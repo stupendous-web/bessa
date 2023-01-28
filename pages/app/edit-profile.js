@@ -51,8 +51,14 @@ export default function EditProfile() {
   const handleUpload = (event) => {
     event.preventDefault();
     setIsUploading(true);
+    let formData = new FormData();
+    formData.append("file", avatar);
     axios
-      .post("/api/avatars")
+      .post("/api/avatars", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then(() => setIsUploading(false))
       .catch(() => {
         UIkit.notification({

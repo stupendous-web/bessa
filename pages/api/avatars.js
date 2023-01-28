@@ -4,6 +4,12 @@ import { unstable_getServerSession } from "next-auth/next";
 import formidable from "formidable";
 const { Storage } = require("@google-cloud/storage");
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export default async function handler(request, response) {
   const form = formidable();
   await new Promise((resolve, reject) => {
@@ -13,11 +19,12 @@ export default async function handler(request, response) {
 
         return;
       }
-      request.fields = fields;
       request.file = files?.file;
       resolve();
     });
   });
+
+  const file = request?.file;
 
   const client = new MongoClient(process.env.MONGO_DB_URI);
   const collection = client.db("bessa").collection("avatars");
@@ -38,7 +45,11 @@ export default async function handler(request, response) {
   switch (request.method) {
     case "POST":
       await collection
-        .insertOne({ userId: session?.user?._id })
+        .updateOne(
+          { userId: session?.user?._id },
+          { $set: { userId: session?.user?._id } },
+          { upsert: true }
+        )
         .then(async (result) => {
           await storage.bucket("bessa").upload(file?.filepath, {
             destination: `avatars/${result.insertedId}`,
