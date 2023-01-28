@@ -47,7 +47,6 @@ export default async function handler(request, response) {
         })
         .finally(() => {
           response.status(200).send("Good things come to those who wait.");
-          client.close();
         });
       break;
     default:
