@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -8,8 +7,6 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
-
-import avatar from "../../../images/avatar.jpg";
 
 export default function Members() {
   const [users, setUsers] = useState();
@@ -69,7 +66,14 @@ export default function Members() {
                     <Link href={`/app/members/${user._id}`}>
                       <div className={"uk-card uk-card-default uk-card-small"}>
                         <div className={"uk-card-media-top"}>
-                          <Image src={avatar} alt={"Pride Flag"} />
+                          <img
+                            src={`https://cdn.bessssssa.com/avatars/${user._id}`}
+                            alt={user?.name}
+                            onError={(event) => {
+                              event.currentTarget.src = "/images/avatar.jpg";
+                              event.onerror = null;
+                            }}
+                          />
                         </div>
                         <div className={"uk-card-body"}>
                           <div className={"uk-text-bold"}>{user?.name}</div>

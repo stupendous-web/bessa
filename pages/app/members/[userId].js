@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import axios from "axios";
 import dayjs from "dayjs";
 import { formatDistance } from "@/utils/helpers";
@@ -8,8 +7,6 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
-
-import avatar from "../../../images/avatar.jpg";
 
 export default function ShowProfile() {
   const [user, setUser] = useState({});
@@ -61,12 +58,16 @@ export default function ShowProfile() {
             <div className={"uk-flex-middle"} data-uk-grid={""}>
               <div className={"uk-width-auto"}>
                 <div>
-                  <Image
-                    src={avatar}
-                    alt={"Pride Flag"}
-                    className={"uk-border-circle"}
+                  <img
+                    src={`https://cdn.bessssssa.com/avatars/${user?._id}`}
+                    alt={user?.name}
                     height={160}
                     width={160}
+                    className={"uk-border-circle"}
+                    onError={(event) => {
+                      event.currentTarget.src = "/images/avatar.jpg";
+                      event.onerror = null;
+                    }}
                   />
                 </div>
               </div>

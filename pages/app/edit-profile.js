@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
-
-import avatar from "../../images/avatar.jpg";
 
 export default function EditProfile() {
   const [name, setName] = useState("");
@@ -91,12 +88,16 @@ export default function EditProfile() {
                         className={"uk-inline"}
                         data-uk-tooltip={"No NSFW profile pictures!"}
                       >
-                        <Image
-                          src={avatar}
-                          alt={"Pride Flag"}
-                          className={"uk-border-circle"}
+                        <img
+                          src={`https://cdn.bessssssa.com/avatars/${session?.user._id}`}
+                          alt={session?.user?.name}
                           height={160}
                           width={160}
+                          className={"uk-border-circle"}
+                          onError={(event) => {
+                            event.currentTarget.src = "/images/avatar.jpg";
+                            event.onerror = null;
+                          }}
                         />
                         <i
                           className={

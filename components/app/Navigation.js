@@ -1,8 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
-
-import avatar from "../../images/avatar.jpg";
 
 export default function Navigation() {
   const { data: session } = useSession();
@@ -55,12 +52,16 @@ export default function Navigation() {
           </div>
           <div className={"uk-navbar-item"}>
             <a data-uk-toggle={"#account-menu"}>
-              <Image
-                src={avatar}
-                alt={"Pride Flag"}
+              <img
+                src={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
+                alt={session?.user?.name}
                 height={40}
                 width={40}
                 className={"uk-border-circle"}
+                onError={(event) => {
+                  event.currentTarget.src = "/images/avatar.jpg";
+                  event.onerror = null;
+                }}
               />
             </a>
           </div>
