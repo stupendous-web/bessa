@@ -1,4 +1,3 @@
-import { MongoClient } from "mongodb";
 import { authOptions } from "./auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
 import formidable from "formidable";
@@ -26,10 +25,6 @@ export default async function handler(request, response) {
 
   const file = request?.file;
 
-  const client = new MongoClient(process.env.MONGO_DB_URI);
-  const collection = client.db("bessa").collection("avatars");
-  await client.connect();
-
   const req = request;
   const res = response;
   const session = await unstable_getServerSession(req, res, authOptions);
@@ -44,20 +39,14 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "POST":
-      await collection
-        .updateOne(
-          { userId: session?.user?._id },
-          { $set: { userId: session?.user?._id } },
-          { upsert: true }
-        )
-        .then(async (result) => {
-          await storage.bucket("bessa").upload(file?.filepath, {
-            destination: `avatars/${result.insertedId}`,
-            contentType: file?.mimetype,
-          });
+      await storage
+        .bucket("bessa")
+        .upload(file?.filepath, {
+          destination: `avatars/${session?.user?._id}`,
+          contentType: file?.mimetype,
         })
-        .then((result) => response.status(200).json(result.insertedId))
         .finally(() => {
+          response.status(200).send("Good things come to those who wait.");
           client.close();
         });
       break;

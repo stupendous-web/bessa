@@ -48,11 +48,11 @@ export default function EditProfile() {
       });
   };
 
-  const handleUpload = (event) => {
+  const handleUpload = (file) => {
     event.preventDefault();
     setIsUploading(true);
     let formData = new FormData();
-    formData.append("file", avatar);
+    formData.append("file", file);
     axios
       .post("/api/avatars", formData, {
         headers: {
@@ -113,7 +113,9 @@ export default function EditProfile() {
                             width: "160px",
                             opacity: 0,
                           }}
-                          onChange={(event) => handleUpload(event)}
+                          onChange={(event) =>
+                            handleUpload(event.currentTarget.files[0])
+                          }
                         />
                       </div>
                     )}
