@@ -57,7 +57,7 @@ export default function Members() {
             {!isPermissionDenied ? (
               <div
                 className={
-                  "uk-child-width-1-2 uk-child-width-1-6@s uk-grid-match"
+                  "uk-child-width-1-2 uk-child-width-1-6@s uk-grid-small uk-grid-match"
                 }
                 data-uk-grid={""}
               >

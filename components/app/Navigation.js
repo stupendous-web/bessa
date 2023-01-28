@@ -31,62 +31,93 @@ export default function Navigation() {
     // },
   ];
 
+  const handlePublish = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <nav
-      className={"uk-navbar-container"}
-      data-uk-navbar={""}
-      data-uk-sticky={""}
-    >
-      <div className={"uk-navbar-left"}>
-        <Link href={"/app/members"} legacyBehavior>
-          <a className={"uk-navbar-item uk-logo uk-visible@s"}>Bessa</a>
-        </Link>
-        <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
-      </div>
-      <div className={"uk-navbar-right"}>
-        <div className={"uk-navbar-item"}>
+    <>
+      <nav
+        className={"uk-navbar-container"}
+        data-uk-navbar={""}
+        data-uk-sticky={""}
+      >
+        <div className={"uk-navbar-left"}>
+          <Link href={"/app/members"} legacyBehavior>
+            <a className={"uk-navbar-item uk-logo uk-visible@s"}>Bessa</a>
+          </Link>
+          <div className={"uk-navbar-item"}>Welcome, {session?.user?.name}</div>
+        </div>
+        <div className={"uk-navbar-right"}>
           <div className={"uk-navbar-item"}>
-            <Link href={"/app/inbox"}>
-              <i className={"ri-mail-fill"} />
-            </Link>
-          </div>
-          <div className={"uk-navbar-item"}>
-            <a data-uk-toggle={"#account-menu"}>
-              <img
-                src={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
-                alt={session?.user?.name}
-                height={40}
-                width={40}
-                className={"uk-border-circle"}
-                onError={(event) => {
-                  event.currentTarget.src = "/images/avatar.jpg";
-                  event.onerror = null;
-                }}
-              />
-            </a>
-          </div>
-          <div id={"account-menu"} data-uk-offcanvas={"flip: true; mode: push"}>
-            <div className={"uk-offcanvas-bar"}>
-              <ul className={"uk-nav uk-nav-default"}>
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={`/app/${link.href}`} legacyBehavior>
-                      <a>{link.title}</a>
-                    </Link>
+            <div className={"uk-navbar-item"}>
+              <a href={"#publish-modal"} data-uk-toggle={""}>
+                <i className={"ri-edit-2-fill"} />
+              </a>
+            </div>
+            <div className={"uk-navbar-item"}>
+              <Link href={"/app/inbox"}>
+                <i className={"ri-mail-fill"} />
+              </Link>
+            </div>
+            <div className={"uk-navbar-item"}>
+              <a data-uk-toggle={"#account-menu"}>
+                <img
+                  src={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
+                  alt={session?.user?.name}
+                  height={40}
+                  width={40}
+                  className={"uk-border-circle"}
+                  onError={(event) => {
+                    event.currentTarget.src = "/images/avatar.jpg";
+                    event.onerror = null;
+                  }}
+                />
+              </a>
+            </div>
+            <div
+              id={"account-menu"}
+              data-uk-offcanvas={"flip: true; mode: push"}
+            >
+              <div className={"uk-offcanvas-bar"}>
+                <ul className={"uk-nav uk-nav-default"}>
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      <Link href={`/app/${link.href}`} legacyBehavior>
+                        <a>{link.title}</a>
+                      </Link>
+                    </li>
+                  ))}
+                  <div className={"uk-nav-divider"} />
+                  <li>
+                    <Link href={"/app/edit-profile"}>Profile</Link>
                   </li>
-                ))}
-                <div className={"uk-nav-divider"} />
-                <li>
-                  <Link href={"/app/edit-profile"}>Profile</Link>
-                </li>
-                <li>
-                  <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
-                </li>
-              </ul>
+                  <li>
+                    <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
+      </nav>
+      <div id={"publish-modal"} data-uk-modal={""}>
+        <div class={"uk-modal-dialog uk-modal-body"}>
+          Publish
+          <form onSubmit={(event) => handlePublish(event)}>
+            <div className={"uk-margin"}>
+              <textarea className={"uk-textarea"}></textarea>
+            </div>
+            <div className={"uk-text-right"}>
+              <input
+                type={"submit"}
+                value={"Publish"}
+                className={"uk-button uk-button-primary"}
+              />
+            </div>
+          </form>
+        </div>
       </div>
-    </nav>
+    </>
   );
 }
