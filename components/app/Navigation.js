@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
-import StupendousImage from "@/components/StupendousImage";
-
 export default function Navigation() {
   const { data: session } = useSession();
 
@@ -64,13 +62,16 @@ export default function Navigation() {
             </div>
             <div className={"uk-navbar-item"}>
               <a data-uk-toggle={"#account-menu"}>
-                <StupendousImage
-                  path={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
-                  fallback={"/images/avatar.jpg"}
-                  className={"uk-border-circle"}
-                  height={40}
-                  width={40}
-                />
+                <div
+                  className={"uk-cover-container uk-border-circle"}
+                  style={{ height: 40, width: 40 }}
+                >
+                  <img
+                    src={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
+                    alt={session?.user?._id}
+                    data-uk-cover={""}
+                  />
+                </div>
               </a>
             </div>
             <div

@@ -7,7 +7,6 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
-import StupendousImage from "@/components/StupendousImage";
 
 export default function Members() {
   const [users, setUsers] = useState();
@@ -67,11 +66,16 @@ export default function Members() {
                     <Link href={`/app/members/${user._id}`}>
                       <div className={"uk-card uk-card-default uk-card-small"}>
                         <div className={"uk-card-media-top"}>
-                          <StupendousImage
-                            path={`https://cdn.bessssssa.com/avatars/${user._id}`}
-                            fallback={"/images/avatar.jpg"}
-                            height={"172px"}
-                          />
+                          <div
+                            className={"uk-cover-container"}
+                            style={{ height: 172 }}
+                          >
+                            <img
+                              src={`https://cdn.bessssssa.com/avatars/${user?._id}`}
+                              alt={user?._id}
+                              data-uk-cover={""}
+                            />
+                          </div>
                         </div>
                         <div className={"uk-card-body"}>
                           <div className={"uk-text-bold"}>{user?.name}</div>
