@@ -45,7 +45,9 @@ export default function Posts() {
                     </Link>
                   </div>
                   <div className={"uk-width-expand"}>
-                    <p>{post?.user[0]?.name}</p>
+                    <Link href={`/app/members/${post?.user[0]?._id}`}>
+                      {post?.user[0]?.name}
+                    </Link>
                   </div>
                 </div>
                 <p>{post?.body}</p>

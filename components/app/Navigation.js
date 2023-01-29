@@ -6,6 +6,8 @@ import UIkit from "uikit";
 
 export default function Navigation() {
   const [body, setBody] = useState("");
+  const [file, setFile] = useState({});
+  const [nSFW, setNSFW] = useState(false);
 
   const { data: session } = useSession();
 
@@ -38,11 +40,21 @@ export default function Navigation() {
 
   const handlePublish = (event) => {
     event.preventDefault();
+    let formData = new FormData();
+    formData.append("body", body);
+    formData.append("file", file);
+    formData.append("nSFW", nSFW);
     axios
-      .post("/api/posts", { body: body })
+      .post("/api/posts", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
       .then(() => {
         UIkit.modal("#publish-modal").hide();
         setBody("");
+        setFile({});
+        setNSFW(false);
         UIkit.notification({
           message: "Published!",
           status: "success",
@@ -134,14 +146,47 @@ export default function Navigation() {
                 className={"uk-textarea"}
                 value={body}
                 onChange={(event) => setBody(event.currentTarget.value)}
+                required
               />
             </div>
-            <div className={"uk-text-right"}>
-              <input
-                type={"submit"}
-                value={"Publish"}
-                className={"uk-button uk-button-primary"}
-              />
+            <div className={"uk-flex-middle"} data-uk-grid={""}>
+              <div className={"uk-width-expand"}>
+                <label>
+                  <input
+                    type={"checkbox"}
+                    checked={nSFW}
+                    className={"uk-checkbox uk-margin-right"}
+                    onChange={() => setNSFW(!nSFW)}
+                  />
+                  This is NSFW
+                </label>
+              </div>
+              <div>
+                <div className={"uk-inline"}>
+                  <i
+                    className={"ri-image-fill uk-text-large uk-link"}
+                    style={{ lineHeight: 1, display: "flex" }}
+                  />
+                  <input
+                    type={"file"}
+                    accept={"image/jpeg, image/png"}
+                    className={"uk-position-center"}
+                    style={{
+                      height: "36px",
+                      width: "36px",
+                      opacity: 0,
+                    }}
+                    onChange={(event) => setFile(event.currentTarget.files[0])}
+                  />
+                </div>
+              </div>
+              <div>
+                <input
+                  type={"submit"}
+                  value={"Publish"}
+                  className={"uk-button uk-button-primary"}
+                />
+              </div>
             </div>
           </form>
         </div>

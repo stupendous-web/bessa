@@ -56,7 +56,13 @@ export default function EditProfile() {
           "content-type": "multipart/form-data",
         },
       })
-      .then(() => setIsUploading(false))
+      .then(() => {
+        UIkit.notification({
+          message: "Saved!",
+          status: "success",
+        });
+        setIsUploading(false);
+      })
       .catch(() => {
         UIkit.notification({
           message: "Try something else.",
@@ -109,7 +115,7 @@ export default function EditProfile() {
                         />
                         <input
                           type={"file"}
-                          accept={"image/jpeg"}
+                          accept={"image/jpeg, image/png"}
                           className={"uk-position-center"}
                           style={{
                             height: "160px",
