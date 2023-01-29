@@ -14,12 +14,21 @@ export default async function handler(request, response) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
   switch (request.method) {
+    case "GET":
+      await collection
+        .aggregate([])
+        .toArray()
+        .then((results) => response.status(200).send(results))
+        .finally(() => {
+          client.close();
+        });
+      break;
     case "POST":
       await collection
         .insertOne({
-          post: body?.post,
           userId: ObjectId(session?.user?._id),
           createdAt: new Date(),
+          ...body,
         })
         .finally(() => {
           client.close();

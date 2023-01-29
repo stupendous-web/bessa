@@ -5,15 +5,15 @@ import axios from "axios";
 import UIkit from "uikit";
 
 export default function Navigation() {
-  const [post, setPost] = useState("");
+  const [body, setBody] = useState("");
 
   const { data: session } = useSession();
 
   const links = [
-    // {
-    //   title: "Feed",
-    //   href: "feed",
-    // },
+    {
+      title: "Posts",
+      href: "posts",
+    },
     {
       title: "Members",
       href: "members",
@@ -39,10 +39,10 @@ export default function Navigation() {
   const handlePublish = (event) => {
     event.preventDefault();
     axios
-      .post("/api/posts", { post: post })
+      .post("/api/posts", { body: body })
       .then(() => {
         UIkit.modal("#publish-modal").hide();
-        setPost("");
+        setBody("");
         UIkit.notification({
           message: "Published!",
           status: "success",
@@ -132,8 +132,8 @@ export default function Navigation() {
               <label>Publish</label>
               <textarea
                 className={"uk-textarea"}
-                value={post}
-                onChange={(event) => setPost(event.currentTarget.value)}
+                value={body}
+                onChange={(event) => setBody(event.currentTarget.value)}
               />
             </div>
             <div className={"uk-text-right"}>
