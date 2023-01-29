@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import axios from "axios";
 import dayjs from "dayjs";
 let relativeTime = require("dayjs/plugin/relativeTime");
@@ -25,7 +26,28 @@ export default function Posts() {
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container"}>
             {posts?.map((post) => (
-              <div key={post._id}>
+              <div className={"uk-margin"} key={post._id}>
+                <div className={"uk-flex-middle"} data-uk-grid={""}>
+                  <div className={"uk-width-auto"}>
+                    <Link href={`/app/members/${post?.user[0]?._id}`}>
+                      <div
+                        className={"uk-cover-container uk-border-circle"}
+                        style={{ height: 40, width: 40 }}
+                      >
+                        <img
+                          src={`https://cdn.bessssssa.com/avatars/${post?.userId}`}
+                          onError={(event) => {
+                            event.currentTarget.src = "/images/avatar.jpg";
+                          }}
+                          data-uk-cover={""}
+                        />
+                      </div>
+                    </Link>
+                  </div>
+                  <div className={"uk-width-expand"}>
+                    <p>{post?.user[0]?.name}</p>
+                  </div>
+                </div>
                 <p>{post?.body}</p>
               </div>
             ))}

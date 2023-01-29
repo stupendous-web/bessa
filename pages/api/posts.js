@@ -16,7 +16,17 @@ export default async function handler(request, response) {
   switch (request.method) {
     case "GET":
       await collection
-        .aggregate([])
+        .aggregate([
+          {
+            $lookup: {
+              from: "users",
+              localField: "userId",
+              foreignField: "_id",
+              as: "user",
+              pipeline: [{ $project: { _id: 1, name: 1 } }],
+            },
+          },
+        ])
         .toArray()
         .then((results) => response.status(200).send(results))
         .finally(() => {
