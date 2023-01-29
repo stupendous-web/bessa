@@ -74,7 +74,7 @@ strong {
   /* 2 */
   font-size: 16px;
   /* 3 */
-  color: #f0506e;
+  color: #fa4d56;
   white-space: nowrap;
 }
 /*
@@ -1508,14 +1508,14 @@ textarea.uk-form-large,
  */
 .uk-form-danger,
 .uk-form-danger:focus {
-  color: #f0506e;
+  color: #fa4d56;
 }
 /*
  * Success
  */
 .uk-form-success,
 .uk-form-success:focus {
-  color: #32d296;
+  color: #009d9a;
 }
 /*
  * Blank
@@ -1946,18 +1946,18 @@ select.uk-form-width-xsmall {
  * Danger
  */
 .uk-button-danger {
-  background-color: #f0506e;
+  background-color: #fa4d56;
   color: #1c0f30;
 }
 /* Hover */
 .uk-button-danger:hover {
-  background-color: #ee395b;
+  background-color: #f9343e;
   color: #1c0f30;
 }
 /* OnClick + Active */
 .uk-button-danger:active,
 .uk-button-danger.uk-active {
-  background-color: #ec2147;
+  background-color: #f91b27;
   color: #1c0f30;
 }
 /*
@@ -2749,8 +2749,8 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-alert-success {
-  background: #edfbf6;
-  color: #32d296;
+  background: #c2e8e7;
+  color: #009d9a;
 }
 /*
  * Warning
@@ -2763,8 +2763,8 @@ select.uk-form-width-xsmall {
  * Danger
  */
 .uk-alert-danger {
-  background: #fef4f6;
-  color: #f0506e;
+  background: #fff7f8;
+  color: #fa4d56;
 }
 /* ========================================================================
    Component: Placeholder
@@ -2833,7 +2833,7 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-label-success {
-  background-color: #32d296;
+  background-color: #009d9a;
   color: #1c0f30;
 }
 /*
@@ -2847,7 +2847,7 @@ select.uk-form-width-xsmall {
  * Danger
  */
 .uk-label-danger {
-  background-color: #f0506e;
+  background-color: #fa4d56;
   color: #1c0f30;
 }
 /* ========================================================================
@@ -4061,7 +4061,7 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-notification-message-success {
-  color: #32d296;
+  color: #009d9a;
 }
 /*
  * Warning
@@ -4073,7 +4073,7 @@ select.uk-form-width-xsmall {
  * Danger
  */
 .uk-notification-message-danger {
-  color: #f0506e;
+  color: #fa4d56;
 }
 /* ========================================================================
    Component: Tooltip
@@ -6962,13 +6962,13 @@ ul.uk-nav-sub {
   color: #f6f2ff !important;
 }
 .uk-text-success {
-  color: #32d296 !important;
+  color: #009d9a !important;
 }
 .uk-text-warning {
   color: #faa05a !important;
 }
 .uk-text-danger {
-  color: #f0506e !important;
+  color: #fa4d56 !important;
 }
 /* Background modifier
  ========================================================================== */
