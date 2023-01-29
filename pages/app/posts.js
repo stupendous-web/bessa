@@ -47,7 +47,8 @@ export default function Posts() {
                   <div className={"uk-width-expand"}>
                     <Link href={`/app/members/${post?.user[0]?._id}`}>
                       {post?.user[0]?.name}
-                    </Link>
+                    </Link>{" "}
+                    &middot; {dayjs(post?.createdAt).fromNow()}
                   </div>
                 </div>
                 <p>{post?.body}</p>
