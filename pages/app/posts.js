@@ -6,6 +6,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
+import PostMedia from "@/components/app/PostMedia";
 
 export default function Posts() {
   const [posts, setPosts] = useState();
@@ -51,10 +52,12 @@ export default function Posts() {
                     &middot; {dayjs(post?.createdAt).fromNow()}
                   </div>
                 </div>
-                {post?.type?.includes("image") && (
-                  <div className={"uk-margin"}>
-                    <img src={`https://cdn.bessssssa.com/posts/${post?._id}`} />
-                  </div>
+                {post?.type && (
+                  <PostMedia
+                    nSFW={post?.nSFW}
+                    type={post?.type}
+                    id={post?._id}
+                  />
                 )}
                 <div className={"uk-margin"}>{post?.body}</div>
               </div>

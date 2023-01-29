@@ -57,6 +57,7 @@ export default async function handler(request, response) {
               pipeline: [{ $project: { _id: 1, name: 1 } }],
             },
           },
+          { $sort: { createdAt: -1 } },
         ])
         .toArray()
         .then((results) => response.status(200).send(results))
@@ -69,7 +70,7 @@ export default async function handler(request, response) {
         .insertOne({
           body: fields?.body,
           ...(file?.mimetype && { type: file?.mimetype }),
-          nSFW: fields?.nSFW,
+          nSFW: fields?.nSFW === "true",
           userId: ObjectId(session?.user?._id),
           createdAt: new Date(),
         })
