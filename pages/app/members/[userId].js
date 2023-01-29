@@ -65,6 +65,9 @@ export default function ShowProfile() {
                     <img
                       src={`https://cdn.bessssssa.com/avatars/${user?._id}`}
                       alt={user?._id}
+                      onError={(event) => {
+                        event.currentTarget.src = "/images/avatar.jpg";
+                      }}
                       data-uk-cover={""}
                     />
                   </div>

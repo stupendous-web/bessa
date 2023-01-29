@@ -69,6 +69,9 @@ export default function Navigation() {
                   <img
                     src={`https://cdn.bessssssa.com/avatars/${session?.user?._id}`}
                     alt={session?.user?._id}
+                    onError={(event) => {
+                      event.currentTarget.src = "/images/avatar.jpg";
+                    }}
                     data-uk-cover={""}
                   />
                 </div>
