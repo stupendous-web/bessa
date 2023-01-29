@@ -39,7 +39,7 @@ export default function EditProfile() {
       .catch((error) => {
         console.log(error);
         UIkit.notification({
-          message: "Try something else",
+          message: "Try something else.",
           status: "danger",
         });
       });

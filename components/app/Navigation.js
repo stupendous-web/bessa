@@ -1,7 +1,12 @@
+import { useState } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+import axios from "axios";
+import UIkit from "uikit";
 
 export default function Navigation() {
+  const [post, setPost] = useState("");
+
   const { data: session } = useSession();
 
   const links = [
@@ -33,6 +38,23 @@ export default function Navigation() {
 
   const handlePublish = (event) => {
     event.preventDefault();
+    axios
+      .post("/api/posts", { post: post })
+      .then(() => {
+        UIkit.modal("#publish-modal").hide();
+        setPost("");
+        UIkit.notification({
+          message: "Published!",
+          status: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        UIkit.notification({
+          message: "Try something else.",
+          status: "danger",
+        });
+      });
   };
 
   return (
@@ -105,10 +127,14 @@ export default function Navigation() {
       </nav>
       <div id={"publish-modal"} data-uk-modal={""}>
         <div className={"uk-modal-dialog uk-modal-body"}>
-          Publish
           <form onSubmit={(event) => handlePublish(event)}>
             <div className={"uk-margin"}>
-              <textarea className={"uk-textarea"}></textarea>
+              <label>Publish</label>
+              <textarea
+                className={"uk-textarea"}
+                value={post}
+                onChange={(event) => setPost(event.currentTarget.value)}
+              />
             </div>
             <div className={"uk-text-right"}>
               <input
