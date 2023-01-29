@@ -28,8 +28,6 @@ export default async function handler(request, response) {
   const fields = request?.fields;
   const file = request?.file;
 
-  const body = request.body;
-
   const client = new MongoClient(process.env.MONGO_DB_URI);
   const collection = client.db("bessa").collection("posts");
   await client.connect();
@@ -37,6 +35,14 @@ export default async function handler(request, response) {
   const req = request;
   const res = response;
   const session = await unstable_getServerSession(req, res, authOptions);
+
+  const storage = new Storage({
+    project_id: "stupendous-web",
+    credentials: {
+      client_email: process.env.GCS_CLIENT_EMAIL,
+      private_key: process.env.GCS_PRIVATE_KEY,
+    },
+  });
 
   switch (request.method) {
     case "GET":
@@ -61,9 +67,18 @@ export default async function handler(request, response) {
     case "POST":
       await collection
         .insertOne({
+          body: fields?.body,
+          ...(file?.mimetype && { type: file?.mimetype }),
+          nSFW: fields?.nSFW,
           userId: ObjectId(session?.user?._id),
           createdAt: new Date(),
-          ...fields,
+        })
+        .then(async (results) => {
+          file &&
+            (await storage.bucket("bessa").upload(file?.filepath, {
+              destination: `posts/${results?.insertedId}`,
+              contentType: file?.mimetype,
+            }));
         })
         .finally(() => {
           client.close();

@@ -24,7 +24,7 @@ export default function Posts() {
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>
-          <div className={"uk-container"}>
+          <div className={"uk-container uk-container-xsmall"}>
             {posts?.map((post) => (
               <div className={"uk-margin"} key={post._id}>
                 <div className={"uk-flex-middle"} data-uk-grid={""}>
@@ -51,7 +51,12 @@ export default function Posts() {
                     &middot; {dayjs(post?.createdAt).fromNow()}
                   </div>
                 </div>
-                <p>{post?.body}</p>
+                {post?.type?.includes("image") && (
+                  <div className={"uk-margin"}>
+                    <img src={`https://cdn.bessssssa.com/posts/${post?._id}`} />
+                  </div>
+                )}
+                <div className={"uk-margin"}>{post?.body}</div>
               </div>
             ))}
           </div>
