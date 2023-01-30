@@ -138,7 +138,6 @@ export default function Navigation() {
         <div className={"uk-modal-dialog uk-modal-body"}>
           <form onSubmit={(event) => handlePublish(event)}>
             <div className={"uk-margin"}>
-              <label>Publish</label>
               <textarea
                 className={"uk-textarea"}
                 value={body}
