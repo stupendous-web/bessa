@@ -5,9 +5,27 @@ import axios from "axios";
 
 export default function Index() {
   const [messages, setMessage] = useState();
+  function groupBy(objectArray, property) {
+    return objectArray.reduce((acc, obj) => {
+      const key = obj[property];
+      const curGroup = acc[key] ?? [];
+
+      return { ...acc, [key]: [...curGroup, obj] };
+    }, {});
+  }
 
   useEffect(() => {
-    axios.get("/api/messages").then((response) => setMessage(response.data));
+    axios.get("/api/messages").then((response) => {
+      setMessage(response.data);
+      console.log(
+        response.data.reduce((accumulator, object) => {
+          const key = object["author"];
+          const curGroup = accumulator[key] ?? [];
+
+          return { ...accumulator, [key]: [...curGroup, object] };
+        }, {})
+      );
+    });
   }, []);
 
   return (
