@@ -39,7 +39,7 @@ export default function Register() {
       <div className={"uk-grid-collapse uk-flex-middle"} data-uk-grid={""}>
         <div
           className={"uk-width-2-3@s uk-background-cover uk-visible@s"}
-          style={{ backgroundImage: "url('/images/splash.jpg')" }}
+          style={{ backgroundImage: "url('/images/auth.jpg')" }}
           data-uk-height-viewport={""}
         />
         <div className={"uk-width-1-3@s"}>
