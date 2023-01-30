@@ -26,6 +26,22 @@ export default function ShowMessages() {
       <Navigation />
       <div className={"uk-section uk-section-xsmall"}>
         <div className={"uk-container uk-container-xsmall"}>
+          <div className={"uk-text-center"}>
+            <div
+              className={
+                "uk-cover-container uk-border-circle uk-display-inline-block"
+              }
+              style={{ height: 80, width: 80 }}
+            >
+              <img
+                src={`https://cdn.bessssssa.com/avatars/${authorId}`}
+                onError={(event) => {
+                  event.currentTarget.src = "/images/avatar.jpg";
+                }}
+                data-uk-cover={""}
+              />
+            </div>
+          </div>
           {messages?.map((message) => (
             <div key={message?._id}>
               <div
