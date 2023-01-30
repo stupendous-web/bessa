@@ -15,7 +15,7 @@ export default function PostMedia({ nSFW, type, id }) {
             <img
               src={`https://cdn.bessssssa.com/posts/${id}`}
               style={{
-                filter: filter ? "blur(15px)" : "blur()",
+                filter: filter ? "blur(75px)" : "blur()",
               }}
             />
             {filter && (

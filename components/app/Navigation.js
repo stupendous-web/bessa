@@ -90,11 +90,6 @@ export default function Navigation() {
               </a>
             </div>
             <div className={"uk-navbar-item"}>
-              <Link href={"/app/inbox"}>
-                <i className={"ri-mail-fill"} />
-              </Link>
-            </div>
-            <div className={"uk-navbar-item"}>
               <a data-uk-toggle={"#account-menu"}>
                 <div
                   className={"uk-cover-container uk-border-circle"}
