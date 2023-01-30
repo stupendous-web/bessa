@@ -11,7 +11,7 @@ html {
   /* 1 */
   font-family: bilo, sans-serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: normal;
   line-height: 2;
   /* 2 */
   -webkit-text-size-adjust: 100%;
@@ -59,7 +59,7 @@ abbr[title] {
  */
 b,
 strong {
-  font-weight: 700;
+  font-weight: bolder;
 }
 /*
  * 1. Consolas has a better baseline in running text compared to `Courier`
@@ -220,7 +220,7 @@ h6,
 .uk-heading-2xlarge {
   margin: 0 0 18px 0;
   font-family: bilo, sans-serif;
-  font-weight: 900;
+  font-weight: normal;
   color: #e0e0e0;
   text-transform: none;
 }
@@ -11895,7 +11895,6 @@ h2 {
   background: #8a3ffc;
 }
 .uk-logo {
-  font-weight: 900;
   text-transform: uppercase;
 }
 .uk-button {
