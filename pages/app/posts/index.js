@@ -8,7 +8,7 @@ import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 import PostMedia from "@/components/app/PostMedia";
 
-export default function Posts() {
+export default function Index() {
   const [posts, setPosts] = useState();
 
   useEffect(() => {
