@@ -9,7 +9,7 @@ export default function Navigation() {
     >
       <div className={"uk-navbar-left"}>
         <Link href={"/"} legacyBehavior>
-          <a className={"uk-navbar-item uk-logo uk-visible@s"}>Bessa</a>
+          <a className={"uk-navbar-item uk-logo"}>Bessa</a>
         </Link>
       </div>
       <div className={"uk-navbar-right"}>
