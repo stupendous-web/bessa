@@ -123,6 +123,9 @@ export default function Navigation() {
                     <Link href={"/app/edit-profile"}>Profile</Link>
                   </li>
                   <li>
+                    <Link href={"/app/settings"}>Settings</Link>
+                  </li>
+                  <li>
                     <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
                   </li>
                 </ul>

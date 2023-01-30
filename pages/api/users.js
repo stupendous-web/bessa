@@ -2,6 +2,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import { authOptions } from "./auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
+const { Storage } = require("@google-cloud/storage");
 
 export default async function handler(request, response) {
   const body = request.body;
@@ -14,6 +15,14 @@ export default async function handler(request, response) {
   const req = request;
   const res = response;
   const session = await unstable_getServerSession(req, res, authOptions);
+
+  const storage = new Storage({
+    project_id: "stupendous-web",
+    credentials: {
+      client_email: process.env.GCS_CLIENT_EMAIL,
+      private_key: process.env.GCS_PRIVATE_KEY,
+    },
+  });
 
   switch (request.method) {
     case "GET":
@@ -90,6 +99,21 @@ export default async function handler(request, response) {
           response.status(500).send(error);
         })
         .finally(() => client.close());
+      break;
+    case "DELETE":
+      await collection
+        .deleteOne({ _id: ObjectId(session?.user?._id) })
+        .then(async () => {
+          await storage
+            .bucket("bessa")
+            .file(`avatars/${session?.user?._id}`)
+            .delete();
+
+          response.status(200).send("Good things come to those who wait.");
+        })
+        .finally(() => client.close());
+
+      // Delete all posts ad media
       break;
     default:
       response.status(405).send();
