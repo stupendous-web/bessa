@@ -21,10 +21,31 @@ export default function Index() {
         <div className={"uk-container uk-container-xsmall"}>
           <p>Inbox</p>
           {messages?.map((message) => (
-            <div key={message?._id}>
-              <Link href={`/app/messages/${message?.author}`}>
-                {message?.authorMeta?.[0]?.name}
-              </Link>
+            <div
+              className={"uk-flex-middle uk-grid-small"}
+              key={message?._id}
+              data-uk-grid={""}
+            >
+              <div className={"uk-width-auto"}>*</div>
+              <div className={"uk-width-auto"}>
+                <div
+                  className={"uk-cover-container uk-border-circle"}
+                  style={{ height: 40, width: 40 }}
+                >
+                  <img
+                    src={`https://cdn.bessssssa.com/avatars/${message?.author}`}
+                    onError={(event) => {
+                      event.currentTarget.src = "/images/avatar.jpg";
+                    }}
+                    data-uk-cover={""}
+                  />
+                </div>
+              </div>
+              <div>
+                <Link href={`/app/messages/${message?.author}`}>
+                  {message?.authorMeta?.[0]?.name}
+                </Link>
+              </div>
             </div>
           ))}
         </div>
