@@ -83,6 +83,13 @@ export default function ShowProfile() {
                 <div className={"uk-text-small uk-text-muted"}>
                   {dayjs(user?.lastActiveAt).fromNow()}
                 </div>
+                <a
+                  href={"#message-modal"}
+                  className={"uk-button uk-button-primary uk-margin"}
+                  data-uk-toggle={""}
+                >
+                  Message
+                </a>
               </div>
             </div>
             <div className={"uk-margin"}>{user?.description}</div>
