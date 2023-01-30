@@ -13,13 +13,7 @@ export default function Settings() {
       axios
         .delete("/api/users")
         .then(() => router.push("/"))
-        .catch((error) => {
-          console.log(error);
-          UIkit.notification({
-            message: "Try something else.",
-            status: "danger",
-          });
-        });
+        .catch(() => router.push("/"));
     });
   };
 
