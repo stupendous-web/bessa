@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function PostMedia({ nSFW, type, id }) {
   const [filter, setFilter] = useState(true);
@@ -12,16 +13,18 @@ export default function PostMedia({ nSFW, type, id }) {
       {type.includes("image") && (
         <div className={"uk-margin"}>
           <div className={"uk-inline uk-cover-container"}>
-            <img
-              src={`https://cdn.bessssssa.com/posts/${id}`}
-              style={{
-                filter: filter ? "blur(75px)" : "blur()",
-              }}
-            />
+            <Link href={`/app/posts/${id}`}>
+              <img
+                src={`https://cdn.bessssssa.com/posts/${id}`}
+                style={{
+                  filter: filter ? "blur(75px)" : "blur()",
+                }}
+              />
+            </Link>
             {filter && (
               <>
-                <div class="uk-overlay-default uk-position-cover" />
-                <div class="uk-overlay uk-position-center uk-text-center">
+                <div className="uk-overlay-default uk-position-cover" />
+                <div className="uk-overlay uk-position-center uk-text-center">
                   <p>This content is NSFW</p>
                   <a
                     className={"uk-button uk-button-default"}
