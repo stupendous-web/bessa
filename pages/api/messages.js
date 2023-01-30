@@ -14,20 +14,35 @@ export default async function handler(request, response) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
   switch (request.method) {
+    case "GET":
+      await collection
+        .aggregate([
+          {
+            $match: {
+              $or: [
+                { recipient: ObjectId(session?.user?._id) },
+                { author: ObjectId(session?.user?._id) },
+              ],
+            },
+          },
+        ])
+        .toArray()
+        .then((results) => response.status(200).send(results))
+        .finally(() => client.close());
+      break;
     case "POST":
       await collection
         .insertOne({
-          to: ObjectId(body?.to),
+          recipient: ObjectId(body?.to),
           body: body?.body,
           author: ObjectId(session?.user?._id),
+          isRead: false,
           createdAt: new Date(),
         })
         .then(() =>
           response.status(200).send("Good things come to those who wait.")
         )
-        .finally(() => {
-          client.close();
-        });
+        .finally(() => client.close());
       break;
     default:
       response.status(405).send();
