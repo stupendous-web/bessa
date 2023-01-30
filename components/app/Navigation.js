@@ -89,7 +89,7 @@ export default function Navigation() {
               </a>
             </div>
             <div className={"uk-navbar-item"}>
-              <Link href={"/app/messages/inbox"}>
+              <Link href={"/app/messages"}>
                 <i className={"ri-mail-fill"} />
               </Link>
             </div>

@@ -3,7 +3,7 @@ import Navigation from "@/components/app/Navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Inbox() {
+export default function ShowMessages() {
   const [messages, setMessage] = useState();
 
   useEffect(() => {
