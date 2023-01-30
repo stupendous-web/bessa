@@ -13,8 +13,11 @@ export default function ShowMessages() {
   const { authorId } = router.query;
 
   useEffect(() => {
-    axios.get("/api/messages").then((response) => setMessage(response.data));
-  }, []);
+    authorId &&
+      axios
+        .get("/api/messages", { params: { authorId: authorId } })
+        .then((response) => setMessage(response.data));
+  }, [authorId]);
 
   dayjs.extend(relativeTime);
 
