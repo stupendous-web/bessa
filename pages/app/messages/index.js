@@ -43,7 +43,10 @@ export default function Index() {
               </div>
               <div>
                 <Link href={`/app/messages/${message?.author}`}>
-                  {message?.authorMeta?.[0]?.name}
+                  <div className={"uk-text-bold"}>
+                    {message?.authorMeta?.[0]?.name}
+                  </div>
+                  <div>{messages?.[0]?.body?.slice(0, 50)}</div>
                 </Link>
               </div>
             </div>
