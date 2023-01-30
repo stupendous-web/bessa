@@ -11,6 +11,8 @@ export const config = {
 };
 
 export default async function handler(request, response) {
+  const query = request.query;
+
   const form = formidable();
   await new Promise((resolve, reject) => {
     form.parse(request, (error, fields, files) => {
@@ -48,6 +50,9 @@ export default async function handler(request, response) {
     case "GET":
       await collection
         .aggregate([
+          ...(query?.postId
+            ? [{ $match: { _id: ObjectId(query?.postId) } }]
+            : []),
           {
             $lookup: {
               from: "users",
