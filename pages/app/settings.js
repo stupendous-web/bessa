@@ -9,16 +9,18 @@ export default function Settings() {
   const router = useRouter();
 
   const handleDelete = () => {
-    axios
-      .delete("/api/users")
-      .then(() => router.push("/"))
-      .catch((error) => {
-        console.log(error);
-        UIkit.notification({
-          message: "Try something else.",
-          status: "danger",
+    UIkit.modal.confirm("Are you sure?!").then(function () {
+      axios
+        .delete("/api/users")
+        .then(() => router.push("/"))
+        .catch((error) => {
+          console.log(error);
+          UIkit.notification({
+            message: "Try something else.",
+            status: "danger",
+          });
         });
-      });
+    });
   };
 
   return (
