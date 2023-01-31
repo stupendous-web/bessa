@@ -61,7 +61,8 @@ export default function Login() {
                   value={"Let's Go!"}
                   className={"uk-button uk-button-primary uk-margin-right"}
                 />
-                <Link href={"/register"}>Register</Link>
+                <Link href={"/register"}>Register</Link> &middot;{" "}
+                <Link href={"/reset-password"}>Reset Password</Link>
               </form>
             </div>
           </div>
