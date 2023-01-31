@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import dayjs from "dayjs";
 import { formatDistance } from "@/utils/helpers";
+import Link from "next/link";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
-import UIkit from "uikit";
 
 export default function ShowProfile() {
   const [user, setUser] = useState({});
@@ -15,7 +15,6 @@ export default function ShowProfile() {
     latitude: undefined,
     longitude: undefined,
   });
-  const [body, setBody] = useState("");
 
   const router = useRouter();
   const { userId } = router.query;
@@ -48,26 +47,6 @@ export default function ShowProfile() {
         .then((response) => setUser(response.data[0]))
         .catch((error) => console.log(error));
   }, [userId, coords]);
-
-  const handleSend = (event) => {
-    event.preventDefault();
-    axios
-      .post("/api/messages", { recipient: user?._id, body: body })
-      .then(() => {
-        setBody("");
-        UIkit.modal("#message-modal").hide();
-        UIkit.notification({
-          message: "Sent!",
-          status: "success",
-        });
-      })
-      .catch(() => {
-        UIkit.notification({
-          message: "Try something else.",
-          status: "danger",
-        });
-      });
-  };
 
   dayjs.extend(relativeTime);
 
@@ -105,41 +84,17 @@ export default function ShowProfile() {
                 <div className={"uk-text-small uk-text-muted"}>
                   {dayjs(user?.lastActiveAt).fromNow()}
                 </div>
-                <a
-                  href={"#message-modal"}
-                  className={"uk-button uk-button-primary uk-margin"}
-                  data-uk-toggle={""}
-                >
-                  Message
-                </a>
+                <Link href={`/app/messages/${user?._id}`} legacyBehavior>
+                  <a className={"uk-button uk-button-primary uk-margin"}>
+                    Message
+                  </a>
+                </Link>
               </div>
             </div>
             <div className={"uk-margin"}>{user?.description}</div>
           </div>
         </div>
       </Authentication>
-      <div id={"message-modal"} data-uk-modal={""}>
-        <div className={"uk-modal-dialog uk-modal-body"}>
-          <form onSubmit={(event) => handleSend(event)}>
-            <div className={"uk-margin"}>
-              <label>Message</label>
-              <textarea
-                className={"uk-textarea"}
-                value={body}
-                onChange={(event) => setBody(event.currentTarget.value)}
-                required
-              />
-            </div>
-            <div>
-              <input
-                type={"submit"}
-                value={"Send!"}
-                className={"uk-button uk-button-primary"}
-              />
-            </div>
-          </form>
-        </div>
-      </div>
     </>
   );
 }
