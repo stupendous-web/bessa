@@ -52,7 +52,7 @@ export default function ShowProfile() {
   const handleSend = (event) => {
     event.preventDefault();
     axios
-      .post("/api/messages", { to: user?._id, body: body })
+      .post("/api/messages", { recipient: user?._id, body: body })
       .then(() => {
         setBody("");
         UIkit.modal("#message-modal").hide();

@@ -16,7 +16,6 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET":
-      console.log(query?.authorId);
       await collection
         .aggregate(
           query?.authorId
@@ -52,14 +51,19 @@ export default async function handler(request, response) {
     case "POST":
       await collection
         .insertOne({
-          recipient: ObjectId(body?.to),
+          recipient: ObjectId(body?.recipient),
           body: body?.body,
           author: ObjectId(session?.user?._id),
           isRead: false,
           createdAt: new Date(),
         })
-        .then(() =>
-          response.status(200).send("Good things come to those who wait.")
+        .then(
+          async (result) =>
+            await collection
+              .find({ _id: result?.insertedId })
+              .toArray()
+              .then((results) => response.send(results[0]))
+              .finally(() => client.close())
         )
         .finally(() => client.close());
       break;
