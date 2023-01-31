@@ -46,7 +46,9 @@ export default async function handler(request, response) {
     case "PATCH":
       await collection
         .aggregate([
-          { $find: { $and: [{ email: body?.email }, { token: body?.token }] } },
+          {
+            $match: { $and: [{ email: body?.email }, { token: body?.token }] },
+          },
         ])
         .toArray()
         .then(async (results) => {
