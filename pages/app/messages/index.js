@@ -9,9 +9,7 @@ export default function Index() {
   const [messages, setMessages] = useState();
 
   useEffect(() => {
-    axios.get("/api/messages").then((response) => {
-      setMessages(response.data);
-    });
+    axios.get("/api/messages").then((response) => setMessages(response.data));
   }, []);
 
   return (
@@ -23,7 +21,7 @@ export default function Index() {
           {messages?.map((message) => (
             <div
               className={"uk-flex-middle uk-grid-small"}
-              key={message?._id}
+              key={message?._id?.author}
               data-uk-grid={""}
             >
               <div className={"uk-width-auto"}>*</div>
@@ -33,7 +31,7 @@ export default function Index() {
                   style={{ height: 40, width: 40 }}
                 >
                   <img
-                    src={`https://cdn.bessssssa.com/avatars/${message?.author}`}
+                    src={`https://cdn.bessssssa.com/avatars/${message?._id?.author}`}
                     onError={(event) => {
                       event.currentTarget.src = "/images/avatar.jpg";
                     }}
@@ -42,11 +40,10 @@ export default function Index() {
                 </div>
               </div>
               <div>
-                <Link href={`/app/messages/${message?.author}`}>
+                <Link href={`/app/messages/${message?._id?.author}`}>
                   <div className={"uk-text-bold"}>
                     {message?.authorMeta?.[0]?.name}
                   </div>
-                  <div>{messages?.[0]?.body?.slice(0, 50)}</div>
                 </Link>
               </div>
             </div>

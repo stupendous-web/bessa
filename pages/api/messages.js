@@ -39,13 +39,20 @@ export default async function handler(request, response) {
                     localField: "author",
                     foreignField: "_id",
                     as: "authorMeta",
-                    pipeline: [{ $project: { name: 1 } }],
+                  },
+                },
+                {
+                  $group: {
+                    _id: { author: "$author" },
+                    authorMeta: {
+                      $first: "$authorMeta",
+                    },
                   },
                 },
               ]
         )
         .toArray()
-        .then((results) => response.status(200).send(results))
+        .then((results) => response.send(results))
         .finally(() => client.close());
       break;
     case "POST":
