@@ -18,8 +18,8 @@ export default function EditProfile() {
       axios
         .get("/api/users", { params: { userId: session?.user?._id } })
         .then((response) => {
-          setName(response.data[0].name);
-          setDescription(response.data[0].description);
+          setName(response.data.name);
+          setDescription(response.data.description);
         })
         .catch((error) => {
           console.log(error);

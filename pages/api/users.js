@@ -55,7 +55,7 @@ export default async function handler(request, response) {
         ])
         .toArray()
         .then((results) => {
-          response.status(200).send(results);
+          response.status(200).send(query?.userId ? results[0] : results);
         })
         .catch((error) => {
           response.status(500).send(error);

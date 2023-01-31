@@ -44,7 +44,7 @@ export default function ShowProfile() {
             longitude: coords.longitude,
           },
         })
-        .then((response) => setUser(response.data[0]))
+        .then((response) => setUser(response.data))
         .catch((error) => console.log(error));
   }, [userId, coords]);
 

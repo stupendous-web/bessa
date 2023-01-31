@@ -10,6 +10,7 @@ import Navigation from "@/components/app/Navigation";
 
 export default function ShowMessages() {
   const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState({});
   const [body, setBody] = useState("");
   const [maxHeight, setMaxHeight] = useState(0);
   const navbarHeight = 80;
@@ -24,6 +25,13 @@ export default function ShowMessages() {
       axios
         .get("/api/messages", { params: { authorId: authorId } })
         .then((response) => setMessages(response.data));
+  }, [authorId]);
+
+  useEffect(() => {
+    authorId &&
+      axios
+        .get("/api/users", { params: { userId: authorId } })
+        .then((response) => setUser(response.data));
   }, [authorId]);
 
   useEffect(() => {
@@ -75,6 +83,7 @@ export default function ShowMessages() {
             data-uk-cover={""}
           />
         </div>
+        <div>{user?.name}</div>
       </div>
       <div
         className={"uk-overflow-auto"}
