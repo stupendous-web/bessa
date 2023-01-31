@@ -43,6 +43,26 @@ export default async function handler(request, response) {
         })
         .finally(() => client.close());
       break;
+    case "PATCH":
+      await collection
+        .aggregate([
+          { $find: { $and: [{ email: body?.email }, { token: body?.token }] } },
+        ])
+        .toArray()
+        .then(async (results) => {
+          if (results) {
+            await collection.updateOne(
+              { email: body?.email },
+              { $set: { password: bcrypt.hashSync(body.password, 10) } }
+            );
+
+            response.send("Good things come to those who wait.");
+          } else {
+            response.status(402).send();
+          }
+        })
+        .finally(() => client.close());
+      break;
     default:
       response.status(405).send();
   }
