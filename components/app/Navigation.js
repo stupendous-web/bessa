@@ -93,14 +93,26 @@ export default function Navigation() {
           <div className={"uk-navbar-item"}>
             <div className={"uk-navbar-item"}>
               <a href={"#publish-modal"} data-uk-toggle={""}>
-                <i className={"ri-edit-2-fill"} />
+                <i className={"ri-edit-2-fill uk-text-large uk-flex"} />
               </a>
             </div>
             <div className={"uk-navbar-item"}>
               <Link href={"/app/messages"}>
-                <i className={"ri-mail-fill"} />
+                <div className={"uk-inline"}>
+                  <i
+                    className={"ri-mail-fill uk-text-large uk-flex"}
+                    style={{ lineHeight: 1 }}
+                  />
+                  {messages?.length && (
+                    <span
+                      class="uk-badge uk-position-bottom-right uk-text-muted"
+                      style={{ backgroundColor: "#da1e28" }}
+                    >
+                      {messages?.length}
+                    </span>
+                  )}
+                </div>
               </Link>
-              {messages?.length}
             </div>
             <div className={"uk-navbar-item"}>
               <a data-uk-toggle={"#account-menu"}>
