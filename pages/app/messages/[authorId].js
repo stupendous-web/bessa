@@ -1,6 +1,6 @@
 import Authentication from "@/components/app/Authentication";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 let relativeTime = require("dayjs/plugin/relativeTime");
@@ -11,6 +11,10 @@ import Navigation from "@/components/app/Navigation";
 export default function ShowMessages() {
   const [messages, setMessages] = useState([]);
   const [body, setBody] = useState("");
+  const [maxHeight, setMaxHeight] = useState(0);
+  const navbarHeight = 80;
+  const avatarRef = useRef();
+  const inputRef = useRef();
   const router = useRouter();
   const { authorId } = router.query;
 
@@ -20,6 +24,15 @@ export default function ShowMessages() {
         .get("/api/messages", { params: { authorId: authorId } })
         .then((response) => setMessages(response.data));
   }, [authorId]);
+
+  useEffect(() => {
+    setMaxHeight(
+      window.innerHeight -
+        navbarHeight -
+        avatarRef.current?.clientHeight -
+        inputRef.current?.clientHeight
+    );
+  }, [avatarRef.current, inputRef.current]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,7 +55,7 @@ export default function ShowMessages() {
   return (
     <Authentication>
       <Navigation />
-      <div className={"uk-text-center uk-padding-small"}>
+      <div className={"uk-text-center uk-padding-small"} ref={avatarRef}>
         <div
           className={
             "uk-cover-container uk-border-circle uk-display-inline-block"
@@ -62,7 +75,7 @@ export default function ShowMessages() {
         className={"uk-overflow-auto"}
         style={{
           height: "100vh",
-          maxHeight: "calc(100vh - 276px)",
+          maxHeight: maxHeight,
         }}
       >
         <div className={"uk-container uk-container-xsmall"}>
@@ -104,7 +117,7 @@ export default function ShowMessages() {
           ))}
         </div>
       </div>
-      <div className={"uk-section-primary uk-padding-small"}>
+      <div className={"uk-section-primary uk-padding-small"} ref={inputRef}>
         <form onSubmit={(event) => handleSubmit(event)}>
           <div className={"uk-grid-small"} data-uk-grid={""}>
             <div className={"uk-width-expand"}>
