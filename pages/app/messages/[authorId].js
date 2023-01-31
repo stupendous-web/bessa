@@ -45,7 +45,7 @@ export default function ShowMessages() {
 
   useEffect(() => {
     endOfMesages.current?.scrollIntoView();
-  }, [messages, avatarRef.current, inputRef.current]);
+  }, [messages, user, avatarRef.current, inputRef.current]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

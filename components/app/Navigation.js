@@ -12,13 +12,6 @@ export default function Navigation() {
 
   const { data: session } = useSession();
 
-  useEffect(() => {
-    session &&
-      axios
-        .get("/api/messages", { params: { recipientId: session?.user?._id } })
-        .then((response) => setMessages(response.data));
-  }, [session]);
-
   const links = [
     {
       title: "Posts",
@@ -45,6 +38,15 @@ export default function Navigation() {
     //   href: "places",
     // },
   ];
+
+  useEffect(() => {
+    session &&
+      axios
+        .get("/api/messages", { params: { recipientId: session?.user?._id } })
+        .then((response) =>
+          setMessages(response.data?.filter((message) => !message?.isRead))
+        );
+  }, [session]);
 
   const handlePublish = (event) => {
     event.preventDefault();
