@@ -103,7 +103,7 @@ export default function Navigation() {
                     className={"ri-mail-fill uk-text-large uk-flex"}
                     style={{ lineHeight: 1 }}
                   />
-                  {messages?.length && (
+                  {!!messages?.length && (
                     <span
                       class="uk-badge uk-position-bottom-right uk-text-muted"
                       style={{ backgroundColor: "#da1e28" }}
