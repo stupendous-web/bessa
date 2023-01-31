@@ -41,7 +41,7 @@ export default function ShowMessages() {
         avatarRef.current?.clientHeight -
         inputRef.current?.clientHeight
     );
-  }, [avatarRef.current, inputRef.current]);
+  }, [user, avatarRef.current, inputRef.current]);
 
   useEffect(() => {
     endOfMesages.current?.scrollIntoView();
