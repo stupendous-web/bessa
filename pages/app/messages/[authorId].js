@@ -42,27 +42,30 @@ export default function ShowMessages() {
   return (
     <Authentication>
       <Navigation />
+      <div className={"uk-text-center uk-padding-small"}>
+        <div
+          className={
+            "uk-cover-container uk-border-circle uk-display-inline-block"
+          }
+          style={{ height: 80, width: 80 }}
+        >
+          <img
+            src={`https://cdn.bessssssa.com/avatars/${authorId}`}
+            onError={(event) => {
+              event.currentTarget.src = "/images/avatar.jpg";
+            }}
+            data-uk-cover={""}
+          />
+        </div>
+      </div>
       <div
-        className={"uk-section uk-section-xsmall"}
-        data-uk-height-viewport={"offset-top: true; offset-bottom: true"}
+        className={"uk-overflow-auto"}
+        style={{
+          height: "100vh",
+          maxHeight: "calc(100vh - 276px)",
+        }}
       >
         <div className={"uk-container uk-container-xsmall"}>
-          <div className={"uk-text-center"}>
-            <div
-              className={
-                "uk-cover-container uk-border-circle uk-display-inline-block"
-              }
-              style={{ height: 80, width: 80 }}
-            >
-              <img
-                src={`https://cdn.bessssssa.com/avatars/${authorId}`}
-                onError={(event) => {
-                  event.currentTarget.src = "/images/avatar.jpg";
-                }}
-                data-uk-cover={""}
-              />
-            </div>
-          </div>
           {messages?.map((message) => (
             <div key={message?._id}>
               <div
