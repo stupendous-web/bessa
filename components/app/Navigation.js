@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
 
 export default function Navigation() {
+  const [messages, setMessages] = useState([]);
   const [body, setBody] = useState("");
   const [file, setFile] = useState({});
   const [nSFW, setNSFW] = useState(false);
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+    session &&
+      axios
+        .get("/api/messages", { params: { recipientId: session?.user?._id } })
+        .then((response) => setMessages(response.data));
+  }, [session]);
 
   const links = [
     {
@@ -92,6 +100,7 @@ export default function Navigation() {
               <Link href={"/app/messages"}>
                 <i className={"ri-mail-fill"} />
               </Link>
+              {messages?.length}
             </div>
             <div className={"uk-navbar-item"}>
               <a data-uk-toggle={"#account-menu"}>

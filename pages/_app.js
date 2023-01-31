@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import { SessionProvider } from "next-auth/react";
 import UIkit from "uikit";
-import { useEffect } from "react";
 
 import "../styles/uikit/uikit.css";
 import "remixicon/fonts/remixicon.css";

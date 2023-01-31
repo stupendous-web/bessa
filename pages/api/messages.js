@@ -16,41 +16,50 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET":
+      const authorMatch = [
+        {
+          $match: {
+            $or: [
+              { recipient: ObjectId(session?.user?._id) },
+              { author: ObjectId(session?.user?._id) },
+            ],
+          },
+        },
+      ];
+      const recipientMatch = [
+        {
+          $match: {
+            recipient: ObjectId(query?.recipientId),
+          },
+        },
+      ];
+      const groupMatch = [
+        {
+          $match: { recipient: ObjectId(session?.user?._id) },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "author",
+            foreignField: "_id",
+            as: "authorMeta",
+          },
+        },
+        {
+          $group: {
+            _id: { author: "$author" },
+            authorMeta: {
+              $first: "$authorMeta",
+            },
+          },
+        },
+      ];
       await collection
-        .aggregate(
-          query?.authorId
-            ? [
-                {
-                  $match: {
-                    $or: [
-                      { recipient: ObjectId(session?.user?._id) },
-                      { author: ObjectId(session?.user?._id) },
-                    ],
-                  },
-                },
-              ]
-            : [
-                {
-                  $match: { recipient: ObjectId(session?.user?._id) },
-                },
-                {
-                  $lookup: {
-                    from: "users",
-                    localField: "author",
-                    foreignField: "_id",
-                    as: "authorMeta",
-                  },
-                },
-                {
-                  $group: {
-                    _id: { author: "$author" },
-                    authorMeta: {
-                      $first: "$authorMeta",
-                    },
-                  },
-                },
-              ]
-        )
+        .aggregate([
+          ...(query?.authorId ? authorMatch : []),
+          ...(query?.recipientId ? recipientMatch : []),
+          ...(!query?.authorId && !query?.recipientId ? groupMatch : []),
+        ])
         .toArray()
         .then((results) => response.send(results))
         .finally(() => client.close());
