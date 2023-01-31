@@ -118,15 +118,16 @@ export default function ShowMessages() {
                   {message?.body}
                 </div>
               </div>
-              <div
-                className={
-                  message?.author === authorId
-                    ? "uk-text-muted uk-flex uk-flex-left"
-                    : "uk-text-muted uk-flex uk-flex-right"
-                }
-              >
-                {dayjs(message?.createdAt).fromNow()}
-              </div>
+              {message?.author === authorId ? (
+                <div className={"uk-text-muted uk-flex uk-flex-left"}>
+                  {dayjs(message?.createdAt).fromNow()}
+                </div>
+              ) : (
+                <div className={"uk-text-muted uk-flex uk-flex-right"}>
+                  {dayjs(message?.createdAt).fromNow()}
+                  {message?.isRead && <span>&nbsp;&middot; Read</span>}
+                </div>
+              )}
             </div>
           ))}
         </div>
