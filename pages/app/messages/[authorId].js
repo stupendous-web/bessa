@@ -14,6 +14,7 @@ export default function ShowMessages() {
   const [maxHeight, setMaxHeight] = useState(0);
   const navbarHeight = 80;
   const avatarRef = useRef();
+  const endOfMesages = useRef();
   const inputRef = useRef();
   const router = useRouter();
   const { authorId } = router.query;
@@ -33,6 +34,10 @@ export default function ShowMessages() {
         inputRef.current?.clientHeight
     );
   }, [avatarRef.current, inputRef.current]);
+
+  useEffect(() => {
+    endOfMesages.current?.scrollIntoView();
+  }, [messages, avatarRef.current, inputRef.current]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -116,6 +121,7 @@ export default function ShowMessages() {
             </div>
           ))}
         </div>
+        <div ref={endOfMesages} />
       </div>
       <div className={"uk-section-primary uk-padding-small"} ref={inputRef}>
         <form onSubmit={(event) => handleSubmit(event)}>
@@ -126,6 +132,7 @@ export default function ShowMessages() {
                 value={body}
                 className={"uk-input"}
                 onChange={(event) => setBody(event.currentTarget.value)}
+                required
               />
             </div>
             <div>
