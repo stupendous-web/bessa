@@ -1,4 +1,4 @@
-import Authentication from "@/components/app/Authentication";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -7,6 +7,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 import UIkit from "uikit";
 
 import Navigation from "@/components/app/Navigation";
+import Authentication from "@/components/app/Authentication";
 
 export default function ShowMessages() {
   const [messages, setMessages] = useState([]);
@@ -68,23 +69,25 @@ export default function ShowMessages() {
   return (
     <Authentication>
       <Navigation />
-      <div className={"uk-text-center uk-padding-small"} ref={avatarRef}>
-        <div
-          className={
-            "uk-cover-container uk-border-circle uk-display-inline-block"
-          }
-          style={{ height: 80, width: 80 }}
-        >
-          <img
-            src={`https://cdn.bessssssa.com/avatars/${authorId}`}
-            onError={(event) => {
-              event.currentTarget.src = "/images/avatar.jpg";
-            }}
-            data-uk-cover={""}
-          />
+      <Link href={`/app/members/${authorId}`}>
+        <div className={"uk-text-center uk-padding-small"} ref={avatarRef}>
+          <div
+            className={
+              "uk-cover-container uk-border-circle uk-display-inline-block"
+            }
+            style={{ height: 80, width: 80 }}
+          >
+            <img
+              src={`https://cdn.bessssssa.com/avatars/${authorId}`}
+              onError={(event) => {
+                event.currentTarget.src = "/images/avatar.jpg";
+              }}
+              data-uk-cover={""}
+            />
+          </div>
+          <div>{user?.name}</div>
         </div>
-        <div>{user?.name}</div>
-      </div>
+      </Link>
       <div
         className={"uk-overflow-auto"}
         style={{
@@ -93,46 +96,56 @@ export default function ShowMessages() {
         }}
       >
         <div className={"uk-container uk-container-xsmall"}>
-          {messages?.map((message) => (
-            <div key={message?._id}>
-              <div
-                className={
-                  message?.author === authorId
-                    ? "uk-flex uk-flex-left"
-                    : "uk-flex uk-flex-right"
-                }
-              >
-                <div
-                  className={
-                    message?.author === authorId
-                      ? "uk-section-muted uk-padding-small uk-padding-remove-vertical"
-                      : "uk-section-primary uk-padding-small uk-padding-remove-vertical"
-                  }
-                  style={{
-                    maxWidth: "75%",
-                    borderTopRightRadius: 5,
-                    borderTopLeftRadius: 5,
-                    borderBottomRightRadius:
-                      message?.author === authorId ? 5 : 0,
-                    borderBottomLeftRadius:
-                      message?.author !== authorId ? 5 : 0,
-                  }}
-                >
-                  {message?.body}
+          {!!messages?.length ? (
+            <>
+              {messages?.map((message) => (
+                <div key={message?._id}>
+                  <div
+                    className={
+                      message?.author === authorId
+                        ? "uk-flex uk-flex-left"
+                        : "uk-flex uk-flex-right"
+                    }
+                  >
+                    <div
+                      className={
+                        message?.author === authorId
+                          ? "uk-section-muted uk-padding-small uk-padding-remove-vertical"
+                          : "uk-section-primary uk-padding-small uk-padding-remove-vertical"
+                      }
+                      style={{
+                        maxWidth: "75%",
+                        borderTopRightRadius: 5,
+                        borderTopLeftRadius: 5,
+                        borderBottomRightRadius:
+                          message?.author === authorId ? 5 : 0,
+                        borderBottomLeftRadius:
+                          message?.author !== authorId ? 5 : 0,
+                      }}
+                    >
+                      {message?.body}
+                    </div>
+                  </div>
+                  {message?.author === authorId ? (
+                    <div className={"uk-text-muted uk-flex uk-flex-left"}>
+                      {dayjs(message?.createdAt).fromNow()}
+                    </div>
+                  ) : (
+                    <div className={"uk-text-muted uk-flex uk-flex-right"}>
+                      {dayjs(message?.createdAt).fromNow()}
+                      {message?.isRead && <span>&nbsp;&middot; Read</span>}
+                    </div>
+                  )}
                 </div>
-              </div>
-              {message?.author === authorId ? (
-                <div className={"uk-text-muted uk-flex uk-flex-left"}>
-                  {dayjs(message?.createdAt).fromNow()}
-                </div>
-              ) : (
-                <div className={"uk-text-muted uk-flex uk-flex-right"}>
-                  {dayjs(message?.createdAt).fromNow()}
-                  {message?.isRead && <span>&nbsp;&middot; Read</span>}
-                </div>
-              )}
-            </div>
-          ))}
+              ))}
+            </>
+          ) : (
+            <>
+              <p className={"uk-text-center"}>
+                <div data-uk-spinner={""} />
+              </p>
+            </>
+          )}
         </div>
         <div ref={endOfMesages} />
       </div>

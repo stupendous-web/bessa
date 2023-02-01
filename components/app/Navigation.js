@@ -87,7 +87,7 @@ export default function Navigation() {
         data-uk-sticky={""}
       >
         <div className={"uk-navbar-left"}>
-          <Link href={"/app/members"} legacyBehavior>
+          <Link href={"/app/posts"} legacyBehavior>
             <a className={"uk-navbar-item uk-logo"}>Bessa</a>
           </Link>
         </div>
