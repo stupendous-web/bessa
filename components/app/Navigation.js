@@ -12,7 +12,7 @@ export default function Navigation() {
 
   const { data: session } = useSession();
 
-  const links = [
+  const sideLinks = [
     {
       title: "Posts",
       href: "posts",
@@ -37,6 +37,17 @@ export default function Navigation() {
     //   title: "Places",
     //   href: "places",
     // },
+  ];
+
+  const topLinks = [
+    {
+      title: "Profile",
+      href: "edit-profile",
+    },
+    {
+      title: "Settings",
+      href: "settings",
+    },
   ];
 
   useEffect(() => {
@@ -95,15 +106,22 @@ export default function Navigation() {
           <div className={"uk-navbar-item"}>
             <div className={"uk-navbar-item"}>
               <a href={"#publish-modal"} data-uk-toggle={""}>
-                <i className={"ri-edit-2-fill uk-text-large uk-flex"} />
+                <i
+                  className={"ri-edit-2-fill uk-flex"}
+                  style={{ fontSize: "1.5rem" }}
+                />
               </a>
             </div>
             <div className={"uk-navbar-item"}>
               <Link href={"/app/messages"}>
                 <div className={"uk-inline"}>
                   <i
-                    className={"ri-mail-fill uk-text-large uk-flex"}
-                    style={{ lineHeight: 1 }}
+                    className={"ri-mail-fill uk-flex"}
+                    style={{
+                      fontSize: "1.5rem",
+                      paddingRight: !!messages?.length && "0 10px",
+                      lineHeight: 1.5,
+                    }}
                   />
                   {!!messages?.length && (
                     <span
@@ -134,12 +152,13 @@ export default function Navigation() {
               </a>
               <div data-uk-dropdown={"pos: top-right; offset: 36"}>
                 <ul class={"uk-nav uk-navbar-dropdown-nav"}>
-                  <li>
-                    <Link href={"/app/edit-profile"}>Profile</Link>
-                  </li>
-                  <li>
-                    <Link href={"/app/settings"}>Settings</Link>
-                  </li>
+                  {topLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link href={`/app/${link.href}`} legacyBehavior>
+                        <a>{link.title}</a>
+                      </Link>
+                    </li>
+                  ))}
                   <li>
                     <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
                   </li>
@@ -148,7 +167,10 @@ export default function Navigation() {
             </div>
             <div className={"uk-navbar-item"}>
               <a href={"#side-navigation"} data-uk-toggle={""}>
-                <i className={"ri-menu-fill uk-text-large uk-flex"} />
+                <i
+                  className={"ri-menu-fill uk-flex"}
+                  style={{ fontSize: "1.5rem" }}
+                />
               </a>
             </div>
             <div
@@ -157,7 +179,7 @@ export default function Navigation() {
             >
               <div className={"uk-offcanvas-bar"}>
                 <ul className={"uk-nav uk-nav-default"}>
-                  {links.map((link) => (
+                  {sideLinks.map((link) => (
                     <li key={link.href}>
                       <Link href={`/app/${link.href}`} legacyBehavior>
                         <a>{link.title}</a>
