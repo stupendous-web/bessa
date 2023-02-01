@@ -12,10 +12,11 @@ export default function PostMedia({ nSFW, type, id }) {
     <>
       {type.includes("image") && (
         <div className={"uk-margin"}>
-          <div className={"uk-inline uk-cover-container"}>
+          <div className={"uk-width-1-1 uk-inline uk-cover-container"}>
             <Link href={`/app/posts/${id}`}>
               <img
                 src={`https://cdn.bessssssa.com/posts/${id}`}
+                className={"uk-width-1-1"}
                 style={{
                   filter: filter ? "blur(75px)" : "blur()",
                 }}

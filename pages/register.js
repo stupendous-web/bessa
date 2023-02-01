@@ -22,7 +22,7 @@ export default function Register() {
         signIn("credentials", {
           email: email,
           password: password,
-          callbackUrl: "/app/members",
+          callbackUrl: "/app/posts",
         });
       })
       .catch((error) => {
