@@ -44,7 +44,7 @@ export default function Home() {
       </Head>
       <Navigation />
       <div
-        className={"uk-section uk-section-xlarge uk-light uk-background-cover"}
+        className={"uk-section uk-section-xlarge uk-background-cover"}
         style={{ backgroundImage: "url('/images/splash.jpg')" }}
       >
         <div className={"uk-container"}>
@@ -54,21 +54,23 @@ export default function Home() {
           >
             <div>
               <h1>Welcome to the gay supper club.</h1>
-              <p>
+              <p className={"uk-text-large"}>
                 Meet other people in the community. Share your profile, your
-                resources, and your number! 😈
+                resources, and your number!
               </p>
               <p>
                 <Link href={"/register"} legacyBehavior>
                   <a
                     className={
-                      "uk-button uk-button-primary uk-button-large uk-margin-right"
+                      "uk-button uk-button-secondary uk-button-large uk-margin-right"
                     }
                   >
-                    Join for FREE!
+                    Join for FREE 😈
                   </a>
                 </Link>
-                <Link href={"/login"}>Login</Link>
+                <Link href={"/login"} legacyBehavior>
+                  <a className={"uk-text-muted uk-text-uppercase"}>Login</a>
+                </Link>
               </p>
             </div>
           </div>
