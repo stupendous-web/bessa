@@ -75,7 +75,7 @@ export default async function handler(request, response) {
           // Mark all as read
           query?.authorId &&
             (await collection.updateMany(
-              { author: ObjectId(session?.user?._id) },
+              { recipient: ObjectId(session?.user?._id) },
               {
                 $set: { isRead: true },
               }
