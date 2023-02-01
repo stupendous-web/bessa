@@ -71,7 +71,17 @@ export default async function handler(request, response) {
           ...(!query?.authorId && !query?.recipientId ? groupMatch : []),
         ])
         .toArray()
-        .then((results) => response.send(results))
+        .then(async (results) => {
+          // Mark all as read
+          query?.authorId &&
+            (await collection.updateMany(
+              { author: ObjectId(session?.user?._id) },
+              {
+                $set: { isRead: true },
+              }
+            ));
+          response.send(results);
+        })
         .finally(() => client.close());
       break;
     case "POST":
