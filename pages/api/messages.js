@@ -1,6 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { authOptions } from "./auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth/next";
+const Pusher = require("pusher");
 
 export default async function handler(request, response) {
   const query = request.query;
@@ -93,14 +94,25 @@ export default async function handler(request, response) {
           isRead: false,
           createdAt: new Date(),
         })
-        .then(
-          async (result) =>
-            await collection
-              .find({ _id: result?.insertedId })
-              .toArray()
-              .then((results) => response.send(results[0]))
-              .finally(() => client.close())
-        )
+        .then(async (result) => {
+          await collection
+            .find({ _id: result?.insertedId })
+            .toArray()
+            .then((results) => {
+              const pusher = new Pusher({
+                appId: process.env.PUSHER_AP_ID,
+                key: process.env.PUSHER_KEY,
+                secret: process.env.PUSHER_SECRET,
+                cluster: "us3",
+                useTLS: true,
+              });
+              pusher.trigger(body?.recipient, "new-message", {
+                message: results[0],
+              });
+              response.send(results[0]);
+            })
+            .finally(() => client.close());
+        })
         .finally(() => client.close());
       break;
     default:

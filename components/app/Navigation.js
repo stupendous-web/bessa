@@ -3,7 +3,7 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
-
+const Pusher = require("pusher");
 export default function Navigation() {
   const [messages, setMessages] = useState([]);
   const [body, setBody] = useState("");
@@ -89,6 +89,16 @@ export default function Navigation() {
         });
       });
   };
+
+  // const pusher = new Pusher({
+  //   key: "4f88aae5f905e18c3000",
+  //   cluster: "us3",
+  // });
+  //
+  // let channel = pusher.subscribe("my-channel");
+  // channel.bind("my-event", function (data) {
+  //   alert(JSON.stringify(data));
+  // });
 
   return (
     <>
