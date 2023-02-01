@@ -117,7 +117,7 @@ export default function Navigation() {
               </Link>
             </div>
             <div className={"uk-navbar-item"}>
-              <a data-uk-toggle={"#account-menu"}>
+              <a>
                 <div
                   className={"uk-cover-container uk-border-circle"}
                   style={{ height: 40, width: 40 }}
@@ -132,9 +132,27 @@ export default function Navigation() {
                   />
                 </div>
               </a>
+              <div data-uk-dropdown={"pos: top-right; offset: 36"}>
+                <ul class={"uk-nav uk-navbar-dropdown-nav"}>
+                  <li>
+                    <Link href={"/app/edit-profile"}>Profile</Link>
+                  </li>
+                  <li>
+                    <Link href={"/app/settings"}>Settings</Link>
+                  </li>
+                  <li>
+                    <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className={"uk-navbar-item"}>
+              <a href={"#side-navigation"} data-uk-toggle={""}>
+                <i className={"ri-menu-fill uk-text-large uk-flex"} />
+              </a>
             </div>
             <div
-              id={"account-menu"}
+              id={"side-navigation"}
               data-uk-offcanvas={"flip: true; mode: push"}
             >
               <div className={"uk-offcanvas-bar"}>
@@ -146,16 +164,6 @@ export default function Navigation() {
                       </Link>
                     </li>
                   ))}
-                  <div className={"uk-nav-divider"} />
-                  <li>
-                    <Link href={"/app/edit-profile"}>Profile</Link>
-                  </li>
-                  <li>
-                    <Link href={"/app/settings"}>Settings</Link>
-                  </li>
-                  <li>
-                    <a onClick={() => signOut({ callbackUrl: "/" })}>Logout</a>
-                  </li>
                 </ul>
               </div>
             </div>
