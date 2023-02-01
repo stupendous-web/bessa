@@ -104,9 +104,12 @@ export default function ShowMessages() {
               >
                 <div
                   className={
-                    "uk-section-primary uk-padding-small uk-padding-remove-vertical"
+                    message?.author === authorId
+                      ? "uk-section-muted uk-padding-small uk-padding-remove-vertical"
+                      : "uk-section-primary uk-padding-small uk-padding-remove-vertical"
                   }
                   style={{
+                    maxWidth: "75%",
                     borderTopRightRadius: 5,
                     borderTopLeftRadius: 5,
                     borderBottomRightRadius:
