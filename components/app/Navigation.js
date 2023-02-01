@@ -107,7 +107,7 @@ export default function Navigation() {
                   />
                   {!!messages?.length && (
                     <span
-                      class="uk-badge uk-position-bottom-right uk-text-muted"
+                      className="uk-badge uk-position-bottom-right uk-text-muted"
                       style={{ backgroundColor: "#da1e28" }}
                     >
                       {messages?.length}

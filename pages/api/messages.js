@@ -20,8 +20,18 @@ export default async function handler(request, response) {
         {
           $match: {
             $or: [
-              { recipient: ObjectId(session?.user?._id) },
-              { author: ObjectId(session?.user?._id) },
+              {
+                $and: [
+                  { author: ObjectId(session?.user?._id) },
+                  { recipient: ObjectId(query?.authorId) },
+                ],
+              },
+              {
+                $and: [
+                  { author: ObjectId(query?.authorId) },
+                  { recipient: ObjectId(session?.user?._id) },
+                ],
+              },
             ],
           },
         },
