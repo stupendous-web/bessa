@@ -116,6 +116,14 @@ export default function Navigation() {
         data-uk-sticky={""}
       >
         <div className={"uk-navbar-left"}>
+          <div className={"uk-navbar-item"}>
+            <a href={"#side-navigation"} data-uk-toggle={""}>
+              <i
+                className={"ri-menu-fill uk-flex"}
+                style={{ fontSize: "1.5rem" }}
+              />
+            </a>
+          </div>
           <Link href={"/app/posts"} legacyBehavior>
             <a className={"uk-navbar-item uk-logo"}>Bessa</a>
           </Link>
@@ -168,7 +176,9 @@ export default function Navigation() {
                   />
                 </div>
               </a>
-              <div data-uk-dropdown={"pos: top-right; offset: 36"}>
+              <div
+                data-uk-dropdown={"pos: top-center; offset: 36; mode: click"}
+              >
                 <ul className={"uk-nav uk-navbar-dropdown-nav"}>
                   {topLinks.map((link) => (
                     <li key={link.href}>
@@ -183,15 +193,7 @@ export default function Navigation() {
                 </ul>
               </div>
             </div>
-            <div className={"uk-navbar-item"}>
-              <a href={"#side-navigation"} data-uk-toggle={""}>
-                <i
-                  className={"ri-menu-fill uk-flex"}
-                  style={{ fontSize: "1.5rem" }}
-                />
-              </a>
-            </div>
-            <div id={"side-navigation"} data-uk-offcanvas={"flip: true"}>
+            <div id={"side-navigation"} data-uk-offcanvas={""}>
               <div className={"uk-offcanvas-bar"}>
                 <ul className={"uk-nav uk-nav-default"}>
                   {sideLinks.map((link) => (

@@ -26,7 +26,7 @@ export default function Index() {
                   href={`/app/messages/${message?._id?.author}`}
                 >
                   <div
-                    className={"uk-flex-middle uk-grid-small"}
+                    className={"uk-flex-middle uk-grid-small uk-margin"}
                     data-uk-grid={""}
                   >
                     <div className={"uk-width-auto"}>*</div>
