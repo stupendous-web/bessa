@@ -125,7 +125,12 @@ export default function Navigation() {
             </a>
           </div>
           <Link href={"/app/posts"} legacyBehavior>
-            <a className={"uk-navbar-item uk-logo"}>Bessa</a>
+            <a
+              className={"uk-navbar-item uk-logo"}
+              style={{ fontSize: "1rem" }}
+            >
+              Bessa
+            </a>
           </Link>
         </div>
         <div className={"uk-navbar-right"}>
