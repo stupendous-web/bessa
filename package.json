@@ -22,6 +22,7 @@
     "next-auth": "^4.18.8",
     "nodemailer": "^6.9.1",
     "pusher": "^5.1.2",
+    "pusher-js": "^8.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "remixicon": "^2.5.0",

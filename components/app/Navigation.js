@@ -3,7 +3,7 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
-const Pusher = require("pusher");
+import Pusher from "pusher-js";
 export default function Navigation() {
   const [messages, setMessages] = useState([]);
   const [body, setBody] = useState("");
@@ -59,6 +59,16 @@ export default function Navigation() {
         );
   }, [session]);
 
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+      cluster: "us3",
+    });
+    const channel = pusher.subscribe(session?.user?._id);
+    channel.bind("new-message", (data) => setMessages([...messages, data]));
+
+    return () => pusher.unsubscribe("chat");
+  }, []);
+
   const handlePublish = (event) => {
     event.preventDefault();
     let formData = new FormData();
@@ -89,16 +99,6 @@ export default function Navigation() {
         });
       });
   };
-
-  // const pusher = new Pusher({
-  //   key: "4f88aae5f905e18c3000",
-  //   cluster: "us3",
-  // });
-  //
-  // let channel = pusher.subscribe("my-channel");
-  // channel.bind("my-event", function (data) {
-  //   alert(JSON.stringify(data));
-  // });
 
   return (
     <>
@@ -161,7 +161,7 @@ export default function Navigation() {
                 </div>
               </a>
               <div data-uk-dropdown={"pos: top-right; offset: 36"}>
-                <ul class={"uk-nav uk-navbar-dropdown-nav"}>
+                <ul className={"uk-nav uk-navbar-dropdown-nav"}>
                   {topLinks.map((link) => (
                     <li key={link.href}>
                       <Link href={`/app/${link.href}`} legacyBehavior>
