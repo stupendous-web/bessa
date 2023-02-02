@@ -101,6 +101,26 @@ export default async function handler(request, response) {
         .finally(() => client.close());
       break;
     case "DELETE":
+      // Delete Profile Picture
+
+      // Delete Posts
+
+      // Delete Media
+
+      // Delete Messages
+
+      await client
+        .db("bessa")
+        .collection("messages")
+        .deleteMany({
+          $or: [
+            { author: ObjectId(session?.user?._id) },
+            { recipient: ObjectId(session?.user?._id) },
+          ],
+        });
+
+      // Delete User
+
       await collection
         .deleteOne({ _id: ObjectId(session?.user?._id) })
         .then(async () => {
@@ -113,7 +133,6 @@ export default async function handler(request, response) {
         })
         .finally(() => client.close());
 
-      // Delete all posts ad media
       break;
     default:
       response.status(405).send();
