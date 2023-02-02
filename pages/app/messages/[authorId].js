@@ -52,23 +52,21 @@ export default function ShowMessages() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!isSending) {
-      setIsSending(true);
-      axios
-        .post("/api/messages", { recipient: authorId, body: body })
-        .then((response) => {
-          setIsSending(false);
-          setBody("");
-          setMessages([...messages, response.data]);
-        })
-        .catch(() => {
-          setIsSending(false);
-          UIkit.notification({
-            message: "Try something else.",
-            status: "danger",
-          });
+    setIsSending(true);
+    axios
+      .post("/api/messages", { recipient: authorId, body: body })
+      .then((response) => {
+        setBody("");
+        setMessages([...messages, response.data]);
+        setIsSending(false);
+      })
+      .catch(() => {
+        UIkit.notification({
+          message: "Try something else.",
+          status: "danger",
         });
-    }
+        setIsSending(false);
+      });
   };
 
   dayjs.extend(relativeTime);
@@ -166,7 +164,6 @@ export default function ShowMessages() {
                 className={"uk-input"}
                 onChange={(event) => setBody(event.currentTarget.value)}
                 required
-                disabled={isSending}
               />
             </div>
             <div>
@@ -174,6 +171,7 @@ export default function ShowMessages() {
                 type={"submit"}
                 value={"Send"}
                 className={"uk-button uk-button-primary"}
+                disabled={isSending}
               />
             </div>
           </div>
