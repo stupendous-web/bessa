@@ -55,47 +55,61 @@ export default function Members() {
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container"}>
             {!isPermissionDenied ? (
-              <div
-                className={
-                  "uk-child-width-1-2 uk-child-width-1-6@s uk-grid-small uk-grid-match"
-                }
-                data-uk-grid={""}
-              >
-                {users?.map((user) => (
-                  <div key={user._id}>
-                    <Link href={`/app/members/${user._id}`}>
-                      <div className={"uk-card uk-card-default uk-card-small"}>
-                        <div className={"uk-card-media-top"}>
+              <>
+                {!!users?.map ? (
+                  <div
+                    className={
+                      "uk-child-width-1-2 uk-child-width-1-6@s uk-grid-small uk-grid-match"
+                    }
+                    data-uk-grid={""}
+                  >
+                    {" "}
+                    {users?.map((user) => (
+                      <div key={user._id}>
+                        <Link href={`/app/members/${user._id}`}>
                           <div
-                            className={"uk-cover-container"}
-                            style={{ height: 172 }}
+                            className={"uk-card uk-card-default uk-card-small"}
                           >
-                            <img
-                              src={`https://cdn.bessssssa.com/avatars/${user?._id}`}
-                              alt={user?._id}
-                              onError={(event) => {
-                                event.currentTarget.src = "/images/avatar.jpg";
-                              }}
-                              data-uk-cover={""}
-                            />
-                          </div>
-                        </div>
-                        <div className={"uk-card-body"}>
-                          <div className={"uk-text-bold"}>{user?.name}</div>
-                          {(user?.distance || user?.distance === 0) && (
-                            <div className={"uk-text-small uk-text-muted"}>
-                              {formatDistance(user.distance)}
+                            <div className={"uk-card-media-top"}>
+                              <div
+                                className={"uk-cover-container"}
+                                style={{ height: 172 }}
+                              >
+                                <img
+                                  src={`https://cdn.bessssssa.com/avatars/${user?._id}`}
+                                  alt={user?._id}
+                                  onError={(event) => {
+                                    event.currentTarget.src =
+                                      "/images/avatar.jpg";
+                                  }}
+                                  data-uk-cover={""}
+                                />
+                              </div>
                             </div>
-                          )}
-                          <div className={"uk-text-small uk-text-muted"}>
-                            {dayjs(user?.lastActiveAt).fromNow()}
+                            <div className={"uk-card-body"}>
+                              <div className={"uk-text-bold"}>{user?.name}</div>
+                              {(user?.distance || user?.distance === 0) && (
+                                <div className={"uk-text-small uk-text-muted"}>
+                                  {formatDistance(user.distance)}
+                                </div>
+                              )}
+                              <div className={"uk-text-small uk-text-muted"}>
+                                {dayjs(user?.lastActiveAt).fromNow()}
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        </Link>
                       </div>
-                    </Link>
+                    ))}
                   </div>
-                ))}
-              </div>
+                ) : (
+                  <>
+                    <p className={"uk-text-center"}>
+                      <div data-uk-spinner={""} />
+                    </p>
+                  </>
+                )}
+              </>
             ) : (
               <div className={"uk-section uk-section-xlarge"}>
                 <div
