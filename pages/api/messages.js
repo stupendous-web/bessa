@@ -98,15 +98,15 @@ export default async function handler(request, response) {
           await collection
             .find({ _id: result?.insertedId })
             .toArray()
-            .then((results) => {
-              const pusher = new Pusher({
+            .then(async (results) => {
+              const pusher = await new Pusher({
                 appId: process.env.PUSHER_APP_ID,
                 key: process.env.NEXT_PUBLIC_PUSHER_KEY,
                 secret: process.env.PUSHER_SECRET,
                 cluster: "us3",
                 useTLS: true,
               });
-              pusher.trigger(body?.recipient, "new-message", {
+              await pusher.trigger(body?.recipient, "new-message", {
                 message: results[0],
               });
               response.send(results[0]);
