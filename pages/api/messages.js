@@ -109,6 +109,7 @@ export default async function handler(request, response) {
               await pusher.trigger(body?.recipient, "new-message", {
                 message: results[0],
               });
+
               response.send(results[0]);
             })
             .finally(() => client.close());

@@ -70,7 +70,7 @@ export default function Navigation() {
     });
 
     return () => pusher.unsubscribe(session?.user?._id);
-  }, []);
+  }, [messages]);
 
   const handlePublish = (event) => {
     event.preventDefault();
