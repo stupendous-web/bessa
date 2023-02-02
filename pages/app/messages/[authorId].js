@@ -12,6 +12,7 @@ import Authentication from "@/components/app/Authentication";
 
 export default function ShowMessages() {
   const [messages, setMessages] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
   const [user, setUser] = useState({});
   const [body, setBody] = useState("");
   const [maxHeight, setMaxHeight] = useState(0);
@@ -27,7 +28,10 @@ export default function ShowMessages() {
     authorId &&
       axios
         .get("/api/messages", { params: { authorId: authorId } })
-        .then((response) => setMessages(response.data));
+        .then((response) => {
+          setMessages(response.data);
+          setIsFetching(false);
+        });
   }, [authorId]);
 
   useEffect(() => {
@@ -101,7 +105,7 @@ export default function ShowMessages() {
         }}
       >
         <div className={"uk-container uk-container-xsmall"}>
-          {!!messages?.length ? (
+          {!isFetching ? (
             <>
               {messages?.map((message) => (
                 <div key={message?._id}>

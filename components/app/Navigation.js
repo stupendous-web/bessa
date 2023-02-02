@@ -64,7 +64,10 @@ export default function Navigation() {
       cluster: "us3",
     });
     const channel = pusher.subscribe(session?.user?._id);
-    channel.bind("new-message", (data) => setMessages([...messages, data]));
+    channel.bind("new-message", (data) => {
+      console.log(data);
+      setMessages([...messages, data]);
+    });
 
     return () => pusher.unsubscribe("chat");
   }, []);
