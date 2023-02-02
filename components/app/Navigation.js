@@ -66,7 +66,7 @@ export default function Navigation() {
     const channel = pusher.subscribe(session?.user?._id);
     channel.bind("new-message", (data) => {
       console.log(data);
-      setMessages([...messages, data]);
+      setMessages([...messages, data.message]);
     });
 
     return () => pusher.unsubscribe("chat");
