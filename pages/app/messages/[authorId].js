@@ -14,6 +14,7 @@ export default function ShowMessages() {
   const [user, setUser] = useState({});
   const [body, setBody] = useState("");
   const [maxHeight, setMaxHeight] = useState(0);
+  const [isSending, setIsSending] = useState(false);
   const navbarHeight = 80;
   const avatarRef = useRef();
   const endOfMesages = useRef();
@@ -50,9 +51,11 @@ export default function ShowMessages() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSending(true);
     axios
       .post("/api/messages", { recipient: authorId, body: body })
       .then((response) => {
+        setIsSending(false);
         setBody("");
         setMessages([...messages, response.data]);
       })
@@ -159,6 +162,7 @@ export default function ShowMessages() {
                 className={"uk-input"}
                 onChange={(event) => setBody(event.currentTarget.value)}
                 required
+                disabled={isSending}
               />
             </div>
             <div>
