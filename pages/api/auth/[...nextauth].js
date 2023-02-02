@@ -33,7 +33,7 @@ export const authOptions = {
       async authorize(credentials) {
         await client.connect();
         const user = await client.db("bessa").collection("users").findOne({
-          email: credentials.email,
+          email: credentials.email.toLowerCase(),
         });
         await client.close();
         if (bcrypt.compareSync(credentials.password, user.password)) {

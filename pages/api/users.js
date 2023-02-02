@@ -63,13 +63,15 @@ export default async function handler(request, response) {
         .finally(() => client.close());
       break;
     case "POST":
-      const user = await collection.findOne({ email: body?.email });
+      const user = await collection.findOne({
+        email: body?.email.toLowerCase(),
+      });
 
       if (!user) {
         await collection
           .insertOne({
             name: body.name,
-            email: body.email,
+            email: body.email.toLowerCase(),
             password: bcrypt.hashSync(body.password, 10),
             createdAt: new Date(),
           })
