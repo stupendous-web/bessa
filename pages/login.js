@@ -1,18 +1,26 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     signIn("credentials", {
       email: email,
       password: password,
-      callbackUrl: "/app/posts",
+      redirect: false,
+    }).then((response) => {
+      !response?.error
+        ? router.push("/app/posts")
+        : setError("Hmm. Something went wrong.");
+      console.log(response?.error);
     });
   };
 
@@ -56,6 +64,20 @@ export default function Login() {
                     required
                   />
                 </div>
+                {error && (
+                  <div className={"uk-alert-danger"} data-uk-alert={""}>
+                    <p>
+                      {error} Please try again or email{" "}
+                      <Link
+                        href={"mailto:topher@stupendousweb.com"}
+                        legacyBehavior
+                      >
+                        <a>topher@stupendousweb.com</a>
+                      </Link>{" "}
+                      for help.
+                    </p>
+                  </div>
+                )}
                 <input
                   type={"submit"}
                   value={"Let's Go!"}

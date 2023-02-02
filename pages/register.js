@@ -27,7 +27,7 @@ export default function Register() {
       })
       .catch((error) => {
         console.log(error);
-        setError(error?.response?.data?.title || "There was an error.");
+        setError(error?.response?.data?.title || "Hmm. Something went wrong.");
       });
   };
 
