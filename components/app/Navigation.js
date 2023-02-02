@@ -69,7 +69,7 @@ export default function Navigation() {
       setMessages([...messages, data.message]);
     });
 
-    return () => pusher.unsubscribe(session?.user?._id);
+    //return () => pusher.unsubscribe(session?.user?._id);
   }, []);
 
   const handlePublish = (event) => {
