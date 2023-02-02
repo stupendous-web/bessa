@@ -65,11 +65,11 @@ export default function Navigation() {
     });
     const channel = pusher.subscribe(session?.user?._id);
     channel.bind("new-message", (data) => {
-      console.log(data);
+      console.log(data.message);
       setMessages([...messages, data.message]);
     });
 
-    return () => pusher.unsubscribe("chat");
+    return () => pusher.unsubscribe(session?.user?._id);
   }, []);
 
   const handlePublish = (event) => {
