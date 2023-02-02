@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import UIkit from "uikit";
 
@@ -23,10 +24,16 @@ export default function App({
   );
 
   return (
-    <div className={"uk-scope"}>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </div>
+    <>
+      <Head>
+        <title>Chat</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+      </Head>
+      <div className={"uk-scope"}>
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </div>
+    </>
   );
 }

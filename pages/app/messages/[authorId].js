@@ -72,10 +72,6 @@ export default function ShowMessages() {
 
   return (
     <Authentication>
-      <Head>
-        <title>Chat</title>
-        <meta name="viewport" content="width=device-width, user-scalable=no" />
-      </Head>
       <Navigation />
       <Link href={`/app/members/${authorId}`}>
         <div className={"uk-text-center uk-padding-small"} ref={avatarRef}>
