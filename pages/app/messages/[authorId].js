@@ -52,20 +52,23 @@ export default function ShowMessages() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsSending(true);
-    axios
-      .post("/api/messages", { recipient: authorId, body: body })
-      .then((response) => {
-        setIsSending(false);
-        setBody("");
-        setMessages([...messages, response.data]);
-      })
-      .catch(() => {
-        UIkit.notification({
-          message: "Try something else.",
-          status: "danger",
+    if (!isSending) {
+      setIsSending(true);
+      axios
+        .post("/api/messages", { recipient: authorId, body: body })
+        .then((response) => {
+          setIsSending(false);
+          setBody("");
+          setMessages([...messages, response.data]);
+        })
+        .catch(() => {
+          setIsSending(false);
+          UIkit.notification({
+            message: "Try something else.",
+            status: "danger",
+          });
         });
-      });
+    }
   };
 
   dayjs.extend(relativeTime);
