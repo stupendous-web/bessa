@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
 import Pusher from "pusher-js";
+
 export default function Navigation() {
   const [messages, setMessages] = useState([]);
   const [body, setBody] = useState("");
@@ -65,7 +66,6 @@ export default function Navigation() {
     });
     const channel = pusher.subscribe(session?.user?._id);
     channel.bind("new-message", (data) => {
-      console.log(data.message);
       setMessages([...messages, data.message]);
     });
 

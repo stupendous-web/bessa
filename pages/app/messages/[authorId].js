@@ -1,11 +1,12 @@
 import Link from "next/link";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-let relativeTime = require("dayjs/plugin/relativeTime");
 import UIkit from "uikit";
+import Pusher from "pusher-js";
+import { useSession } from "next-auth/react";
+let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Navigation from "@/components/app/Navigation";
 import Authentication from "@/components/app/Authentication";
@@ -23,6 +24,7 @@ export default function ShowMessages() {
   const inputRef = useRef();
   const router = useRouter();
   const { authorId } = router.query;
+  const { data: session } = useSession();
 
   useEffect(() => {
     authorId &&
@@ -53,6 +55,18 @@ export default function ShowMessages() {
   useEffect(() => {
     endOfMesages.current?.scrollIntoView();
   }, [messages, user, avatarRef.current, inputRef.current]);
+
+  useEffect(() => {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+      cluster: "us3",
+    });
+    const channel = pusher.subscribe(`${session?.user?._id}`);
+    channel.bind("new-message", (data) => {
+      setMessages([...messages, data.message]);
+    });
+
+    return () => pusher.unsubscribe(`${session?.user?._id}`);
+  }, [messages]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
