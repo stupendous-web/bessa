@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
@@ -10,8 +11,9 @@ export default function Navigation() {
   const [body, setBody] = useState("");
   const [file, setFile] = useState({});
   const [nSFW, setNSFW] = useState(false);
-
   const { data: session } = useSession();
+  const router = useRouter();
+  const { authorId } = router.query;
 
   const sideLinks = [
     {
@@ -65,12 +67,15 @@ export default function Navigation() {
       cluster: "us3",
     });
     const channel = pusher.subscribe(session?.user?._id);
-    channel.bind("new-message", (data) => {
-      setMessages([...messages, data.message]);
-    });
+    channel.bind(
+      "new-message",
+      (data) =>
+        data.message.author !== authorId &&
+        setMessages([...messages, data.message])
+    );
 
     return () => pusher.unsubscribe(session?.user?._id);
-  }, [messages]);
+  }, [authorId, messages]);
 
   const handlePublish = (event) => {
     event.preventDefault();

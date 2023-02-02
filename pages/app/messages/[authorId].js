@@ -61,9 +61,9 @@ export default function ShowMessages() {
       cluster: "us3",
     });
     const channel = pusher.subscribe(`${session?.user?._id}`);
-    channel.bind("new-message", (data) => {
-      setMessages([...messages, data.message]);
-    });
+    channel.bind("new-message", (data) =>
+      setMessages([...messages, data.message])
+    );
 
     return () => pusher.unsubscribe(`${session?.user?._id}`);
   }, [messages]);
