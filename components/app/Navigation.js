@@ -183,10 +183,7 @@ export default function Navigation() {
                 />
               </a>
             </div>
-            <div
-              id={"side-navigation"}
-              data-uk-offcanvas={"flip: true; mode: push"}
-            >
+            <div id={"side-navigation"} data-uk-offcanvas={"flip: true"}>
               <div className={"uk-offcanvas-bar"}>
                 <ul className={"uk-nav uk-nav-default"}>
                   {sideLinks.map((link) => (
