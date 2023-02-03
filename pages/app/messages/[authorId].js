@@ -18,6 +18,7 @@ export default function ShowMessages() {
   const [body, setBody] = useState("");
   const [maxHeight, setMaxHeight] = useState(0);
   const [isSending, setIsSending] = useState(false);
+  const [filteredMessages, setFilteredMessages] = useState([]);
   const navbarHeight = 80;
   const avatarRef = useRef();
   const endOfMesages = useRef();
@@ -33,6 +34,15 @@ export default function ShowMessages() {
         .get("/api/users", { params: { userId: authorId } })
         .then((response) => setUser(response.data));
   }, [authorId]);
+
+  useEffect(() => {
+    setFilteredMessages(
+      messages?.filter(
+        (message) =>
+          message?.author === authorId || message?.recipient === authorId
+      )
+    );
+  }, [messages]);
 
   useEffect(() => {
     setMaxHeight(
@@ -116,7 +126,7 @@ export default function ShowMessages() {
           <div className={"uk-container uk-container-xsmall"}>
             {!isLoading ? (
               <>
-                {messages?.map((message) => (
+                {filteredMessages?.map((message) => (
                   <div key={message?._id}>
                     <div
                       className={
