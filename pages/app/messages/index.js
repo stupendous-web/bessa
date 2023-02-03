@@ -8,9 +8,13 @@ import Navigation from "@/components/app/Navigation";
 
 export default function Index() {
   const [messages, setMessages] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/api/messages").then((response) => setMessages(response.data));
+    axios.get("/api/messages").then((response) => {
+      setMessages(response.data);
+      setIsLoading(false);
+    });
   }, []);
 
   return (
@@ -23,7 +27,7 @@ export default function Index() {
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container uk-container-xsmall"}>
             <p>Inbox</p>
-            {!!messages?.length ? (
+            {!isLoading ? (
               <>
                 {messages?.map((message) => (
                   <Link
