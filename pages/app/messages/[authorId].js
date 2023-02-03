@@ -26,7 +26,7 @@ export default function ShowMessages() {
   const router = useRouter();
   const { authorId } = router.query;
   const { data: session } = useSession();
-  const { messages, isLoading } = useGlobal();
+  const { messages, setMessages, isLoading } = useGlobal();
 
   useEffect(() => {
     authorId &&
