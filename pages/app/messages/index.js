@@ -46,7 +46,11 @@ export default function Index() {
                       className={"uk-flex-middle uk-grid-small uk-margin"}
                       data-uk-grid={""}
                     >
-                      <div className={"uk-width-auto"}>*</div>
+                      <div style={{ width: "5px" }}>
+                        {!message?.isRead && (
+                          <span className={"uk-text-bold"}>&middot;</span>
+                        )}
+                      </div>
                       <div className={"uk-width-auto"}>
                         <div
                           className={"uk-cover-container uk-border-circle"}
@@ -61,11 +65,11 @@ export default function Index() {
                           />
                         </div>
                       </div>
-                      <div>
+                      <div className={"uk-width-expand"}>
                         <div className={"uk-text-bold"}>
                           {message?.authorMeta?.[0]?.name}
                         </div>
-                        <div>{message?.body}</div>
+                        <div>{message?.body?.slice(0, 90)}</div>
                       </div>
                     </div>
                   </Link>
