@@ -59,7 +59,7 @@ export default function ShowMessages() {
 
   useEffect(() => {
     endOfMesages.current?.scrollIntoView();
-  }, [messages, user, avatarRef.current, inputRef.current]);
+  }, [filteredMessages, user, avatarRef.current, inputRef.current]);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
