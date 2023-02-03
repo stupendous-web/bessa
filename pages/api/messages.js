@@ -4,7 +4,6 @@ import { unstable_getServerSession } from "next-auth/next";
 const Pusher = require("pusher");
 
 export default async function handler(request, response) {
-  const query = request.query;
   const body = request.body;
 
   const client = new MongoClient(process.env.MONGO_DB_URI);
@@ -37,17 +36,23 @@ export default async function handler(request, response) {
           },
         ])
         .toArray()
-        .then(async (results) => {
-          // Mark all as read
-          query?.authorId &&
-            (await collection.updateMany(
+        .then((results) => response.send(results))
+        .finally(() => client.close());
+      break;
+    case "PATCH":
+      await collection
+        .updateMany(
+          {
+            $and: [
               { recipient: ObjectId(session?.user?._id) },
-              {
-                $set: { isRead: true },
-              }
-            ));
-          response.send(results);
-        })
+              { author: ObjectId(body?.authorId) },
+            ],
+          },
+          {
+            $set: { isRead: true },
+          }
+        )
+        .then(() => response.send("Good things come to those who wait."))
         .finally(() => client.close());
       break;
     case "POST":

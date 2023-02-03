@@ -29,6 +29,10 @@ export default function ShowMessages() {
   const { messages, setMessages, isLoading } = useGlobal();
 
   useEffect(() => {
+    axios?.patch("/api/messages", { authorId: authorId });
+  });
+
+  useEffect(() => {
     authorId &&
       axios
         .get("/api/users", { params: { userId: authorId } })

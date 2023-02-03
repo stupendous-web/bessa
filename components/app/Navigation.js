@@ -56,13 +56,14 @@ export default function Navigation() {
   ];
 
   useEffect(() => {
-    setNewMessages(
-      messages?.filter(
-        (message) =>
-          message?.recipient === session?.user?._id && !message?.isRead
-      )
-    );
-  }, [messages]);
+    !authorId &&
+      setNewMessages(
+        messages?.filter(
+          (message) =>
+            message?.recipient === session?.user?._id && !message?.isRead
+        )
+      );
+  }, [authorId, messages]);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
