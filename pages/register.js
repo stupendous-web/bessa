@@ -34,7 +34,10 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Join for FREE! | Bessa | Welcome to the gay supper club</title>
+        <title>
+          Join for FREE! | Bessa | FREE gay online dating, chat, social, and
+          listings community
+        </title>
       </Head>
       <div className={"uk-grid-collapse uk-flex-middle"} data-uk-grid={""}>
         <div

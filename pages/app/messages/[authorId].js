@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import UIkit from "uikit";
@@ -90,111 +91,116 @@ export default function ShowMessages() {
   dayjs.extend(relativeTime);
 
   return (
-    <Authentication>
-      <Navigation />
-      <Link href={`/app/members/${authorId}`}>
-        <div className={"uk-text-center uk-padding-small"} ref={avatarRef}>
-          <div
-            className={
-              "uk-cover-container uk-border-circle uk-display-inline-block"
-            }
-            style={{ height: 80, width: 80 }}
-          >
-            <img
-              src={`https://cdn.bessssssa.com/avatars/${authorId}`}
-              onError={(event) => {
-                event.currentTarget.src = "/images/avatar.jpg";
-              }}
-              data-uk-cover={""}
-            />
+    <>
+      <Head>
+        <title>{user?.name} | Bessa</title>
+      </Head>
+      <Authentication>
+        <Navigation />
+        <Link href={`/app/members/${authorId}`}>
+          <div className={"uk-text-center uk-padding-small"} ref={avatarRef}>
+            <div
+              className={
+                "uk-cover-container uk-border-circle uk-display-inline-block"
+              }
+              style={{ height: 80, width: 80 }}
+            >
+              <img
+                src={`https://cdn.bessssssa.com/avatars/${authorId}`}
+                onError={(event) => {
+                  event.currentTarget.src = "/images/avatar.jpg";
+                }}
+                data-uk-cover={""}
+              />
+            </div>
+            <div>{user?.name}</div>
           </div>
-          <div>{user?.name}</div>
-        </div>
-      </Link>
-      <div
-        className={"uk-overflow-auto"}
-        style={{
-          height: "100vh",
-          maxHeight: maxHeight,
-        }}
-      >
-        <div className={"uk-container uk-container-xsmall"}>
-          {!isFetching ? (
-            <>
-              {messages?.map((message) => (
-                <div key={message?._id}>
-                  <div
-                    className={
-                      message?.author === authorId
-                        ? "uk-flex uk-flex-left"
-                        : "uk-flex uk-flex-right"
-                    }
-                  >
+        </Link>
+        <div
+          className={"uk-overflow-auto"}
+          style={{
+            height: "100vh",
+            maxHeight: maxHeight,
+          }}
+        >
+          <div className={"uk-container uk-container-xsmall"}>
+            {!isFetching ? (
+              <>
+                {messages?.map((message) => (
+                  <div key={message?._id}>
                     <div
                       className={
                         message?.author === authorId
-                          ? "uk-section-muted uk-padding-small uk-padding-remove-vertical"
-                          : "uk-section-primary uk-padding-small uk-padding-remove-vertical"
+                          ? "uk-flex uk-flex-left"
+                          : "uk-flex uk-flex-right"
                       }
-                      style={{
-                        maxWidth: "75%",
-                        borderTopRightRadius: 5,
-                        borderTopLeftRadius: 5,
-                        borderBottomRightRadius:
-                          message?.author === authorId ? 5 : 0,
-                        borderBottomLeftRadius:
-                          message?.author !== authorId ? 5 : 0,
-                      }}
                     >
-                      {message?.body}
+                      <div
+                        className={
+                          message?.author === authorId
+                            ? "uk-section-muted uk-padding-small uk-padding-remove-vertical"
+                            : "uk-section-primary uk-padding-small uk-padding-remove-vertical"
+                        }
+                        style={{
+                          maxWidth: "75%",
+                          borderTopRightRadius: 5,
+                          borderTopLeftRadius: 5,
+                          borderBottomRightRadius:
+                            message?.author === authorId ? 5 : 0,
+                          borderBottomLeftRadius:
+                            message?.author !== authorId ? 5 : 0,
+                        }}
+                      >
+                        {message?.body}
+                      </div>
                     </div>
+                    {message?.author === authorId ? (
+                      <div className={"uk-text-muted uk-flex uk-flex-left"}>
+                        {dayjs(message?.createdAt).fromNow()}
+                      </div>
+                    ) : (
+                      <div className={"uk-text-muted uk-flex uk-flex-right"}>
+                        {dayjs(message?.createdAt).fromNow()}
+                        {message?.isRead && <span>&nbsp;&middot; Read</span>}
+                      </div>
+                    )}
                   </div>
-                  {message?.author === authorId ? (
-                    <div className={"uk-text-muted uk-flex uk-flex-left"}>
-                      {dayjs(message?.createdAt).fromNow()}
-                    </div>
-                  ) : (
-                    <div className={"uk-text-muted uk-flex uk-flex-right"}>
-                      {dayjs(message?.createdAt).fromNow()}
-                      {message?.isRead && <span>&nbsp;&middot; Read</span>}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </>
-          ) : (
-            <>
-              <p className={"uk-text-center"}>
-                <div data-uk-spinner={""} />
-              </p>
-            </>
-          )}
-        </div>
-        <div ref={endOfMesages} />
-      </div>
-      <div className={"uk-section-primary uk-padding-small"} ref={inputRef}>
-        <form onSubmit={(event) => handleSubmit(event)}>
-          <div className={"uk-grid-small"} data-uk-grid={""}>
-            <div className={"uk-width-expand"}>
-              <input
-                type={"text"}
-                value={body}
-                className={"uk-input"}
-                onChange={(event) => setBody(event.currentTarget.value)}
-                required
-              />
-            </div>
-            <div>
-              <input
-                type={"submit"}
-                value={"Send"}
-                className={"uk-button uk-button-primary"}
-                disabled={isSending}
-              />
-            </div>
+                ))}
+              </>
+            ) : (
+              <>
+                <p className={"uk-text-center"}>
+                  <div data-uk-spinner={""} />
+                </p>
+              </>
+            )}
           </div>
-        </form>
-      </div>
-    </Authentication>
+          <div ref={endOfMesages} />
+        </div>
+        <div className={"uk-section-primary uk-padding-small"} ref={inputRef}>
+          <form onSubmit={(event) => handleSubmit(event)}>
+            <div className={"uk-grid-small"} data-uk-grid={""}>
+              <div className={"uk-width-expand"}>
+                <input
+                  type={"text"}
+                  value={body}
+                  className={"uk-input"}
+                  onChange={(event) => setBody(event.currentTarget.value)}
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type={"submit"}
+                  value={"Send"}
+                  className={"uk-button uk-button-primary"}
+                  disabled={isSending}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </Authentication>
+    </>
   );
 }

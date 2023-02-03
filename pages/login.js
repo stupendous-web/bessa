@@ -27,7 +27,10 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Login | Bessa | Welcome to the gay supper club</title>
+        <title>
+          Login | Bessa | FREE gay online dating, chat, social, and listings
+          community
+        </title>
       </Head>
       <div className={"uk-grid-collapse uk-flex-middle"} data-uk-grid={""}>
         <div

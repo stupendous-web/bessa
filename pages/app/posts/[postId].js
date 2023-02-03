@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -31,6 +32,9 @@ export default function ShowPost() {
 
   return (
     <>
+      <Head>
+        <title>{user?.name} | Bessa</title>
+      </Head>
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>

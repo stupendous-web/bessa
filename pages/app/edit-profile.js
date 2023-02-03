@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
@@ -74,6 +75,9 @@ export default function EditProfile() {
 
   return (
     <>
+      <Head>
+        <title>Edit your Profile | Bessa</title>
+      </Head>
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>

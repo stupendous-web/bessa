@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -22,6 +23,9 @@ export default function Index() {
 
   return (
     <>
+      <Head>
+        <title>Posts | Bessa</title>
+      </Head>
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>

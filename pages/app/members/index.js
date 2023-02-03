@@ -7,6 +7,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
+import Head from "next/head";
 
 export default function Members() {
   const [users, setUsers] = useState();
@@ -50,6 +51,9 @@ export default function Members() {
 
   return (
     <>
+      <Head>
+        <title>Members | Bessa</title>
+      </Head>
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>

@@ -1,8 +1,9 @@
 import { useState } from "react";
-
-import Navigation from "@/components/Navigation";
+import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/router";
+
+import Navigation from "@/components/Navigation";
 
 export default function ResetPassword({}) {
   const [email, setEmail] = useState("");
@@ -31,7 +32,10 @@ export default function ResetPassword({}) {
   };
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>Reset your Password</title>
+      </Head>
       <Navigation />
       <div className={"uk-section"}>
         <div className={"uk-container uk-container-xsmall"}>
@@ -90,6 +94,6 @@ export default function ResetPassword({}) {
           </>
         </div>
       </div>
-    </div>
+    </>
   );
 }

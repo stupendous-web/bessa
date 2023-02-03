@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import axios from "axios";
 import UIkit from "uikit";
@@ -19,6 +20,9 @@ export default function Settings() {
 
   return (
     <>
+      <Head>
+        <title>Settings | Bessa</title>
+      </Head>
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>

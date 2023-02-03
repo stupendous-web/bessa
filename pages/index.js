@@ -40,7 +40,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Bessa | Welcome to the gay supper club</title>
+        <title>
+          Bessa | FREE gay online dating, chat, social, and listings community |
+          Welcome to the gay supper club
+        </title>
       </Head>
       <Navigation />
       <div
@@ -55,8 +58,7 @@ export default function Home() {
             <div>
               <h1>Welcome to the gay supper club.</h1>
               <p className={"uk-text-large"}>
-                Meet other people in the community. Share your profile, your
-                resources, and your number!
+                FREE gay online dating, chat, social, and listings community.
               </p>
               <p>
                 <Link href={"/register"} legacyBehavior>
