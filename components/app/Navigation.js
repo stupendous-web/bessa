@@ -56,7 +56,12 @@ export default function Navigation() {
   ];
 
   useEffect(() => {
-    setNewMessages(messages?.filter((message) => !message?.isRead));
+    setNewMessages(
+      messages?.filter(
+        (message) =>
+          message?.recipient === session?.user?._id && !message?.isRead
+      )
+    );
   }, [messages]);
 
   useEffect(() => {
