@@ -2,8 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import axios from "axios";
 import { useRouter } from "next/router";
-
-import Navigation from "@/components/Navigation";
+import Link from "next/link";
 
 export default function ResetPassword({}) {
   const [email, setEmail] = useState("");
@@ -36,62 +35,71 @@ export default function ResetPassword({}) {
       <Head>
         <title>Reset your Password</title>
       </Head>
-      <Navigation />
-      <div className={"uk-section"}>
-        <div className={"uk-container uk-container-xsmall"}>
-          <>
-            {!router?.query?.email && !router?.query?.token && (
-              <>
-                {!isLoading ? (
-                  <form onSubmit={(event) => handleSend(event)}>
-                    <div className={"uk-margin"}>
-                      <label>
-                        Enter your email below to reset your password.
-                      </label>
+      <div className={"uk-grid-collapse uk-flex-middle"} data-uk-grid={""}>
+        <div
+          className={"uk-width-2-3@s uk-background-cover uk-visible@s"}
+          style={{ backgroundImage: "url('/images/splash.jpg')" }}
+          data-uk-height-viewport={""}
+        />
+        <div className={"uk-width-1-3@s"}>
+          <div className={"uk-section"}>
+            <div className={"uk-container uk-container-xsmall"}>
+              <Link href={"/"} legacyBehavior>
+                <a className={"uk-logo"}>Bessa</a>
+              </Link>
+              {!router?.query?.email && !router?.query?.token && (
+                <>
+                  {!isLoading ? (
+                    <form onSubmit={(event) => handleSend(event)}>
+                      <div className={"uk-margin"}>
+                        <label>
+                          Enter your email below to reset your password.
+                        </label>
+                        <input
+                          type={"email"}
+                          value={email}
+                          className={"uk-input"}
+                          onChange={(event) =>
+                            setEmail(event.currentTarget.value)
+                          }
+                          required
+                        />
+                      </div>
                       <input
-                        type={"email"}
-                        value={email}
-                        className={"uk-input"}
-                        onChange={(event) =>
-                          setEmail(event.currentTarget.value)
-                        }
-                        required
+                        type={"submit"}
+                        value={"Go!"}
+                        className={"uk-button uk-button-primary"}
                       />
-                    </div>
+                    </form>
+                  ) : (
+                    <div>Now, follow the link in your inbox.</div>
+                  )}
+                </>
+              )}
+              {router?.query?.email && router?.query?.token && (
+                <form onSubmit={(event) => handleSubmit(event)}>
+                  <div className={"uk-margin"}>
+                    <label>Enter your new password.</label>
                     <input
-                      type={"submit"}
-                      value={"Go!"}
-                      className={"uk-button uk-button-primary"}
+                      type={"password"}
+                      value={password}
+                      className={"uk-input"}
+                      minLength={8}
+                      onChange={(event) =>
+                        setPassword(event.currentTarget.value)
+                      }
+                      required
                     />
-                  </form>
-                ) : (
-                  <div>Now, follow the link in your inbox.</div>
-                )}
-              </>
-            )}
-          </>
-          <>
-            {router?.query?.email && router?.query?.token && (
-              <form onSubmit={(event) => handleSubmit(event)}>
-                <div className={"uk-margin"}>
-                  <label>Enter your new password.</label>
+                  </div>
                   <input
-                    type={"password"}
-                    value={password}
-                    className={"uk-input"}
-                    minLength={8}
-                    onChange={(event) => setPassword(event.currentTarget.value)}
-                    required
+                    type={"submit"}
+                    value={"Reset"}
+                    className={"uk-button uk-button-primary"}
                   />
-                </div>
-                <input
-                  type={"submit"}
-                  value={"Reset"}
-                  className={"uk-button uk-button-primary"}
-                />
-              </form>
-            )}
-          </>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
