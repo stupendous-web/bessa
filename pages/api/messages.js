@@ -17,51 +17,6 @@ export default async function handler(request, response) {
 
   switch (request.method) {
     case "GET":
-      // const authorMatch = [
-      //   {
-      //     $match: {
-      //       $or: [
-      //         {
-      //           $and: [
-      //             { author: ObjectId(session?.user?._id) },
-      //             { recipient: ObjectId(query?.authorId) },
-      //           ],
-      //         },
-      //         {
-      //           $and: [
-      //             { author: ObjectId(query?.authorId) },
-      //             { recipient: ObjectId(session?.user?._id) },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   },
-      // ];
-      // const recipientMatch = [
-      //   {
-      //     $match: {
-      //       recipient: ObjectId(query?.recipientId),
-      //     },
-      //   },
-      // ];
-      // const groupMatch = [
-      //   {
-      //     $match: {
-      //       $or: [
-      //         { author: ObjectId(session?.user?._id) },
-      //         { recipient: ObjectId(session?.user?._id) },
-      //       ],
-      //     },
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "users",
-      //       localField: "author",
-      //       foreignField: "_id",
-      //       as: "authorMeta",
-      //     },
-      //   },
-      // ];
       await collection
         .aggregate([
           {

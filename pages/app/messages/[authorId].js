@@ -7,14 +7,13 @@ import dayjs from "dayjs";
 import UIkit from "uikit";
 import Pusher from "pusher-js";
 import { useSession } from "next-auth/react";
+import { useGlobal } from "@/lib/context";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Navigation from "@/components/app/Navigation";
 import Authentication from "@/components/app/Authentication";
 
 export default function ShowMessages() {
-  const [messages, setMessages] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
   const [user, setUser] = useState({});
   const [body, setBody] = useState("");
   const [maxHeight, setMaxHeight] = useState(0);
@@ -26,16 +25,7 @@ export default function ShowMessages() {
   const router = useRouter();
   const { authorId } = router.query;
   const { data: session } = useSession();
-
-  useEffect(() => {
-    authorId &&
-      axios
-        .get("/api/messages", { params: { authorId: authorId } })
-        .then((response) => {
-          setMessages(response.data);
-          setIsFetching(false);
-        });
-  }, [authorId]);
+  const { messages, isLoading } = useGlobal();
 
   useEffect(() => {
     authorId &&
@@ -124,7 +114,7 @@ export default function ShowMessages() {
           }}
         >
           <div className={"uk-container uk-container-xsmall"}>
-            {!isFetching ? (
+            {!isLoading ? (
               <>
                 {messages?.map((message) => (
                   <div key={message?._id}>
