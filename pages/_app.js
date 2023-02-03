@@ -3,6 +3,8 @@ import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import UIkit from "uikit";
 
+import { Provider } from "@/lib/context";
+
 import "../styles/uikit/uikit.css";
 import "remixicon/fonts/remixicon.css";
 
@@ -31,7 +33,9 @@ export default function App({
       </Head>
       <div className={"uk-scope"}>
         <SessionProvider session={session}>
-          <Component {...pageProps} />
+          <Provider>
+            <Component {...pageProps} />
+          </Provider>
         </SessionProvider>
       </div>
     </>

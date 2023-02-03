@@ -5,15 +5,17 @@ import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import UIkit from "uikit";
 import Pusher from "pusher-js";
+import { useGlobal } from "@/lib/context";
 
 export default function Navigation() {
-  const [messages, setMessages] = useState([]);
   const [body, setBody] = useState("");
   const [file, setFile] = useState({});
   const [nSFW, setNSFW] = useState(false);
+  const [newMessages, setNewMessages] = useState([]);
   const { data: session } = useSession();
   const router = useRouter();
   const { authorId } = router.query;
+  const { messages, setMessages } = useGlobal();
 
   const sideLinks = [
     {
@@ -54,13 +56,8 @@ export default function Navigation() {
   ];
 
   useEffect(() => {
-    session &&
-      axios
-        .get("/api/messages", { params: { recipientId: session?.user?._id } })
-        .then((response) =>
-          setMessages(response.data?.filter((message) => !message?.isRead))
-        );
-  }, [session]);
+    setNewMessages(messages?.filter((message) => !message?.isRead));
+  }, [messages]);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -150,16 +147,16 @@ export default function Navigation() {
                     className={"ri-mail-fill uk-flex"}
                     style={{
                       fontSize: "1.5rem",
-                      paddingRight: !!messages?.length && "0 10px",
+                      paddingRight: !!newMessages?.length && "0 10px",
                       lineHeight: 1.5,
                     }}
                   />
-                  {!!messages?.length && (
+                  {!!newMessages?.length && (
                     <span
                       className="uk-badge uk-position-bottom-right uk-text-muted"
                       style={{ backgroundColor: "#da1e28" }}
                     >
-                      {messages?.length}
+                      {newMessages?.length}
                     </span>
                   )}
                 </div>
