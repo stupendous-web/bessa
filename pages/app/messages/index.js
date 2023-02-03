@@ -18,10 +18,11 @@ export default function Index() {
       Object.keys(groupBy(messages, "author"))
         .map((key) => {
           return messages
-            ?.filter((message) => message?.author === key)
-            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
+            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            ?.find((message) => message?.author === key);
         })
         .filter((message) => message?.author !== session?.user?._id)
+        ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     );
   }, [messages]);
 
