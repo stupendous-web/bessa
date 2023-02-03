@@ -52,10 +52,10 @@ export default function Home() {
       >
         <div className={"uk-container"}>
           <div
-            className={"uk-child-width-1-2@s uk-flex-middle"}
+            className={"uk-child-width-1-2@s uk-grid-match"}
             data-uk-grid={""}
           >
-            <div>
+            <div className={"uk-flex-middle"}>
               <h1>Welcome to the gay supper club.</h1>
               <p className={"uk-text-large"}>
                 FREE gay online dating, chat, social, and listings community.
@@ -75,18 +75,25 @@ export default function Home() {
                 </Link>
               </p>
             </div>
+            <div className={"uk-flex-bottom uk-visible@s"}>
+              <img
+                src={"../images/mockup.png"}
+                alt={"Bessa"}
+                style={{ marginBottom: "-11rem" }}
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className={"uk-section"}>
-        <div className={"uk-container"}>
+      <div className={"uk-section uk-section-large"}>
+        <div className={"uk-container uk-container-xsmall"}>
           <div className={"uk-child-width-1-3@s"} data-uk-grid={""}>
             {sections.map((section) => (
               <div key={section.heading}>
-                <h2 className={"uk-flex"}>
+                <h3 className={"uk-flex"}>
                   <i className={`${section.icon} uk-margin-right`} />
                   {section.heading}
-                </h2>
+                </h3>
                 <p>{section.body}</p>
               </div>
             ))}

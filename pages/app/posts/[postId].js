@@ -33,7 +33,7 @@ export default function ShowPost() {
   return (
     <>
       <Head>
-        <title>{user?.name} | Bessa</title>
+        <title>{post?.user?.name} | Bessa</title>
       </Head>
       <Authentication>
         <Navigation />
