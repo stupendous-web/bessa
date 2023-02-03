@@ -7,5 +7,15 @@ export const formatDistance = (value) => {
   }
   value =
     unit === "ft" ? parseFloat(value).toFixed() : parseFloat(value).toFixed(2);
+
   return `${value} ${unit}`;
+};
+
+export const groupBy = (data, property) => {
+  return data.reduce((accumulator, object) => {
+    const key = object[property];
+    const curGroup = accumulator[key] ?? [];
+
+    return { ...accumulator, [key]: [...curGroup, object] };
+  }, {});
 };

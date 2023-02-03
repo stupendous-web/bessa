@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import axios from "axios";
+import { useGlobal } from "@/lib/context";
+import { useSession } from "next-auth/react";
+import { groupBy } from "@/utils/helpers";
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 
 export default function Index() {
-  const [messages, setMessages] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [groupedMessages, setGroupedMessages] = useState([]);
+  const { messages, isLoading } = useGlobal();
+  const { data: session } = useSession();
 
   useEffect(() => {
-    axios.get("/api/messages").then((response) => {
-      setMessages(response.data);
-      setIsLoading(false);
-    });
-  }, []);
+    setGroupedMessages(
+      Object.keys(groupBy(messages, "author"))
+        .map((key) => {
+          return messages
+            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            ?.find((message) => message?.author !== key);
+        })
+        .filter((message) => message?.author !== session?.user?._id)
+    );
+  }, [messages]);
 
   return (
     <>
@@ -29,10 +37,10 @@ export default function Index() {
             <p>Inbox</p>
             {!isLoading ? (
               <>
-                {messages?.map((message) => (
+                {groupedMessages?.map((message) => (
                   <Link
-                    key={message?._id?.author}
-                    href={`/app/messages/${message?._id?.author}`}
+                    key={message?.author}
+                    href={`/app/messages/${message?.author}`}
                   >
                     <div
                       className={"uk-flex-middle uk-grid-small uk-margin"}
@@ -45,7 +53,7 @@ export default function Index() {
                           style={{ height: 40, width: 40 }}
                         >
                           <img
-                            src={`https://cdn.bessssssa.com/avatars/${message?._id?.author}`}
+                            src={`https://cdn.bessssssa.com/avatars/${message?.author}`}
                             onError={(event) => {
                               event.currentTarget.src = "/images/avatar.jpg";
                             }}
@@ -57,6 +65,7 @@ export default function Index() {
                         <div className={"uk-text-bold"}>
                           {message?.authorMeta?.[0]?.name}
                         </div>
+                        <div>{message?.body}</div>
                       </div>
                     </div>
                   </Link>
