@@ -116,8 +116,8 @@ export default async function handler(request, response) {
         .collection("messages")
         .deleteMany({
           $or: [
-            { author: ObjectId(session?.user?._id) },
-            { recipient: ObjectId(session?.user?._id) },
+            { authorId: ObjectId(session?.user?._id) },
+            { recipientId: ObjectId(session?.user?._id) },
           ],
         });
 

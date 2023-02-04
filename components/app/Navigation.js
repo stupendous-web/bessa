@@ -60,7 +60,7 @@ export default function Navigation() {
       setNewMessages(
         messages?.filter(
           (message) =>
-            message?.recipient === session?.user?._id && !message?.isRead
+            message?.recipientId === session?.user?._id && !message?.isRead
         )
       );
   }, [authorId, messages]);
@@ -73,7 +73,7 @@ export default function Navigation() {
     channel.bind(
       "new-message",
       (data) =>
-        data.message.author !== authorId &&
+        data.message.authorId !== authorId &&
         setMessages([...messages, data.message])
     );
 

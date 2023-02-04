@@ -15,13 +15,13 @@ export default function Index() {
 
   useEffect(() => {
     setGroupedMessages(
-      Object.keys(groupBy(messages, "author"))
+      Object.keys(groupBy(messages, "authorId"))
         .map((key) => {
           return messages
             ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            ?.find((message) => message?.author === key);
+            ?.find((message) => message?.authorId === key);
         })
-        .filter((message) => message?.author !== session?.user?._id)
+        .filter((message) => message?.authorId !== session?.user?._id)
         ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     );
   }, [messages]);
@@ -40,8 +40,8 @@ export default function Index() {
               <>
                 {groupedMessages?.map((message) => (
                   <Link
-                    key={message?.author}
-                    href={`/app/messages/${message?.author}`}
+                    key={message?.authorId}
+                    href={`/app/messages/${message?.authorId}`}
                   >
                     <div
                       className={"uk-flex-middle uk-grid-small uk-margin"}
@@ -58,7 +58,7 @@ export default function Index() {
                           style={{ height: 40, width: 40 }}
                         >
                           <img
-                            src={`https://cdn.bessssssa.com/avatars/${message?.author}`}
+                            src={`https://cdn.bessssssa.com/avatars/${message?.authorId}`}
                             onError={(event) => {
                               event.currentTarget.src = "/images/avatar.jpg";
                             }}

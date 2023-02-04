@@ -43,7 +43,7 @@ export default function ShowMessages() {
     setFilteredMessages(
       messages?.filter(
         (message) =>
-          message?.author === authorId || message?.recipient === authorId
+          message?.authorId === authorId || message?.recipientId === authorId
       )
     );
   }, [messages]);
@@ -77,7 +77,7 @@ export default function ShowMessages() {
     event.preventDefault();
     setIsSending(true);
     axios
-      .post("/api/messages", { recipient: authorId, body: body })
+      .post("/api/messages", { recipientId: authorId, body: body })
       .then((response) => {
         setBody("");
         setMessages([...messages, response.data]);
@@ -134,14 +134,14 @@ export default function ShowMessages() {
                   <div key={message?._id}>
                     <div
                       className={
-                        message?.author === authorId
+                        message?.authorId === authorId
                           ? "uk-flex uk-flex-left"
                           : "uk-flex uk-flex-right"
                       }
                     >
                       <div
                         className={
-                          message?.author === authorId
+                          message?.authorId === authorId
                             ? "uk-section-muted uk-padding-small uk-padding-remove-vertical"
                             : "uk-section-primary uk-padding-small uk-padding-remove-vertical"
                         }
@@ -150,15 +150,15 @@ export default function ShowMessages() {
                           borderTopRightRadius: 5,
                           borderTopLeftRadius: 5,
                           borderBottomRightRadius:
-                            message?.author === authorId ? 5 : 0,
+                            message?.authorId === authorId ? 5 : 0,
                           borderBottomLeftRadius:
-                            message?.author !== authorId ? 5 : 0,
+                            message?.authorId !== authorId ? 5 : 0,
                         }}
                       >
                         {message?.body}
                       </div>
                     </div>
-                    {message?.author === authorId ? (
+                    {message?.authorId === authorId ? (
                       <div className={"uk-text-muted uk-flex uk-flex-left"}>
                         {dayjs(message?.createdAt).fromNow()}
                       </div>

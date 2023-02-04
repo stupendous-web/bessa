@@ -21,15 +21,15 @@ export default async function handler(request, response) {
           {
             $match: {
               $or: [
-                { author: ObjectId(session?.user?._id) },
-                { recipient: ObjectId(session?.user?._id) },
+                { authorId: ObjectId(session?.user?._id) },
+                { recipientId: ObjectId(session?.user?._id) },
               ],
             },
           },
           {
             $lookup: {
               from: "users",
-              localField: "author",
+              localField: "authorId",
               foreignField: "_id",
               as: "authorMeta",
             },
@@ -44,8 +44,8 @@ export default async function handler(request, response) {
         .updateMany(
           {
             $and: [
-              { recipient: ObjectId(session?.user?._id) },
-              { author: ObjectId(body?.authorId) },
+              { recipientId: ObjectId(session?.user?._id) },
+              { authorId: ObjectId(body?.authorId) },
             ],
           },
           {
@@ -58,9 +58,9 @@ export default async function handler(request, response) {
     case "POST":
       await collection
         .insertOne({
-          recipient: ObjectId(body?.recipient),
+          recipientId: ObjectId(body?.recipientId),
           body: body?.body,
-          author: ObjectId(session?.user?._id),
+          authorId: ObjectId(session?.user?._id),
           isRead: false,
           createdAt: new Date(),
         })
@@ -76,7 +76,7 @@ export default async function handler(request, response) {
                 cluster: "us3",
                 useTLS: true,
               });
-              await pusher.trigger(body?.recipient, "new-message", {
+              await pusher.trigger(body?.recipientId, "new-message", {
                 message: results[0],
               });
 
