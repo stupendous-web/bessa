@@ -8,6 +8,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 import PostMedia from "@/components/app/PostMedia";
+import LikeButton from "@/components/app/LikeButton";
 
 export default function Index() {
   const [posts, setPosts] = useState();
@@ -65,6 +66,7 @@ export default function Index() {
                         id={post?._id}
                       />
                     )}
+                    <LikeButton postId={post?._id} likes={post?.likes} />
                     <div className={"uk-margin"}>{post?.body}</div>
                   </div>
                 ))}
