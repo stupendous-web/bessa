@@ -17,12 +17,11 @@ export default function Index() {
     setGroupedMessages(
       Object.keys(groupBy(messages, "authorId"))
         .map((key) => {
-          return messages
-            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            ?.find((message) => message?.authorId === key);
+          return messages?.filter((message) => message?.authorId === key)[
+            messages?.filter((message) => message?.authorId === key).length - 1
+          ];
         })
         .filter((message) => message?.authorId !== session?.user?._id)
-        ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     );
   }, [messages]);
 
