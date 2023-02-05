@@ -105,6 +105,13 @@ export default async function handler(request, response) {
     case "DELETE":
       // Delete Profile Picture
 
+      // Delete Likes
+
+      await client
+        .db("bessa")
+        .collection("likes")
+        .deleteMany({ userId: ObjectId(session?.user?._id) });
+
       // Delete Posts
 
       // Delete Media

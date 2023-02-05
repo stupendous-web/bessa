@@ -100,6 +100,45 @@ export default async function handler(request, response) {
           response.status(200).send("Good things come to those who wait.");
         });
       break;
+    case "DELETE":
+      await collection
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { _id: ObjectId(query.postId) },
+                { userId: ObjectId(session?.user?._id) },
+              ],
+            },
+          },
+        ])
+        .toArray()
+        .then(async (results) => {
+          if (results) {
+            await storage
+              .bucket("bessa")
+              .file(`posts/${results[0]?._id}`)
+              .delete();
+            await client
+              .db("bessa")
+              .collection("likes")
+              .deleteMany({ postId: ObjectId(query.postId) })
+              .then(
+                async () =>
+                  await collection
+                    .deleteOne({ _id: ObjectId(query.postId) })
+                    .then(() =>
+                      response.send("Good things come to those who wait.")
+                    )
+                    .finally(() => client.close())
+              )
+              .finally(() => client.close());
+          } else {
+            response.status(402).send();
+          }
+        })
+        .finally(() => client.close());
+      break;
     default:
       response.status(405).send();
   }

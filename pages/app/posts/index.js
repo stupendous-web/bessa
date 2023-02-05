@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import dayjs from "dayjs";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
@@ -12,6 +13,7 @@ import LikeButton from "@/components/app/LikeButton";
 
 export default function Index() {
   const [posts, setPosts] = useState();
+  const { data: session } = useSession();
 
   useEffect(() => {
     axios
@@ -19,6 +21,13 @@ export default function Index() {
       .then((response) => setPosts(response.data))
       .catch((error) => console.log(error));
   }, []);
+
+  const handleDelete = (postId) => {
+    axios
+      .delete("/api/posts", { params: { postId: postId } })
+      .then(() => setPosts(posts?.filter((post) => post?._id !== postId)))
+      .catch((error) => console.log(error));
+  };
 
   dayjs.extend(relativeTime);
 
@@ -57,6 +66,29 @@ export default function Index() {
                           {post?.user[0]?.name}
                         </Link>{" "}
                         &middot; {dayjs(post?.createdAt).fromNow()}
+                      </div>
+                      <div className={"uk-width-auto"}>
+                        <a className={"uk-flex"}>
+                          <span className={"material-symbols-sharp"}>
+                            more_horiz
+                          </span>
+                        </a>
+                        <div
+                          data-uk-dropdown={"mode: click; pos: bottom-right"}
+                        >
+                          <ul class={"uk-nav uk-dropdown-nav"}>
+                            {post?.userId === session?.user?._id && (
+                              <li>
+                                <a onClick={() => handleDelete(post?._id)}>
+                                  Delete
+                                </a>
+                              </li>
+                            )}
+                            <li>
+                              <a>Report</a>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                     {post?.type && (
