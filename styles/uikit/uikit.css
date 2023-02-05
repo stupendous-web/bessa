@@ -5003,7 +5003,7 @@ ul.uk-nav-sub {
 /* Item
  ========================================================================== */
 .uk-navbar-item {
-  padding: 0 5px;
+  padding: 0 15px;
   color: #c6c6c6;
 }
 /*
@@ -5015,7 +5015,7 @@ ul.uk-nav-sub {
 /* Toggle
  ========================================================================== */
 .uk-navbar-toggle {
-  padding: 0 5px;
+  padding: 0 15px;
   color: #a8a8a8;
 }
 .uk-navbar-toggle:hover,

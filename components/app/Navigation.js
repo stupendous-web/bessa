@@ -142,7 +142,7 @@ export default function Navigation() {
         </div>
         <div className={"uk-navbar-right"}>
           <div className={"uk-navbar-item"}>
-            <div className={"uk-navbar-item"}>
+            <div className={"uk-navbar-item"} style={{ padding: "0 5px" }}>
               <a
                 href={"#publish-modal"}
                 className={"uk-flex"}
@@ -151,7 +151,7 @@ export default function Navigation() {
                 <span className={"material-symbols-sharp"}>edit</span>
               </a>
             </div>
-            <div className={"uk-navbar-item"}>
+            <div className={"uk-navbar-item"} style={{ padding: "0 5px" }}>
               <Link href={"/app/notifications"}>
                 <div className={"uk-inline uk-flex"}>
                   <span
@@ -173,7 +173,7 @@ export default function Navigation() {
                 </div>
               </Link>
             </div>
-            <div className={"uk-navbar-item"}>
+            <div className={"uk-navbar-item"} style={{ padding: "0 5px" }}>
               <Link href={"/app/messages"}>
                 <div className={"uk-inline uk-flex"}>
                   <span
@@ -195,7 +195,10 @@ export default function Navigation() {
                 </div>
               </Link>
             </div>
-            <div className={"uk-navbar-item"}>
+            <div
+              className={"uk-navbar-item"}
+              style={{ padding: "0 15px 0  5px" }}
+            >
               <a>
                 <div
                   className={"uk-cover-container uk-border-circle"}
