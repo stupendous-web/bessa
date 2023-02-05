@@ -35,7 +35,7 @@ export default function Index() {
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container uk-container-xsmall"}>
-            <p>Inbox</p>
+            <p className={"uk-text-bold"}>Inobx</p>
             {!isLoading ? (
               <>
                 {groupedMessages?.map((message) => (

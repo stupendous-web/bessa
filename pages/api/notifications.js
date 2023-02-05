@@ -14,7 +14,18 @@ export default async function handler(request, response) {
   switch (request.method) {
     case "GET":
       await collection
-        .find({ recipientId: ObjectId(session?.user?._id) })
+        .aggregate([
+          { $match: { recipientId: ObjectId(session?.user?._id) } },
+          {
+            $lookup: {
+              from: "users",
+              localField: "authorId",
+              foreignField: "_id",
+              as: "authorMeta",
+              pipeline: [{ $project: { _id: 1, name: 1 } }],
+            },
+          },
+        ])
         .toArray()
         .then((results) => response.send(results))
         .finally(() => client.close());
