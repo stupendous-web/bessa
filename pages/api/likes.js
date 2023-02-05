@@ -21,9 +21,22 @@ export default async function handler(request, response) {
           postId: ObjectId(body?.postId),
           userId: ObjectId(session?.user?._id),
         })
-        .then(() =>
-          response.status(200).send("Good things come to those who wait.")
-        )
+        .then(async () => {
+          await client
+            .db("bessa")
+            .collection("notifications")
+            .insertOne({
+              type: "like",
+              isRead: false,
+              postId: ObjectId(body?.postId),
+              userId: ObjectId(session?.user?._id),
+              createdAt: new Date(),
+            })
+            .then(() =>
+              response.status(200).send("Good things come to those who wait.")
+            )
+            .finally(() => client.close());
+        })
         .finally(() => client.close());
 
       break;

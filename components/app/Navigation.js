@@ -12,10 +12,11 @@ export default function Navigation() {
   const [file, setFile] = useState({});
   const [nSFW, setNSFW] = useState(false);
   const [newMessages, setNewMessages] = useState([]);
+  const [newNotifications, setNewNotifications] = useState([]);
   const { data: session } = useSession();
   const router = useRouter();
   const { authorId } = router.query;
-  const { messages, setMessages } = useGlobal();
+  const { messages, setMessages, notifications } = useGlobal();
 
   const sideLinks = [
     {
@@ -64,6 +65,17 @@ export default function Navigation() {
         )
       );
   }, [authorId, messages]);
+
+  useEffect(() => {
+    !authorId &&
+      setNewNotifications(
+        notifications?.filter(
+          (notification) =>
+            notification?.recipientId === session?.user?._id &&
+            !notification?.isRead
+        )
+      );
+  }, [authorId, notifications]);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -127,14 +139,6 @@ export default function Navigation() {
               />
             </a>
           </div>
-          <Link href={"/app/posts"} legacyBehavior>
-            <a
-              className={"uk-navbar-item uk-logo"}
-              style={{ fontSize: "1rem" }}
-            >
-              Bessa
-            </a>
-          </Link>
         </div>
         <div className={"uk-navbar-right"}>
           <div className={"uk-navbar-item"}>
@@ -145,6 +149,28 @@ export default function Navigation() {
                   style={{ fontSize: "1.5rem" }}
                 />
               </a>
+            </div>
+            <div className={"uk-navbar-item"}>
+              <Link href={"/app/notifications"}>
+                <div className={"uk-inline"}>
+                  <i
+                    className={"ri-notification-2-fill uk-flex"}
+                    style={{
+                      fontSize: "1.5rem",
+                      paddingRight: !!newNotifications?.length && "0 10px",
+                      lineHeight: 1.5,
+                    }}
+                  />
+                  {!!newNotifications?.length && (
+                    <span
+                      className="uk-badge uk-position-bottom-right uk-text-muted"
+                      style={{ backgroundColor: "#da1e28" }}
+                    >
+                      {newNotifications?.length}
+                    </span>
+                  )}
+                </div>
+              </Link>
             </div>
             <div className={"uk-navbar-item"}>
               <Link href={"/app/messages"}>

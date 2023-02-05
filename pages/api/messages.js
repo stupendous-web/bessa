@@ -60,8 +60,8 @@ export default async function handler(request, response) {
         .insertOne({
           recipientId: ObjectId(body?.recipientId),
           body: body?.body,
-          authorId: ObjectId(session?.user?._id),
           isRead: false,
+          authorId: ObjectId(session?.user?._id),
           createdAt: new Date(),
         })
         .then(async (result) => {
