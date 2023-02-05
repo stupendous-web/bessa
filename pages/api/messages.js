@@ -66,7 +66,17 @@ export default async function handler(request, response) {
         })
         .then(async (result) => {
           await collection
-            .find({ _id: result?.insertedId })
+            .aggregate([
+              { $match: { _id: result?.insertedId } },
+              {
+                $lookup: {
+                  from: "users",
+                  localField: "authorId",
+                  foreignField: "_id",
+                  as: "authorMeta",
+                },
+              },
+            ])
             .toArray()
             .then(async (results) => {
               const pusher = await new Pusher({

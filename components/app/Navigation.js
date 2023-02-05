@@ -209,7 +209,7 @@ export default function Navigation() {
             </div>
             <div
               className={"uk-navbar-item"}
-              style={{ padding: "0 15px 0  5px" }}
+              style={{ padding: "0 15px 0 5px" }}
             >
               <a>
                 <div
