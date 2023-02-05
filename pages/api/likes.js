@@ -21,22 +21,35 @@ export default async function handler(request, response) {
           postId: ObjectId(body?.postId),
           userId: ObjectId(session?.user?._id),
         })
-        .then(async () => {
-          await client
-            .db("bessa")
-            .collection("notifications")
-            .insertOne({
-              type: "like",
-              isRead: false,
-              postId: ObjectId(body?.postId),
-              userId: ObjectId(session?.user?._id),
-              createdAt: new Date(),
-            })
-            .then(() =>
-              response.status(200).send("Good things come to those who wait.")
-            )
-            .finally(() => client.close());
-        })
+        .then(
+          async () =>
+            await client
+              .db("bessa")
+              .collection("posts")
+              .find({ _id: ObjectId(body?.postId) })
+              .toArray()
+              .then(
+                async (results) =>
+                  await client
+                    .db("bessa")
+                    .collection("notifications")
+                    .insertOne({
+                      type: "like",
+                      isRead: false,
+                      postId: ObjectId(body?.postId),
+                      recipientId: ObjectId(results[0]?.userId),
+                      authorId: ObjectId(session?.user?._id),
+                      createdAt: new Date(),
+                    })
+                    .then(() =>
+                      response
+                        .status(200)
+                        .send("Good things come to those who wait.")
+                    )
+                    .finally(() => client.close())
+              )
+              .finally(() => client.close())
+        )
         .finally(() => client.close());
 
       break;

@@ -67,15 +67,14 @@ export default function Navigation() {
   }, [authorId, messages]);
 
   useEffect(() => {
-    !authorId &&
-      setNewNotifications(
-        notifications?.filter(
-          (notification) =>
-            notification?.recipientId === session?.user?._id &&
-            !notification?.isRead
-        )
-      );
-  }, [authorId, notifications]);
+    setNewNotifications(
+      notifications?.filter(
+        (notification) =>
+          notification?.recipientId === session?.user?._id &&
+          !notification?.isRead
+      )
+    );
+  }, [notifications]);
 
   useEffect(() => {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -157,7 +156,7 @@ export default function Navigation() {
                     className={"ri-notification-2-fill uk-flex"}
                     style={{
                       fontSize: "1.5rem",
-                      paddingRight: !!newNotifications?.length && "0 10px",
+                      paddingRight: !!newNotifications?.length && "10px",
                       lineHeight: 1.5,
                     }}
                   />
@@ -179,7 +178,7 @@ export default function Navigation() {
                     className={"ri-mail-fill uk-flex"}
                     style={{
                       fontSize: "1.5rem",
-                      paddingRight: !!newMessages?.length && "0 10px",
+                      paddingRight: !newMessages?.length && "10px",
                       lineHeight: 1.5,
                     }}
                   />
