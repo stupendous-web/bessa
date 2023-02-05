@@ -62,6 +62,14 @@ export default async function handler(request, response) {
               pipeline: [{ $project: { _id: 1, name: 1 } }],
             },
           },
+          {
+            $lookup: {
+              from: "likes",
+              localField: "_id",
+              foreignField: "postId",
+              as: "likes",
+            },
+          },
           { $sort: { createdAt: -1 } },
         ])
         .toArray()
@@ -91,17 +99,6 @@ export default async function handler(request, response) {
 
           response.status(200).send("Good things come to those who wait.");
         });
-      break;
-    case "PATCH":
-      await collection
-        .updateOne(
-          { _id: ObjectId(fields?.postId) },
-          {
-            $set: { likes: fields?.likes?.map((like) => ObjectId(like)) || [] },
-          }
-        )
-        .then(() => response.send("Good things come to those who wait."))
-        .finally(() => client.close());
       break;
     default:
       response.status(405).send();
