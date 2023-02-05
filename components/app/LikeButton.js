@@ -5,6 +5,7 @@ import axios from "axios";
 export default function LikeButton({ postId, likes }) {
   const [isActive, setIsActive] = useState(false);
   const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -14,21 +15,28 @@ export default function LikeButton({ postId, likes }) {
   }, [session, likes]);
 
   const handleLike = (postId) => {
-    if (!isActive) {
-      setIsActive(true);
-      setCount(count + 1);
-      axios.post("/api/likes", {
-        postId: postId,
-      });
-    } else {
-      setIsActive(false);
-      setCount(count - 1);
-      axios.delete("/api/likes", {
-        params: {
-          likeId: likes?.find((like) => like?.userId === session?.user?._id)
-            ?._id,
-        },
-      });
+    if (!isLoading) {
+      setIsLoading(true);
+      if (!isActive) {
+        setIsActive(true);
+        setCount(count + 1);
+        axios
+          .post("/api/likes", {
+            postId: postId,
+          })
+          .then(() => setIsLoading(false));
+      } else {
+        setIsActive(false);
+        setCount(count - 1);
+        axios
+          .delete("/api/likes", {
+            params: {
+              likeId: likes?.find((like) => like?.userId === session?.user?._id)
+                ?._id,
+            },
+          })
+          .then(() => setIsLoading(false));
+      }
     }
   };
 
