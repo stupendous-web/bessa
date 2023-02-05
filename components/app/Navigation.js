@@ -131,35 +131,37 @@ export default function Navigation() {
       >
         <div className={"uk-navbar-left"}>
           <div className={"uk-navbar-item"}>
-            <a href={"#side-navigation"} data-uk-toggle={""}>
-              <i
-                className={"ri-menu-fill uk-flex"}
-                style={{ fontSize: "1.5rem" }}
-              />
+            <a
+              href={"#side-navigation"}
+              className={"uk-flex"}
+              data-uk-toggle={""}
+            >
+              <span className={"material-symbols-sharp"}>menu</span>
             </a>
           </div>
         </div>
         <div className={"uk-navbar-right"}>
           <div className={"uk-navbar-item"}>
             <div className={"uk-navbar-item"}>
-              <a href={"#publish-modal"} data-uk-toggle={""}>
-                <i
-                  className={"ri-edit-2-fill uk-flex"}
-                  style={{ fontSize: "1.5rem" }}
-                />
+              <a
+                href={"#publish-modal"}
+                className={"uk-flex"}
+                data-uk-toggle={""}
+              >
+                <span className={"material-symbols-sharp"}>edit</span>
               </a>
             </div>
             <div className={"uk-navbar-item"}>
               <Link href={"/app/notifications"}>
-                <div className={"uk-inline"}>
-                  <i
-                    className={"ri-notification-2-fill uk-flex"}
+                <div className={"uk-inline uk-flex"}>
+                  <span
+                    className={"material-symbols-sharp"}
                     style={{
-                      fontSize: "1.5rem",
-                      paddingRight: !!newNotifications?.length && "10px",
-                      lineHeight: 1.5,
+                      paddingRight: !newMessages?.length && "10px",
                     }}
-                  />
+                  >
+                    notifications
+                  </span>
                   {!!newNotifications?.length && (
                     <span
                       className="uk-badge uk-position-bottom-right uk-text-muted"
@@ -173,15 +175,15 @@ export default function Navigation() {
             </div>
             <div className={"uk-navbar-item"}>
               <Link href={"/app/messages"}>
-                <div className={"uk-inline"}>
-                  <i
-                    className={"ri-mail-fill uk-flex"}
+                <div className={"uk-inline uk-flex"}>
+                  <span
+                    className={"material-symbols-sharp"}
                     style={{
-                      fontSize: "1.5rem",
                       paddingRight: !newMessages?.length && "10px",
-                      lineHeight: 1.5,
                     }}
-                  />
+                  >
+                    mail
+                  </span>
                   {!!newMessages?.length && (
                     <span
                       className="uk-badge uk-position-bottom-right uk-text-muted"
