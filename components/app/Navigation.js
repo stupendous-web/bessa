@@ -81,15 +81,27 @@ export default function Navigation() {
       cluster: "us3",
     });
     const channel = pusher.subscribe(session?.user?._id);
-    channel.bind(
-      "new-message",
-      (data) =>
-        data.message.authorId !== authorId &&
-        setMessages([...messages, data.message])
-    );
+    channel.bind("new-message", (data) => {
+      if (data.message.authorId !== authorId) {
+        setMessages([...messages, data.message]);
+        handleNotification();
+      }
+    });
 
     return () => pusher.unsubscribe(session?.user?._id);
   }, [authorId, messages]);
+
+  const handleNotification = () => {
+    if (Notification.permission === "granted") {
+      const notification = new Notification("New Messages!");
+    } else {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          const notification = new Notification("New Messages!");
+        }
+      });
+    }
+  };
 
   const handlePublish = (event) => {
     event.preventDefault();
@@ -157,7 +169,7 @@ export default function Navigation() {
                   <span
                     className={"material-symbols-sharp"}
                     style={{
-                      paddingRight: !newMessages?.length && "10px",
+                      paddingRight: newNotifications?.length && "10px",
                     }}
                   >
                     notifications
@@ -179,7 +191,7 @@ export default function Navigation() {
                   <span
                     className={"material-symbols-sharp"}
                     style={{
-                      paddingRight: !newMessages?.length && "10px",
+                      paddingRight: newMessages?.length && "10px",
                     }}
                   >
                     mail
