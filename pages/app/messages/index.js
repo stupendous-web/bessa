@@ -22,6 +22,7 @@ export default function Index() {
           ];
         })
         .filter((message) => message?.authorId !== session?.user?._id)
+        ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     );
   }, [messages]);
 
