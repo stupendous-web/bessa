@@ -160,11 +160,11 @@ export default function ShowMessages() {
                     </div>
                     {message?.authorId === authorId ? (
                       <div className={"uk-text-muted uk-flex uk-flex-left"}>
-                        {dayjs(message?.createdAt).fromNow()}
+                        {dayjs(message?.createdAt).fromNow()}{" "}
                       </div>
                     ) : (
                       <div className={"uk-text-muted uk-flex uk-flex-right"}>
-                        {dayjs(message?.createdAt).fromNow()}
+                        {dayjs(message?.createdAt).fromNow()}{" "}
                         {message?.isRead && <span>&nbsp;&middot; Read</span>}
                       </div>
                     )}
@@ -183,24 +183,25 @@ export default function ShowMessages() {
         </div>
         <div className={"uk-section-primary uk-padding-small"} ref={inputRef}>
           <form onSubmit={(event) => handleSubmit(event)}>
-            <div className={"uk-grid-small"} data-uk-grid={""}>
-              <div className={"uk-width-expand"}>
-                <input
-                  type={"text"}
-                  value={body}
-                  className={"uk-input"}
-                  onChange={(event) => setBody(event.currentTarget.value)}
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type={"submit"}
-                  value={"Send"}
-                  className={"uk-button uk-button-primary"}
-                  disabled={isSending}
-                />
-              </div>
+            <div className={"uk-width-1-1 uk-inline"}>
+              <input
+                type={"text"}
+                value={body}
+                className={"uk-input"}
+                style={{ paddingRight: "50px" }}
+                onChange={(event) => setBody(event.currentTarget.value)}
+                required
+              />
+              <button
+                type={"submit"}
+                value={"Send"}
+                className={
+                  "uk-button uk-button-link uk-position-center-right uk-flex uk-flex-middle uk-margin-right uk-height-1-1"
+                }
+                disabled={isSending}
+              >
+                <span className={"material-symbols-sharp"}>send</span>
+              </button>
             </div>
           </form>
         </div>

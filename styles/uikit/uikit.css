@@ -11910,6 +11910,9 @@ a:hover {
 h2 {
   text-transform: uppercase;
 }
+label {
+  margin-left: 18px;
+}
 ::selection {
   background: #8a3ffc;
 }
@@ -11918,6 +11921,17 @@ h2 {
 }
 .uk-button {
   text-transform: uppercase;
-  border-radius: 2rem;
+  border-radius: 4rem;
+}
+.uk-input {
+  border-radius: 4rem;
+  padding: 0 18px;
+}
+.uk-textarea {
+  border-radius: 18px;
+  padding: 0 18px;
+}
+.uk-modal-body {
+  border-radius: calc(18px * 2);
 }
 /*# sourceMappingURL=uikit.css.map */
