@@ -75,17 +75,17 @@ export default function Home() {
                 </Link>
               </p>
             </div>
-            <div className={"uk-flex-bottom uk-visible@s"}>
+            <div className={"uk-flex-bottom uk-flex-center uk-visible@s"}>
               <img
                 src={"../images/mockup.png"}
                 alt={"Bessa"}
-                style={{ marginBottom: "-11rem" }}
+                style={{ maxWidth: "250px", marginBottom: "-13rem" }}
               />
             </div>
           </div>
         </div>
       </div>
-      <div className={"uk-section uk-section-large"}>
+      <div className={"uk-section uk-section-xlarge"}>
         <div className={"uk-container uk-container-xsmall"}>
           <div className={"uk-child-width-1-3@s"} data-uk-grid={""}>
             {sections.map((section) => (
