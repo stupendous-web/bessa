@@ -283,11 +283,10 @@ export default function Navigation() {
                 </label>
               </div>
               <div>
-                <div className={"uk-inline"}>
-                  <i
-                    className={"ri-image-fill uk-text-large uk-link"}
-                    style={{ lineHeight: 1, display: "flex" }}
-                  />
+                <div className={"uk-inline uk-flex"}>
+                  <span className={"material-symbols-sharp uk-link"}>
+                    add_photo_alternate
+                  </span>
                   <input
                     type={"file"}
                     accept={"image/jpeg, image/png"}
