@@ -70,7 +70,7 @@ export default function Index() {
                         <div className={"uk-text-bold"}>
                           {message?.authorMeta?.[0]?.name}
                         </div>
-                        <div>{message?.body?.slice(0, 90)}</div>
+                        <div>{message?.body?.slice(0, 40)}</div>
                       </div>
                     </div>
                   </Link>
