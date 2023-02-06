@@ -160,11 +160,11 @@ export default function ShowMessages() {
                     </div>
                     {message?.authorId === authorId ? (
                       <div className={"uk-text-muted uk-flex uk-flex-left"}>
-                        {dayjs(message?.createdAt).fromNow()}
+                        {dayjs(message?.createdAt).fromNow() || ""}
                       </div>
                     ) : (
                       <div className={"uk-text-muted uk-flex uk-flex-right"}>
-                        {dayjs(message?.createdAt).fromNow()}
+                        {dayjs(message?.createdAt).fromNow() || ""}
                         {message?.isRead && <span>&nbsp;&middot; Read</span>}
                       </div>
                     )}
