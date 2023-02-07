@@ -84,14 +84,18 @@ export default function Navigation() {
     channel.bind("new-message", (data) => {
       if (data.message.authorId !== authorId) {
         setMessages([...messages, data.message]);
-        handleNotification();
+        sendNotification();
       }
     });
 
     return () => pusher.unsubscribe(`${session?.user?._id}`);
   }, [authorId, messages]);
 
-  const handleNotification = () => {
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
+
+  const sendNotification = () => {
     if (Notification.permission === "granted") {
       const notification = new Notification("New Messages!");
     } else {
