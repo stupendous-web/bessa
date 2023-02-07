@@ -80,7 +80,7 @@ export default function Navigation() {
     const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
       cluster: "us3",
     });
-    const channel = pusher.subscribe(session?.user?._id);
+    const channel = pusher.subscribe(`${session?.user?._id}`);
     channel.bind("new-message", (data) => {
       if (data.message.authorId !== authorId) {
         setMessages([...messages, data.message]);
@@ -88,7 +88,7 @@ export default function Navigation() {
       }
     });
 
-    return () => pusher.unsubscribe(session?.user?._id);
+    return () => pusher.unsubscribe(`${session?.user?._id}`);
   }, [authorId, messages]);
 
   const handleNotification = () => {

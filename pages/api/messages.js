@@ -86,7 +86,7 @@ export default async function handler(request, response) {
                 cluster: "us3",
                 useTLS: true,
               });
-              await pusher.trigger(body?.recipientId, "new-message", {
+              await pusher.trigger(`${body?.recipientId}`, "new-message", {
                 message: results[0],
               });
 
