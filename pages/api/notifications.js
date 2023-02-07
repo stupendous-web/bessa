@@ -31,6 +31,17 @@ export default async function handler(request, response) {
         .finally(() => client.close());
 
       break;
+    case "PATCH":
+      await collection
+        .updateMany(
+          { recipientId: ObjectId(session?.user?._id) },
+          {
+            $set: { isRead: true },
+          }
+        )
+        .then(() => response.send("Good things come to those who wait."))
+        .finally(() => client.close());
+      break;
     default:
       response.status(405).send();
   }

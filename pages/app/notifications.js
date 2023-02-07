@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useGlobal } from "@/lib/context";
+import axios from "axios";
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 
 export default function Notifications() {
   const { notifications } = useGlobal();
+
+  useEffect(() => {
+    axios.patch("/api/notifications");
+  }, []);
 
   return (
     <>
