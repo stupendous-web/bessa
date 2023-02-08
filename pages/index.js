@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 import Navigation from "../components/Navigation";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const sections = [
@@ -100,24 +101,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className={"uk-section uk-section-xsmall"}>
-        <div className={"uk-container uk-container-expand"}>
-          <div className={"uk-child-width-1-2"} data-uk-grid={""}>
-            <div>
-              &copy; 2023{" "}
-              <Link href={"https://stupendousweb.com"} legacyBehavior>
-                <a
-                  title={
-                    "Web App Development Services | Stupendous Web | If you want to build community, build a stupendous web app"
-                  }
-                >
-                  Stupendous Web
-                </a>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </>
   );
 }

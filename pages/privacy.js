@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import Navigation from "../components/Navigation";
+import Footer from "@/components/Footer";
 
 export default function Privacy() {
   return (
@@ -167,6 +168,7 @@ export default function Privacy() {
           <p>Effective as of February 08, 2023</p>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
