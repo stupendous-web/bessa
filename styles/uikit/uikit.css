@@ -11889,7 +11889,7 @@ iframe[data-uk-cover] {
   font-family: 'Material Symbols Sharp';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialsymbolssharp/v82/gNNBW2J8Roq16WD5tFNRaeLQk6-SHQ_R00k4c2_whPnoY9ruReYU3rHmz74m0ZkGH-VBYe1x0TV6x4yFH8F-HxOezEL3sVTgJtfbYxOLojCO.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/materialsymbolssharp/v83/gNNBW2J8Roq16WD5tFNRaeLQk6-SHQ_R00k4c2_whPnoY9ruReYU3rHmz74m0ZkGH-VBYe1x0TV6x4yFH8F-HxOezEL3sVTgJtfbYxOLojCO.ttf) format('truetype');
 }
 .material-symbols-sharp {
   font-family: 'Material Symbols Sharp';
@@ -11906,9 +11906,6 @@ iframe[data-uk-cover] {
 }
 a:hover {
   text-decoration: none;
-}
-h2 {
-  text-transform: uppercase;
 }
 label {
   margin-left: 18px;
