@@ -1,6 +1,11 @@
 import Link from "next/link";
 
 export default function Footer() {
+  const links = [
+    { href: "privacy", content: "Privacy" },
+    { href: "terms", content: "Terms" },
+  ];
+
   return (
     <div className={"uk-section uk-section-xsmall"}>
       <div className={"uk-container uk-container-expand"}>
@@ -18,15 +23,19 @@ export default function Footer() {
             </Link>
           </div>
           <div className={"uk-width-auto"}>
-            <Link href={"/privacy"} legacyBehavior>
-              <a
-                title={
-                  "Privacy | Stupendous Web | If you want to build community, build a stupendous web app"
-                }
-              >
-                Privacy
-              </a>
-            </Link>
+            <ul className={"uk-subnav"}>
+              {links.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} legacyBehavior>
+                    <a
+                      title={`${link.content} | Stupendous Web | If you want to build community, build a stupendous web app`}
+                    >
+                      {link.content}
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
