@@ -25,7 +25,6 @@ export default function Terms() {
             Bessa constitutes your agreement to all such Terms. Please read
             these terms carefully, and keep a copy of them for your reference.
           </p>
-          <p>Bessa is a Social Networking Site.</p>
           <h2>Electronic Communications</h2>
           <p>
             Visiting Bessa or sending emails to Bessa constitutes electronic
@@ -48,11 +47,10 @@ export default function Terms() {
             the right to refuse or cancel service, terminate accounts, or remove
             or edit content in our sole discretion.
           </p>
-          <h2>Children Under Thirteen</h2>
+          <h2>Children Under 18</h2>
           <p>
             Bessa does not knowingly collect, either online or offline, personal
-            information from persons under the age of thirteen. If you are under
-            18, you may use Bessa only with permission of a parent or guardian.
+            information from persons under the age of eighteen.
           </p>
           <h2>Links to Third Party Sites/Third Party Services</h2>
           <p>
@@ -364,8 +362,8 @@ export default function Terms() {
           </p>
           <h2>Contact Us</h2>
           <p>Bessa welcomes your questions or comments regarding the Terms:</p>
-          Bessa 5150 Spyglass Hill Dr. Las Vegas, California 89142 Email
-          Address: topher@stupendousweb.com Telephone number: (510) 944-0331
+          <div>topher@stupendousweb.com</div>
+          <div>(510) 944-0331</div>
           <p>Effective as of February 08, 2023</p>
         </div>
       </div>
