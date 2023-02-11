@@ -51,7 +51,7 @@ export default async function handler(request, response) {
       await collection
         .aggregate([
           ...(query?.postId
-            ? [{ $match: { _id: ObjectId(query?.postId) } }]
+            ? [{ $match: { _id: new ObjectId(query?.postId) } }]
             : []),
           {
             $lookup: {
@@ -84,7 +84,7 @@ export default async function handler(request, response) {
           body: fields?.body,
           ...(file?.mimetype && { type: file?.mimetype }),
           nSFW: fields?.nSFW === "true",
-          userId: ObjectId(session?.user?._id),
+          userId: new ObjectId(session?.user?._id),
           createdAt: new Date(),
         })
         .then(async (results) => {
@@ -106,8 +106,8 @@ export default async function handler(request, response) {
           {
             $match: {
               $and: [
-                { _id: ObjectId(query.postId) },
-                { userId: ObjectId(session?.user?._id) },
+                { _id: new ObjectId(query.postId) },
+                { userId: new ObjectId(session?.user?._id) },
               ],
             },
           },
@@ -122,11 +122,11 @@ export default async function handler(request, response) {
             await client
               .db("bessa")
               .collection("likes")
-              .deleteMany({ postId: ObjectId(query.postId) })
+              .deleteMany({ postId: new ObjectId(query.postId) })
               .then(
                 async () =>
                   await collection
-                    .deleteOne({ _id: ObjectId(query.postId) })
+                    .deleteOne({ _id: new ObjectId(query.postId) })
                     .then(() =>
                       response.send("Good things come to those who wait.")
                     )

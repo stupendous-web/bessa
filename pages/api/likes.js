@@ -18,15 +18,15 @@ export default async function handler(request, response) {
     case "POST":
       await collection
         .insertOne({
-          postId: ObjectId(body?.postId),
-          userId: ObjectId(session?.user?._id),
+          postId: new ObjectId(body?.postId),
+          userId: new ObjectId(session?.user?._id),
         })
         .then(
           async () =>
             await client
               .db("bessa")
               .collection("posts")
-              .find({ _id: ObjectId(body?.postId) })
+              .find({ _id: new ObjectId(body?.postId) })
               .toArray()
               .then(
                 async (results) =>
@@ -36,9 +36,9 @@ export default async function handler(request, response) {
                     .insertOne({
                       type: "like",
                       isRead: false,
-                      postId: ObjectId(body?.postId),
-                      recipientId: ObjectId(results[0]?.userId),
-                      authorId: ObjectId(session?.user?._id),
+                      postId: new ObjectId(body?.postId),
+                      recipientId: new ObjectId(results[0]?.userId),
+                      authorId: new ObjectId(session?.user?._id),
                       createdAt: new Date(),
                     })
                     .then(() =>
@@ -55,7 +55,7 @@ export default async function handler(request, response) {
       break;
     case "DELETE":
       await collection
-        .deleteOne({ _id: ObjectId(query?.likeId) })
+        .deleteOne({ _id: new ObjectId(query?.likeId) })
         .then(() =>
           response.status(200).send("Good things come to those who wait.")
         )

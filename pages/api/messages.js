@@ -21,8 +21,8 @@ export default async function handler(request, response) {
           {
             $match: {
               $or: [
-                { authorId: ObjectId(session?.user?._id) },
-                { recipientId: ObjectId(session?.user?._id) },
+                { authorId: new ObjectId(session?.user?._id) },
+                { recipientId: new ObjectId(session?.user?._id) },
               ],
             },
           },
@@ -44,8 +44,8 @@ export default async function handler(request, response) {
         .updateMany(
           {
             $and: [
-              { recipientId: ObjectId(session?.user?._id) },
-              { authorId: ObjectId(body?.authorId) },
+              { recipientId: new ObjectId(session?.user?._id) },
+              { authorId: new ObjectId(body?.authorId) },
             ],
           },
           {
@@ -58,10 +58,10 @@ export default async function handler(request, response) {
     case "POST":
       await collection
         .insertOne({
-          recipientId: ObjectId(body?.recipientId),
+          recipientId: new ObjectId(body?.recipientId),
           body: body?.body,
           isRead: false,
-          authorId: ObjectId(session?.user?._id),
+          authorId: new ObjectId(session?.user?._id),
           createdAt: new Date(),
         })
         .then(async (result) => {

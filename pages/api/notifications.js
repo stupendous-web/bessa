@@ -15,7 +15,7 @@ export default async function handler(request, response) {
     case "GET":
       await collection
         .aggregate([
-          { $match: { recipientId: ObjectId(session?.user?._id) } },
+          { $match: { recipientId: new ObjectId(session?.user?._id) } },
           {
             $lookup: {
               from: "users",
@@ -34,7 +34,7 @@ export default async function handler(request, response) {
     case "PATCH":
       await collection
         .updateMany(
-          { recipientId: ObjectId(session?.user?._id) },
+          { recipientId: new ObjectId(session?.user?._id) },
           {
             $set: { isRead: true },
           }

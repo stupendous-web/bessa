@@ -44,7 +44,7 @@ export default async function handler(request, response) {
       const match = [
         {
           $match: {
-            _id: ObjectId(query.userId),
+            _id: new ObjectId(query.userId),
           },
         },
       ];
@@ -91,7 +91,7 @@ export default async function handler(request, response) {
     case "PATCH":
       await collection
         .updateOne(
-          { _id: ObjectId(session?.user?._id) },
+          { _id: new ObjectId(session?.user?._id) },
           { $set: { ...body, lastActiveAt: new Date() } }
         )
         .then(() => {
@@ -110,7 +110,7 @@ export default async function handler(request, response) {
       await client
         .db("bessa")
         .collection("likes")
-        .deleteMany({ userId: ObjectId(session?.user?._id) });
+        .deleteMany({ userId: new ObjectId(session?.user?._id) });
 
       // Delete Posts
 
@@ -123,15 +123,15 @@ export default async function handler(request, response) {
         .collection("messages")
         .deleteMany({
           $or: [
-            { authorId: ObjectId(session?.user?._id) },
-            { recipientId: ObjectId(session?.user?._id) },
+            { authorId: new ObjectId(session?.user?._id) },
+            { recipientId: new ObjectId(session?.user?._id) },
           ],
         });
 
       // Delete User
 
       await collection
-        .deleteOne({ _id: ObjectId(session?.user?._id) })
+        .deleteOne({ _id: new ObjectId(session?.user?._id) })
         .then(async () => {
           await storage
             .bucket("bessa")
