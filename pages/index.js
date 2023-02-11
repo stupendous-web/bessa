@@ -42,8 +42,7 @@ export default function Home() {
     <>
       <Head>
         <title>
-          Bessa | FREE gay online dating, chat, social, and listings community |
-          Welcome to the gay supper club
+          FREE gay online dating, chat, social, and listings community | Bessa | Welcome to the gay supper club
         </title>
       </Head>
       <Navigation />
