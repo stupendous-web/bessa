@@ -31,6 +31,12 @@ export default function Publish() {
       })
       .catch((error) => {
         console.log(error);
+        if (error?.response?.status === 413) {
+          UIkit.notification({
+            message: "Try a smaller file.",
+            status: "danger",
+          });
+        }
         UIkit.notification({
           message: "Try something else.",
           status: "danger",
