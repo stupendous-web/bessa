@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { authOptions } from "./auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
+import { getServerSession } from "next-auth/next";
 const Pusher = require("pusher");
 
 export default async function handler(request, response) {
@@ -12,7 +12,7 @@ export default async function handler(request, response) {
 
   const req = request;
   const res = response;
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   switch (request.method) {
     case "GET":

@@ -1,7 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import { authOptions } from "./auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
+import { getServerSession } from "next-auth/next";
 const { Storage } = require("@google-cloud/storage");
 
 export default async function handler(request, response) {
@@ -14,7 +14,7 @@ export default async function handler(request, response) {
 
   const req = request;
   const res = response;
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   const storage = new Storage({
     project_id: "stupendous-web",
