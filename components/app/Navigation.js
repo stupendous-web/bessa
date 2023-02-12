@@ -155,6 +155,15 @@ export default function Navigation() {
               <span className={"material-symbols-sharp"}>menu</span>
             </a>
           </div>
+          <ul class={"uk-navbar-nav uk-visible@s"}>
+            {sideLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={`/app/${link.href}`} legacyBehavior>
+                  <a>{link.title}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className={"uk-navbar-right"}>
           <div className={"uk-navbar-item"}>

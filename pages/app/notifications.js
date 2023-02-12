@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useGlobal } from "@/lib/context";
 import axios from "axios";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
@@ -13,6 +15,8 @@ export default function Notifications() {
   useEffect(() => {
     axios.patch("/api/notifications");
   }, []);
+
+  dayjs.extend(relativeTime);
 
   return (
     <>
@@ -56,18 +60,19 @@ export default function Notifications() {
                     </Link>
                   </div>
                   <div className={"uk-width-expand"}>
-                    <div>
-                      {notification?.type === "like" && (
-                        <>
+                    {notification?.type === "like" && (
+                      <>
+                        <div>
                           <Link
                             href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
                           >
                             {notification?.authorMeta?.[0]?.name}
                           </Link>{" "}
                           liked one of your posts
-                        </>
-                      )}
-                    </div>
+                        </div>
+                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
