@@ -170,10 +170,10 @@ export default function Navigation() {
             <div className={"uk-navbar-item"} style={{ padding: "0 5px" }}>
               <a
                 href={"#publish-modal"}
-                className={"uk-flex"}
+                className={"uk-button uk-button-primary uk-button-small"}
                 data-uk-toggle={""}
               >
-                <span className={"material-symbols-sharp"}>edit</span>
+                Publish
               </a>
             </div>
             <div className={"uk-navbar-item"} style={{ padding: "0 5px" }}>
