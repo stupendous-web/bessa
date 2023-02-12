@@ -11924,7 +11924,8 @@ label {
   border-radius: 4rem;
   padding: 0 18px;
 }
-.uk-textarea {
+.uk-textarea,
+.uk-select {
   border-radius: 18px;
   padding: 0 18px;
 }

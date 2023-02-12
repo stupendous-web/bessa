@@ -93,7 +93,7 @@ export default function Index() {
                     </div>
                     {post?.type && (
                       <PostMedia
-                        nSFW={post?.nSFW}
+                        isNSFW={post?.isNSFW}
                         type={post?.type}
                         id={post?._id}
                       />

@@ -83,7 +83,9 @@ export default async function handler(request, response) {
         .insertOne({
           body: fields?.body,
           ...(file?.mimetype && { type: file?.mimetype }),
-          nSFW: fields?.nSFW === "true",
+          isNSFW: fields?.isNSFW === "true",
+          isPublic: fields?.isPublic === "true",
+          ...(!!fields?.flair ? { flair: fields?.flair } : {}),
           userId: new ObjectId(session?.user?._id),
           createdAt: new Date(),
         })

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function PostMedia({ nSFW, type, id }) {
+export default function PostMedia({ isNSFW, type, id }) {
   const [filter, setFilter] = useState(true);
 
   useEffect(() => {
-    setFilter(nSFW);
-  }, [nSFW]);
+    setFilter(isNSFW);
+  }, [isNSFW]);
 
   return (
     <>

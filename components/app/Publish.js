@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import UIkit from "uikit";
 
 export default function Publish() {
   const [body, setBody] = useState("");
   const [file, setFile] = useState({});
-  const [nSFW, setNSFW] = useState(false);
+  const [isNSFW, setIsNSFW] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
+  const [flair, setFlair] = useState("");
+
+  useEffect(() => {
+    isNSFW && setIsPublic(false);
+  }, [isNSFW, isPublic]);
+
+  const categories = ["Listing", "Event", "Service"];
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let formData = new FormData();
     formData.append("body", body);
     formData.append("file", file);
-    formData.append("nSFW", nSFW);
+    formData.append("isNSFW", isNSFW);
+    formData.append("isPublic", isPublic);
+    formData.append("flair", flair);
     axios
       .post("/api/posts", formData, {
         headers: {
@@ -23,7 +33,9 @@ export default function Publish() {
         UIkit.modal("#publish-modal").hide();
         setBody("");
         setFile({});
-        setNSFW(false);
+        setIsNSFW(false);
+        setIsPublic(false);
+        setFlair("");
         UIkit.notification({
           message: "Published!",
           status: "success",
@@ -67,23 +79,56 @@ export default function Publish() {
                 required
               />
             </div>
-            <div className={"uk-flex-middle"} data-uk-grid={""}>
-              <div className={"uk-width-expand"}>
-                <label>
+            <div className={"uk-flex-middle uk-grid-small"} data-uk-grid={""}>
+              <div>
+                <label className={"uk-margin-remove"}>
                   <input
                     type={"checkbox"}
-                    checked={nSFW}
+                    checked={isNSFW}
                     className={"uk-checkbox uk-margin-right"}
-                    onChange={() => setNSFW(!nSFW)}
+                    onChange={() => setIsNSFW(!isNSFW)}
                   />
-                  This is NSFW
+                  NSFW
                 </label>
               </div>
               <div>
+                <label className={"uk-margin-remove"}>
+                  <input
+                    type={"checkbox"}
+                    checked={isPublic}
+                    className={"uk-checkbox uk-margin-right"}
+                    onChange={() => setIsPublic(!isPublic)}
+                    disabled={isNSFW}
+                  />
+                  Public
+                </label>
+              </div>
+              <div className={"uk-width-expand"}>
+                <select
+                  className={"uk-select"}
+                  onChange={(event) => setFlair(event.currentTarget.value)}
+                >
+                  <option value={""} selected>
+                    Flair
+                  </option>
+                  {categories?.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
                 <div className={"uk-inline uk-flex"}>
-                  <span className={"material-symbols-sharp uk-link"}>
-                    add_photo_alternate
-                  </span>
+                  <div
+                    className={
+                      "uk-button uk-button-primary uk-icon-button uk-flex"
+                    }
+                  >
+                    <span className={"material-symbols-sharp"}>
+                      add_photo_alternate
+                    </span>
+                  </div>
                   <input
                     type={"file"}
                     accept={"image/jpeg, image/png, video/mp4"}
