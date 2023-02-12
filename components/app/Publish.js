@@ -36,11 +36,12 @@ export default function Publish() {
             message: "Try a smaller file.",
             status: "danger",
           });
+        } else {
+          UIkit.notification({
+            message: "Try something else.",
+            status: "danger",
+          });
         }
-        UIkit.notification({
-          message: "Try something else.",
-          status: "danger",
-        });
       });
   };
 
@@ -92,7 +93,10 @@ export default function Publish() {
                       width: "36px",
                       opacity: 0,
                     }}
-                    onChange={(event) => setFile(event.currentTarget.files[0])}
+                    onChange={(event) => {
+                      console.log(event.currentTarget.files[0].size);
+                      setFile(event.currentTarget.files[0]);
+                    }}
                   />
                 </div>
               </div>
