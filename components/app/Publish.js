@@ -8,6 +8,7 @@ export default function Publish() {
   const [isNSFW, setIsNSFW] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
   const [flair, setFlair] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     isNSFW && setIsPublic(false);
@@ -17,6 +18,7 @@ export default function Publish() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     let formData = new FormData();
     formData.append("body", body);
     formData.append("file", file);
@@ -36,6 +38,7 @@ export default function Publish() {
         setIsNSFW(false);
         setIsPublic(false);
         setFlair("");
+        setIsLoading(false);
         UIkit.notification({
           message: "Published!",
           status: "success",
@@ -43,6 +46,7 @@ export default function Publish() {
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
         if (error?.response?.status === 413) {
           UIkit.notification({
             message: "Try a smaller file.",
@@ -145,8 +149,9 @@ export default function Publish() {
               <div>
                 <input
                   type={"submit"}
-                  value={"Publish"}
+                  value={!isLoading ? "Publish" : "Posting"}
                   className={"uk-button uk-button-primary"}
+                  disabled={isLoading}
                 />
               </div>
             </div>
