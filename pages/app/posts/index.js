@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import UIkit from "uikit";
 import dayjs from "dayjs";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
@@ -23,10 +24,12 @@ export default function Index() {
   }, []);
 
   const handleDelete = (postId) => {
-    axios
-      .delete("/api/posts", { params: { postId: postId } })
-      .then(() => setPosts(posts?.filter((post) => post?._id !== postId)))
-      .catch((error) => console.log(error));
+    UIkit.modal.confirm("Are you sure?!").then(function () {
+      axios
+        .delete("/api/posts", { params: { postId: postId } })
+        .then(() => setPosts(posts?.filter((post) => post?._id !== postId)))
+        .catch((error) => console.log(error));
+    });
   };
 
   dayjs.extend(relativeTime);

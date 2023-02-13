@@ -117,10 +117,11 @@ export default async function handler(request, response) {
         .toArray()
         .then(async (results) => {
           if (results) {
-            await storage
-              .bucket("bessa")
-              .file(`posts/${results[0]?._id}`)
-              .delete();
+            results[0]?.type &&
+              (await storage
+                .bucket("bessa")
+                .file(`posts/${results[0]?._id}`)
+                .delete());
             await client
               .db("bessa")
               .collection("likes")
