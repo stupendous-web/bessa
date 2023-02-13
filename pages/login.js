@@ -16,12 +16,14 @@ export default function Login() {
       email: email,
       password: password,
       redirect: false,
-    }).then((response) => {
-      !response?.error
-        ? router.push("/app/posts")
-        : setError("Hmm. Something went wrong.");
-      console.log(response?.error);
-    });
+    })
+      .then((response) => {
+        !response?.error
+          ? router.push("/app/posts")
+          : setError("Hmm. Something went wrong.");
+        console.log(response?.error);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
