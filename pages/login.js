@@ -12,17 +12,17 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("password", password);
+    console.log({ email: email, password: password });
     signIn("credentials", {
       email: email,
       password: password,
       redirect: false,
     })
       .then((response) => {
+        console.log(response);
         if (!response?.error) {
           router.push("/app/posts");
         } else {
-          console.log(response);
           setError(
             response?.status === 401
               ? "Hmm. Your email and/or password may be wrong."
