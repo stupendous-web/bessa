@@ -36,7 +36,7 @@ export const authOptions = {
           email: credentials.email.toLowerCase(),
         });
         await client.close();
-        if (bcrypt.compareSync(credentials.password, user.password)) {
+        if (user && bcrypt.compareSync(credentials.password, user.password)) {
           return user;
         } else {
           return null;
