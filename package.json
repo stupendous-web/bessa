@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}; node email-cron.js",
+    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+    "poststart": "node email-cron.js",
     "lint": "next lint"
   },
   "dependencies": {
