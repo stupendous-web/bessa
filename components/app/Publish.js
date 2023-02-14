@@ -156,6 +156,13 @@ export default function Publish() {
               </div>
             </div>
           </form>
+          {!!flair && (
+            <div className={"uk-margin"}>
+              Be sure to abide by the Bessa terms of use and all your local
+              laws. Don&apos;t forget to include details about 📍 location, 🕒
+              hours, 💰 cost, 🛎️ any amenities, and 📞 how to get a hold of you.
+            </div>
+          )}
         </div>
       </div>
     </>
