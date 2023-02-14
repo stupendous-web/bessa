@@ -44,6 +44,8 @@ export default function PostMedia({ isNSFW, type, id }) {
               height={"1200"}
               loop
               muted
+              controls
+              controlsList={"nodownload"}
               playsInline
               data-uk-video={"autoplay: inview"}
               style={{
