@@ -3,6 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import { Browser as Logtail } from "@logtail/js";
+const logtail = new Logtail(process.env.NEXT_PUBLIC_LOGTAIL_TOKEN);
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,13 +14,13 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ email: email, password: password });
     signIn("credentials", {
       email: email,
       password: password,
       redirect: false,
     })
       .then((response) => {
+        logtail.info(response);
         console.log(response);
         if (!response?.error) {
           router.push("/app/posts");
@@ -32,7 +34,10 @@ export default function Login() {
           setPassword("");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        logtail.error(error);
+        console.log(error);
+      });
   };
 
   return (
