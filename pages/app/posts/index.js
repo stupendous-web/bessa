@@ -79,7 +79,7 @@ export default function Index() {
                         <div
                           data-uk-dropdown={"mode: click; pos: bottom-right"}
                         >
-                          <ul class={"uk-nav uk-dropdown-nav"}>
+                          <ul className={"uk-nav uk-dropdown-nav"}>
                             {post?.userId === session?.user?._id && (
                               <li>
                                 <a onClick={() => handleDelete(post?._id)}>
@@ -108,9 +108,9 @@ export default function Index() {
               </>
             ) : (
               <>
-                <p className={"uk-text-center"}>
+                <div className={"uk-text-center"}>
                   <div data-uk-spinner={""} />
-                </p>
+                </div>
               </>
             )}
           </div>

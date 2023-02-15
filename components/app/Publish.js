@@ -14,7 +14,12 @@ export default function Publish() {
     isNSFW && setIsPublic(false);
   }, [isNSFW, isPublic]);
 
-  const categories = ["Listing", "Event", "Service"];
+  const categories = [
+    { option: "Flair", value: "" },
+    { option: "Listings", value: "listing" },
+    { option: "Event", value: "event" },
+    { option: "Service", value: "service" },
+  ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -109,15 +114,13 @@ export default function Publish() {
               </div>
               <div className={"uk-width-expand"}>
                 <select
+                  value={flair}
                   className={"uk-select"}
                   onChange={(event) => setFlair(event.currentTarget.value)}
                 >
-                  <option value={""} selected>
-                    Flair
-                  </option>
                   {categories?.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
+                    <option key={category.value} value={category.value}>
+                      {category.option}
                     </option>
                   ))}
                 </select>
