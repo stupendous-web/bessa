@@ -22,9 +22,7 @@ export default function EditProfile() {
           setName(response.data.name);
           setDescription(response.data.description);
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => console.log(error));
   }, [session]);
 
   const handleSubmit = (event) => {

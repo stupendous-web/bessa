@@ -73,6 +73,7 @@ export default async function handler(request, response) {
             name: body.name,
             email: body.email.toLowerCase(),
             password: bcrypt.hashSync(body.password, 10),
+            settings: { emailNotifications: "weekly" },
             createdAt: new Date(),
           })
           .finally(() => {
