@@ -7,6 +7,9 @@ import UIkit from "uikit";
 import dayjs from "dayjs";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
+import { Browser as Logtail } from "@logtail/js";
+const logtail = new Logtail(process.env.NEXT_PUBLIC_LOGTAIL_TOKEN);
+
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 import PostMedia from "@/components/app/PostMedia";
@@ -15,6 +18,7 @@ import LikeButton from "@/components/app/LikeButton";
 export default function Index() {
   const [posts, setPosts] = useState();
   const { data: session } = useSession();
+  logtail.info(session);
 
   useEffect(() => {
     axios

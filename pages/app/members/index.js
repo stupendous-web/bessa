@@ -108,9 +108,9 @@ export default function Members() {
                   </div>
                 ) : (
                   <>
-                    <p className={"uk-text-center"}>
+                    <div className={"uk-text-center"}>
                       <div data-uk-spinner={""} />
-                    </p>
+                    </div>
                   </>
                 )}
               </>
