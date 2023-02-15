@@ -7,7 +7,6 @@
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
-    "poststart": "node email-cron.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -24,7 +23,6 @@
     "next": "^13.1.6",
     "next-auth": "^4.19.2",
     "next-sitemap": "^3.1.52",
-    "node-cron": "^3.0.2",
     "nodemailer": "^6.9.1",
     "pusher": "^5.1.2",
     "pusher-js": "^8.0.1",
