@@ -1,8 +1,6 @@
 import { MongoClient } from "mongodb";
 
 export default async function handler(request, response) {
-  const body = request.body;
-
   const client = new MongoClient(process.env.MONGO_DB_URI);
   const collection = client.db("bessa").collection("users");
   await client.connect();
@@ -10,9 +8,7 @@ export default async function handler(request, response) {
   switch (request.method) {
     case "POST":
       await collection
-        .aggregate([
-          { $match: { "settings.emailNotifications": body?.interval } },
-        ])
+        .aggregate([{ $match: { "settings.emailNotifications": "weekly" } }])
         .toArray()
         .then((results) => {
           response.json(results);
