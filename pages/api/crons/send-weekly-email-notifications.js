@@ -40,8 +40,12 @@ export default async function handler(request, response) {
         ])
         .toArray()
         .then(async (results) => {
-          await results?.map((result) => {
-            if (result?.messages?.length || result?.notifications?.length) {
+          await results
+            ?.filter(
+              (result) =>
+                result?.messages?.length || result?.notifications?.length
+            )
+            ?.map((result) => {
               transporter.sendMail({
                 from: "hello@bessssssa.com",
                 to: result?.email,
@@ -55,10 +59,16 @@ export default async function handler(request, response) {
                   "OPEN"
                 ),
               });
-            }
-          });
+            });
 
-          response.send(`${results?.length} emails sent!`);
+          response.send(
+            `${
+              results?.filter(
+                (result) =>
+                  result?.messages?.length || result?.notifications?.length
+              )?.length
+            } emails sent!`
+          );
         })
         .finally(() => client.close());
       break;
