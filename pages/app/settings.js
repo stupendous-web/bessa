@@ -97,7 +97,7 @@ export default function Settings() {
               >
                 Delete my Account
               </a>
-              <div className={"uk-text-danger uk-margin-left"}>
+              <div className={"uk-text-danger"}>
                 This will delete all your data and content and cannot be undone.
               </div>
             </div>
