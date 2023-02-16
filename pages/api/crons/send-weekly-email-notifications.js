@@ -21,10 +21,16 @@ export default async function handler(request, response) {
         to: "topher@stupendousweb.com",
         subject: "Somebody likes you!",
         text: "You have new notifications on Bessa!",
-        html: template("Topher"),
+        html: template(
+          "Topher",
+          "Somebody Likes You!",
+          "You have new notifications on Bessa.",
+          "https://bessssssa.com/app/messages",
+          "OPEN"
+        ),
       };
 
-      transporter.sendMail(message);
+      await transporter.sendMail(message);
 
       await collection
         .aggregate([{ $match: { "settings.emailNotifications": "weekly" } }])
