@@ -24,7 +24,7 @@ export default async function handler(request, response) {
         html: template("Topher"),
       };
 
-      transporter.send();
+      transporter.sendMail(message);
 
       await collection
         .aggregate([{ $match: { "settings.emailNotifications": "weekly" } }])
