@@ -33,7 +33,7 @@ export default async function handler(request, response) {
               from: "notifications",
               localField: "_id",
               foreignField: "recipientId",
-              as: "notfications",
+              as: "notifications",
               pipeline: [{ $match: { isRead: false } }],
             },
           },
