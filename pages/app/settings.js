@@ -13,6 +13,13 @@ export default function Settings() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  const emailNotfications = [
+    { option: "Off", value: "" },
+    { option: "Daily", value: "daily" },
+    { option: "Weekly", value: "weekly" },
+    { option: "Monthly", value: "monthly" },
+  ];
+
   useEffect(() => {
     session &&
       axios
@@ -74,9 +81,11 @@ export default function Settings() {
                     })
                   }
                 >
-                  <option value={""}>Off</option>
-                  <option value={"daily"}>Daily</option>
-                  <option value={"weekly"}>Weekly</option>
+                  {emailNotfications.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.option}
+                    </option>
+                  ))}
                 </select>
               </div>
               <input
