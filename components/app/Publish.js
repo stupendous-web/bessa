@@ -8,6 +8,7 @@ export default function Publish() {
   const [isNSFW, setIsNSFW] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
   const [flair, setFlair] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -65,6 +66,10 @@ export default function Publish() {
         }
       });
   };
+
+  useEffect(() => {
+    setError(file?.size >= 50331648 ? "Your media must be 48 MB or less." : "");
+  }, [file]);
 
   return (
     <>
@@ -154,11 +159,12 @@ export default function Publish() {
                   type={"submit"}
                   value={!isLoading ? "Publish" : "Posting"}
                   className={"uk-button uk-button-primary"}
-                  disabled={isLoading}
+                  disabled={isLoading || !!error}
                 />
               </div>
             </div>
           </form>
+          {!!error && <div className={"uk-margin uk-text-danger"}>{error}</div>}
           {!!flair && (
             <div className={"uk-margin"}>
               Be sure to abide by the Bessa terms of use and all your local
