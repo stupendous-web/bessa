@@ -39,8 +39,8 @@ export default async function handler(request, response) {
           },
         ])
         .toArray()
-        .then((results) => {
-          results?.map((result) => {
+        .then(async (results) => {
+          await results?.map((result) => {
             if (result?.messages?.length || result?.notifications?.length) {
               transporter.sendMail({
                 from: "hello@bessssssa.com",
@@ -57,11 +57,10 @@ export default async function handler(request, response) {
               });
             }
           });
+
+          response.send(`${results?.length} emails sent!`);
         })
-        .finally(() => {
-          client.close();
-          response.send("Good things come to those who wait.");
-        });
+        .finally(() => client.close());
       break;
     default:
       response.status(405).send();
