@@ -16,29 +16,52 @@ export default async function handler(request, response) {
         },
       });
 
-      let message = {
-        from: "hello@bessssssa.com",
-        to: "topher@stupendousweb.com",
-        subject: "Somebody likes you!",
-        text: "You have new notifications on Bessa!",
-        html: template(
-          "Topher",
-          "Somebody Likes You!",
-          "You have new notifications on Bessa.",
-          "https://bessssssa.com/app/messages",
-          "OPEN"
-        ),
-      };
-
-      await transporter.sendMail(message);
-
       await collection
-        .aggregate([{ $match: { "settings.emailNotifications": "weekly" } }])
+        .aggregate([
+          { $match: { "settings.emailNotifications": "weekly" } },
+          {
+            $lookup: {
+              from: "messages",
+              localField: "_id",
+              foreignField: "recipientId",
+              as: "messages",
+              pipeline: [{ $match: { isRead: false } }],
+            },
+          },
+          {
+            $lookup: {
+              from: "notifications",
+              localField: "_id",
+              foreignField: "recipientId",
+              as: "notfications",
+              pipeline: [{ $match: { isRead: false } }],
+            },
+          },
+        ])
         .toArray()
         .then((results) => {
-          response.json(results);
+          results?.map((result) => {
+            if (result?.messages?.length || result?.notifications?.length) {
+              transporter.sendMail({
+                from: "hello@bessssssa.com",
+                to: result?.email,
+                subject: "Somebody Likes You!",
+                text: "You have unread notifications on Bessa.",
+                html: template(
+                  result?.name,
+                  "Somebody Likes You!",
+                  "You have unread notifications on Bessa.",
+                  "https://bessssssa.com/app/messages",
+                  "OPEN"
+                ),
+              });
+            }
+          });
         })
-        .finally(() => client.close());
+        .finally(() => {
+          client.close();
+          response.send("Good things come to those who wait.");
+        });
       break;
     default:
       response.status(405).send();
