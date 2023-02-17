@@ -1,4 +1,4 @@
-export const template = (
+export const html = (
   name,
   headnig,
   body,
@@ -12,7 +12,7 @@ export const template = (
 <meta name="x-apple-disable-message-reformatting">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="telephone=no" name="format-detection">
-<title>New Template</title><!--[if (mso 16)]>
+<title>${headnig}</title><!--[if (mso 16)]>
 <style type="text/css">
 a {text-decoration: none;}
 </style>
@@ -118,7 +118,7 @@ style="height:41px; v-text-anchor:middle; width:112px" arcsize="50%" stroke="f" 
 <td align="left" style="padding:0;Margin:0;width:600px">
 <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-bottom:10px;padding-top:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:15px;margin-bottom:10px;color:#C6C6C6;font-size:10px">Bessa, 5150 Spyglass Hill Dr., Las Vegas, NV 89142</p></td>
+<td align="center" style="padding:0;Margin:0;padding-bottom:10px;padding-top:20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:15px;margin-bottom:10px;color:#C6C6C6;font-size:10px">Bessa. &copy; 2023. 5150 Spyglass Hill Dr., Las Vegas, NV 89142. hello@bessssssa.com</p></td>
 </tr>
 </table></td>
 </tr>
@@ -138,7 +138,7 @@ style="height:41px; v-text-anchor:middle; width:112px" arcsize="50%" stroke="f" 
 <td align="center" valign="top" style="padding:0;Margin:0;width:600px">
 <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" class="es-infoblock" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;line-height:12px;font-size:10px;color:#CCCCCC;margin-bottom:10px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:12px;margin-bottom:10px;color:#CCCCCC;font-size:10px"><a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#CCCCCC;font-size:10px"></a>No longer want to receive these emails? Change your notification settings in your <a target="_blank" href="https://bessssssa.com/app/settings" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#CCCCCC;font-size:10px">account</a>.<a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#CCCCCC;font-size:10px"></a></p></td>
+<td align="center" class="es-infoblock" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;line-height:12px;font-size:10px;color:#CCCCCC;margin-bottom:10px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:12px;margin-bottom:10px;color:#CCCCCC;font-size:10px"><a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#CCCCCC;font-size:10px"></a>No longer want to receive these emails? Change your notification settings in your <a target="_blank" href="https://bessssssa.com/app/settings" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#CCCCCC;font-size:10px">account</a> or reply to this email.<a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#CCCCCC;font-size:10px"></a></p></td>
 </tr>
 </table></td>
 </tr>
@@ -152,3 +152,6 @@ style="height:41px; v-text-anchor:middle; width:112px" arcsize="50%" stroke="f" 
 </div>
 </body>
 </html>`;
+
+export const plainText = (name, headnig, body) =>
+  `Somebody likes you! Hi, ${name}! ${body} Bessa. &copy; 2023. 5150 Spyglass Hill Dr., Las Vegas, NV 89142. hello@bessssssa.com. No longer want to receive these emails? Change your notification settings in your account or reply to this email.`;

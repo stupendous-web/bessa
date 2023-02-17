@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import nodemailer from "nodemailer";
-import { template } from "@/utils/emailTemplate";
+import { html, plainText } from "@/utils/emailTemplate";
 export default async function handler(request, response) {
   switch (request.method) {
     case "POST":
@@ -50,8 +50,12 @@ export default async function handler(request, response) {
                 from: "hello@bessssssa.com",
                 to: result?.email,
                 subject: "Somebody Likes You!",
-                text: "You have unread notifications on Bessa.",
-                html: template(
+                text: plainText(
+                  result?.name,
+                  "Somebody Likes You!",
+                  "You have unread notifications on Bessa."
+                ),
+                html: html(
                   result?.name,
                   "Somebody Likes You!",
                   "You have unread notifications on Bessa.",
