@@ -13,9 +13,8 @@ import PostMedia from "@/components/app/PostMedia";
 import LikeButton from "@/components/app/LikeButton";
 
 export default function Index() {
-  const [posts, setPosts] = useState();
-  const { data: session } = useSession();
-  console.log(session);
+  const [posts, setPosts] = useState([]);
+  const { data: session } = useSession([]);
 
   useEffect(() => {
     axios
@@ -33,6 +32,15 @@ export default function Index() {
     });
   };
 
+  const handleSort = (criteria) => {
+    criteria === "hot" &&
+      setPosts([...posts.sort((a, b) => b.likes.length - a.likes.length)]);
+    criteria === "recent" &&
+      setPosts([
+        ...posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+      ]);
+  };
+
   dayjs.extend(relativeTime);
 
   return (
@@ -44,6 +52,24 @@ export default function Index() {
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container uk-container-xsmall"}>
+            <a
+              className={"uk-button uk-button-default"}
+              onClick={() => handleSort("hot")}
+            >
+              <div className={"uk-flex"}>
+                <i className={"ri-fire-fill"} />
+                &nbsp;Hot
+              </div>
+            </a>{" "}
+            <a
+              className={"uk-button uk-button-default"}
+              onClick={() => handleSort("recent")}
+            >
+              <div className={"uk-flex"}>
+                <i className={"ri-time-fill"} />
+                &nbsp;Recent
+              </div>
+            </a>
             {!!posts?.length ? (
               <>
                 {posts?.map((post) => (
