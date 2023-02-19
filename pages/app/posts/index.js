@@ -152,7 +152,7 @@ export default function Index() {
                         <Link href={`/app/members/${comment?.users[0]?._id}`}>
                           {comment?.users[0]?.name}
                         </Link>{" "}
-                        says {comment?.body}
+                        {comment?.body}
                       </div>
                     ))}
                   </div>
