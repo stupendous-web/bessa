@@ -12,6 +12,7 @@ export default function CommentButton({ postId }) {
     axios
       .post("/api/comments", {
         postId: postId,
+        comment: comment,
       })
       .then(() => {
         setComment("");
