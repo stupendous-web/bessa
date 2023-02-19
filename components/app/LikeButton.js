@@ -41,15 +41,17 @@ export default function LikeButton({ postId, likes }) {
   };
 
   return (
-    <div className={"uk-flex uk-flex-middle uk-margin"}>
+    <div className={"uk-flex uk-flex-middle"}>
       <a
-        className={"uk-margin-right"}
+        className={"uk-flex uk-margin-right"}
         style={{ fontSize: "1.5rem", lineHeight: 1 }}
         onClick={() => handleLike(postId)}
       >
         <i className={isActive ? "ri-heart-fill" : "ri-heart-line"} />
       </a>
-      {count} like{count !== 1 && "s"}
+      <div>
+        {count} like{count !== 1 && "s"}
+      </div>
     </div>
   );
 }

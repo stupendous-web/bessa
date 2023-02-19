@@ -18,7 +18,6 @@ export default function Login() {
       redirect: false,
     })
       .then((response) => {
-        console.log(response);
         if (!response?.error) {
           router.push("/app/posts");
         } else {

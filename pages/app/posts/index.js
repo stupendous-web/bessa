@@ -11,6 +11,7 @@ import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 import PostMedia from "@/components/app/PostMedia";
 import LikeButton from "@/components/app/LikeButton";
+import CommentButton from "@/components/app/CommentButton";
 
 export default function Index() {
   const [posts, setPosts] = useState([]);
@@ -52,15 +53,22 @@ export default function Index() {
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container uk-container-xsmall"}>
+            <div className={"uk-margin"}>
+              <input
+                type={"text"}
+                className={"uk-input"}
+                placeholder={"Search"}
+              />
+            </div>
             <a
-              className={"uk-button uk-button-default"}
+              className={"uk-button uk-button-default uk-margin-right"}
               onClick={() => handleSort("hot")}
             >
               <div className={"uk-flex"}>
                 <i className={"ri-fire-fill"} />
                 &nbsp;Hot
               </div>
-            </a>{" "}
+            </a>
             <a
               className={"uk-button uk-button-default"}
               onClick={() => handleSort("recent")}
@@ -128,8 +136,17 @@ export default function Index() {
                         id={post?._id}
                       />
                     )}
-                    <LikeButton postId={post?._id} likes={post?.likes} />
-                    <div className={"uk-margin"}>{post?.body}</div>
+                    <div
+                      className={
+                        post?.type
+                          ? "uk-flex uk-flex-middle"
+                          : "uk-flex uk-flex-middle uk-margin-top"
+                      }
+                    >
+                      <CommentButton postId={post?._id} />
+                      <LikeButton postId={post?._id} likes={post?.likes} />
+                    </div>
+                    <div>{post?.body}</div>
                   </div>
                 ))}
               </>

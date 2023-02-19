@@ -101,7 +101,11 @@ export default function Register() {
                       className={"uk-checkbox"}
                       required
                     />{" "}
-                    I agree to play nice!
+                    I agree to <strong>play nice</strong> and the{" "}
+                    <Link href={"http://localhost:3000/terms"}>
+                      term and conditions
+                    </Link>
+                    .
                   </label>
                 </div>
                 {error && (

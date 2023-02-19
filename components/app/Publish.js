@@ -17,7 +17,7 @@ export default function Publish() {
 
   const categories = [
     { option: "Flair", value: "" },
-    { option: "Listings", value: "listing" },
+    { option: "Listing", value: "listing" },
     { option: "Event", value: "event" },
     { option: "Service", value: "service" },
   ];
