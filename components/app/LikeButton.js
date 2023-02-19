@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
-export default function LikeButton({ postId, likes }) {
+export default function LikeButton({ postId, userId, likes }) {
   const [isActive, setIsActive] = useState(false);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +23,7 @@ export default function LikeButton({ postId, likes }) {
         axios
           .post("/api/likes", {
             postId: postId,
+            userId: userId,
           })
           .then(() => setIsLoading(false));
       } else {

@@ -25,28 +25,17 @@ export default async function handler(request, response) {
           async () =>
             await client
               .db("bessa")
-              .collection("posts")
-              .find({ _id: new ObjectId(body?.postId) })
-              .toArray()
-              .then(
-                async (results) =>
-                  await client
-                    .db("bessa")
-                    .collection("notifications")
-                    .insertOne({
-                      type: "like",
-                      isRead: false,
-                      postId: new ObjectId(body?.postId),
-                      recipientId: new ObjectId(results[0]?.userId),
-                      authorId: new ObjectId(session?.user?._id),
-                      createdAt: new Date(),
-                    })
-                    .then(() =>
-                      response
-                        .status(200)
-                        .send("Good things come to those who wait.")
-                    )
-                    .finally(() => client.close())
+              .collection("notifications")
+              .insertOne({
+                type: "like",
+                isRead: false,
+                postId: new ObjectId(body?.postId),
+                recipientId: new ObjectId(body?.userId),
+                authorId: new ObjectId(session?.user?._id),
+                createdAt: new Date(),
+              })
+              .then(() =>
+                response.status(200).send("Good things come to those who wait.")
               )
               .finally(() => client.close())
         )

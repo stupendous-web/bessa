@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import UIkit from "uikit";
 
-export default function CommentButton({ postId }) {
+export default function CommentButton({ postId, userId }) {
   const [comment, setComment] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -13,6 +13,7 @@ export default function CommentButton({ postId }) {
       .post("/api/comments", {
         postId: postId,
         comment: comment,
+        userId: userId,
       })
       .then(() => {
         setComment("");

@@ -73,6 +73,20 @@ export default function Notifications() {
                         <div>{dayjs(notification?.createdAt).fromNow()}</div>
                       </>
                     )}
+                    {notification?.type === "comment" && (
+                      <>
+                        <div>
+                          <Link
+                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                          >
+                            {notification?.authorMeta?.[0]?.name}
+                          </Link>{" "}
+                          commented on one of your posts
+                        </div>
+                        <div>{notification?.preview}</div>
+                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

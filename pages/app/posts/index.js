@@ -143,8 +143,15 @@ export default function Index() {
                           : "uk-flex uk-flex-middle uk-margin-top"
                       }
                     >
-                      <CommentButton postId={post?._id} />
-                      <LikeButton postId={post?._id} likes={post?.likes} />
+                      <CommentButton
+                        postId={post?._id}
+                        userId={post?.user[0]?._id}
+                      />
+                      <LikeButton
+                        postId={post?._id}
+                        userId={post?.user[0]?._id}
+                        likes={post?.likes}
+                      />
                     </div>
                     <div>{post?.body}</div>
                     {post?.comments?.map((comment) => (

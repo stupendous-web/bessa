@@ -25,6 +25,7 @@ export default async function handler(request, response) {
               pipeline: [{ $project: { _id: 1, name: 1 } }],
             },
           },
+          { $sort: { createdAt: -1 } },
         ])
         .toArray()
         .then((results) => response.send(results))
