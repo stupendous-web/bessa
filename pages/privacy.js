@@ -27,7 +27,28 @@ export default function Privacy() {
       <Navigation />
       <div className={"uk-section"}>
         <div className={"uk-container"}>
-          <h1>Privacy Policy</h1>
+          <h1>Privacy Policy</h1>s
+          <div className={"uk-text-large"}>🎉 Bessa is 100% ad-free.</div>
+          <div className={"uk-text-large"}>
+            🎉 Your information will not be sold.
+          </div>
+          <div className={"uk-text-large"}>
+            🎉 Delete your information and media anytime.
+          </div>
+          <div className={"uk-text-large"}>🎉 Your information is safe!</div>
+          <div className={"uk-text-large"}>
+            ⚠️ Bessa stores your information to work properly.
+          </div>
+          <div className={"uk-text-large"}>
+            ⚠️ You&apos;ll receive emails from time to time.
+          </div>
+          <div className={"uk-text-large"}>
+            ⚠️ Bessa stores any additional information you enter.
+          </div>
+          <p>
+            Questions? Email{" "}
+            <a href={"mailto:hello@bessssssa.com"}>hello@bessssssa.com</a>
+          </p>
           <p>
             Protecting your private information is our priority. This Statement
             of Privacy applies to Bessa and governs data collection and usage.
@@ -37,20 +58,13 @@ export default function Privacy() {
             application, you consent to the data practices described in this
             statement.
           </p>
-          <div>🎉 Bessa is 100% ad-free.</div>
-          <div>🎉 Your information will not be sold.</div>
-          <div>🎉 Delete your information and media anytime.</div>
-          <div>🎉 Your information is safe!</div>
-          <div>⚠️ Bessa stores your information to work properly.</div>
-          <div>⚠️ You&apos;ll receive emails from time to time.</div>
-          <div>⚠️ Bessa stores any additional information you enter.</div>
           <h2>Collection of your Personal Information</h2>
           <p>
             In order to better provide you with products and services offered,
             Bessa may collect personally identifiable information, such as your:
           </p>
-          <div>✅ Name</div>
-          <div>✅ Email Address</div>
+          <div>Name</div>
+          <div>Email Address</div>
           <p>
             We do not collect any personal information about you unless you
             voluntarily provide it to us. However, you may be required to
@@ -93,10 +107,10 @@ export default function Privacy() {
             Subject to certain exceptions set out below, on receipt of a
             verifiable request from you, we will:
           </p>
-          <div>✅ Delete your personal information from our records; and</div>
-          <div>✅ Delete your personal media from our records; and</div>
+          <div>Delete your personal information from our records; and</div>
+          <div>Delete your personal media from our records; and</div>
           <div>
-            ✅ Direct any service providers to delete your personal information
+            Direct any service providers to delete your personal information
             from their records.
           </div>
           <p>
@@ -104,7 +118,7 @@ export default function Privacy() {
             delete your personal information if it is necessary to:
           </p>
           <div>
-            ❌ Complete the transaction for which the personal information was
+            Complete the transaction for which the personal information was
             collected, fulfill the terms of a written warranty or product recall
             conducted in accordance with federal law, provide a good or service
             requested by you, or reasonably anticipated within the context of
@@ -112,24 +126,24 @@ export default function Privacy() {
             contract between you and us;
           </div>
           <div>
-            ❌ Detect security incidents, protect against malicious, deceptive,
+            Detect security incidents, protect against malicious, deceptive,
             fraudulent, or illegal activity; or prosecute those responsible for
             that activity;
           </div>
           <div>
-            ❌ Debug to identify and repair errors that impair existing intended
+            Debug to identify and repair errors that impair existing intended
             functionality;
           </div>
           <div>
-            ❌ Exercise free speech, ensure the right of another consumer to
+            Exercise free speech, ensure the right of another consumer to
             exercise his or her right of free speech, or exercise another right
             provided for by law;
           </div>
           <div>
-            ❌ Comply with the California Electronic Communications Privacy Act;
+            Comply with the California Electronic Communications Privacy Act;
           </div>
           <div>
-            ❌ Engage in public or peer-reviewed scientific, historical, or
+            Engage in public or peer-reviewed scientific, historical, or
             statistical research in the public interest that adheres to all
             other applicable ethics and privacy laws, when our deletion of the
             information is likely to render impossible or seriously impair the
@@ -137,12 +151,12 @@ export default function Privacy() {
             informed consent;
           </div>
           <div>
-            ❌ Enable solely internal uses that are reasonably aligned with your
+            Enable solely internal uses that are reasonably aligned with your
             expectations based on your relationship with us;
           </div>
-          <div>❌ Comply with an existing legal obligation; or</div>
+          <div>Comply with an existing legal obligation; or</div>
           <div>
-            ❌ Otherwise use your personal information, internally, in a lawful
+            Otherwise use your personal information, internally, in a lawful
             manner that is compatible with the context in which you provided the
             information.
           </div>
@@ -175,8 +189,9 @@ export default function Privacy() {
             of Privacy. If you believe that Bessa has not adhered to this
             Statement, please contact Bessa at:
           </p>
-          <div>topher@stupendousweb.com</div>
-          <div>(510) 944-0331</div>
+          <div>
+            <a href={"mailto:hello@bessssssa.com"}>hello@bessssssa.com</a>
+          </div>
           <p>Effective as of February 08, 2023</p>
         </div>
       </div>

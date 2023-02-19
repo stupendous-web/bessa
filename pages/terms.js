@@ -28,6 +28,23 @@ export default function Terms() {
       <div className={"uk-section"}>
         <div className={"uk-container"}>
           <h1>Terms and Conditions</h1>
+          <div className={"uk-text-large"}>
+            ⚠️ You must help make this a safe place for LGBTQ+!!!
+          </div>
+          <div className={"uk-text-large"}>
+            ⚠️ Members must be 18 years or older.
+          </div>
+          <div className={"uk-text-large"}>
+            ⚠️ All local laws apply to Bessa.
+          </div>
+          <div className={"uk-text-large"}>
+            ⚠️ Accounts, data, and media are subject to deletion at our
+            discression.
+          </div>
+          <p>
+            Questions? Email{" "}
+            <a href={"mailto:hello@bessssssa.com"}>hello@bessssssa.com</a>
+          </p>
           <h2>Agreement between User and Bessa</h2>
           <p>
             Welcome to Bessa. The Bessa website (the &quot;Site&quot;) is
@@ -377,8 +394,9 @@ export default function Terms() {
           </p>
           <h2>Contact Us</h2>
           <p>Bessa welcomes your questions or comments regarding the Terms:</p>
-          <div>topher@stupendousweb.com</div>
-          <div>(510) 944-0331</div>
+          <div>
+            <a href={"mailto:hello@bessssssa.com"}>hello@bessssssa.com</a>
+          </div>
           <p>Effective as of February 08, 2023</p>
         </div>
       </div>
