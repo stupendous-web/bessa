@@ -45,6 +45,18 @@ export default function Home() {
           FREE gay online dating, chat, social, and listings community | Bessa |
           Welcome to the gay supper club
         </title>
+        <meta property={"og:url"} content={"https://bessssssa.com"} />
+        <meta
+          property={"og:title"}
+          content={
+            "FREE gay online dating, chat, social, and listings community | Bessa | Welcome to the gay supper club"
+          }
+        />
+        <meta
+          property={"og:image"}
+          content={"https://bessssssa.com/images/splash.jpg"}
+        />
+        <meta property={"og:type"} content={"website"} />
       </Head>
       <Navigation />
       <div
