@@ -54,7 +54,7 @@ export default function Home() {
         />
         <meta
           property={"og:image"}
-          content={"https://bessssssa.com/images/splash.jpg"}
+          content={"https://bessssssa.com/images/social.jpg"}
         />
         <meta property={"og:type"} content={"website"} />
       </Head>
