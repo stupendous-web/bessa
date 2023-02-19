@@ -145,6 +145,7 @@ export default async function handler(request, response) {
               .db("bessa")
               .collection("likes")
               .deleteMany({ postId: new ObjectId(query.postId) })
+              // TODO: Then Delete Comments
               .then(
                 async () =>
                   await collection

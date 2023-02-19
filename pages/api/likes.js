@@ -46,6 +46,8 @@ export default async function handler(request, response) {
       await collection
         .deleteOne({ _id: new ObjectId(query?.likeId) })
         .then(() =>
+          // TODO: Delete Notification
+
           response.status(200).send("Good things come to those who wait.")
         )
         .finally(() => client.close());

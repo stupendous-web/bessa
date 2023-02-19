@@ -104,20 +104,34 @@ export default async function handler(request, response) {
         .finally(() => client.close());
       break;
     case "DELETE":
-      // Delete Profile Picture
-
-      // Delete Likes
-
       await client
         .db("bessa")
         .collection("likes")
         .deleteMany({ userId: new ObjectId(session?.user?._id) });
 
-      // Delete Posts
+      await client
+        .db("bessa")
+        .collection("comments")
+        .deleteMany({ userId: new ObjectId(session?.user?._id) });
 
-      // Delete Media
+      await client
+        .db("bessa")
+        .collection("notifications")
+        .deleteMany({
+          authorId: new ObjectId(session?.user?._id),
+          recipientId: new ObjectId(session?.user?._id),
+        });
 
-      // Delete Messages
+      // TODO: Delete Profile Picture
+
+      await client
+        .db("bessa")
+        .collection("posts")
+        .deleteMany({
+          userId: new ObjectId(session?.user?._id),
+        });
+
+      // TODO: Delete Media
 
       await client
         .db("bessa")
@@ -128,8 +142,6 @@ export default async function handler(request, response) {
             { recipientId: new ObjectId(session?.user?._id) },
           ],
         });
-
-      // Delete User
 
       await collection
         .deleteOne({ _id: new ObjectId(session?.user?._id) })
