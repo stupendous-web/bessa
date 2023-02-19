@@ -70,6 +70,25 @@ export default async function handler(request, response) {
               as: "likes",
             },
           },
+          {
+            $lookup: {
+              from: "comments",
+              localField: "_id",
+              foreignField: "postId",
+              as: "comments",
+              pipeline: [
+                {
+                  $lookup: {
+                    from: "users",
+                    localField: "userId",
+                    foreignField: "_id",
+                    as: "users",
+                    pipeline: [{ $project: { _id: 1, name: 1 } }],
+                  },
+                },
+              ],
+            },
+          },
           { $sort: { createdAt: -1 } },
         ])
         .toArray()

@@ -147,6 +147,14 @@ export default function Index() {
                       <LikeButton postId={post?._id} likes={post?.likes} />
                     </div>
                     <div>{post?.body}</div>
+                    {post?.comments?.map((comment) => (
+                      <div key={comment?._id}>
+                        <Link href={`/app/members/${comment?.users[0]?._id}`}>
+                          {comment?.users[0]?.name}
+                        </Link>{" "}
+                        says {comment?.body}
+                      </div>
+                    ))}
                   </div>
                 ))}
               </>
