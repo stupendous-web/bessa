@@ -53,6 +53,17 @@ export default async function handler(request, response) {
           ...(query?.postId
             ? [{ $match: { _id: new ObjectId(query?.postId) } }]
             : []),
+          ...(query?.searchQuery
+            ? [
+                {
+                  $match: {
+                    $text: {
+                      $search: query?.searchQuery,
+                    },
+                  },
+                },
+              ]
+            : []),
           {
             $lookup: {
               from: "users",
