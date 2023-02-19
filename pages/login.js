@@ -40,6 +40,18 @@ export default function Login() {
           Login | Bessa | FREE gay online dating, chat, social, and listings
           community
         </title>
+        <meta property={"og:url"} content={"https://bessssssa.com"} />
+        <meta
+          property={"og:title"}
+          content={
+            "Login | Bessa | FREE gay online dating, chat, social, and listings community"
+          }
+        />
+        <meta
+          property={"og:image"}
+          content={"https://bessssssa.com/images/social.jpg"}
+        />
+        <meta property={"og:type"} content={"website"} />
       </Head>
       <div className={"uk-grid-collapse uk-flex-middle"} data-uk-grid={""}>
         <div

@@ -11,6 +11,18 @@ export default function Terms() {
           Terms | FREE gay online dating, chat, social, and listings community |
           Welcome to the gay supper club
         </title>
+        <meta property={"og:url"} content={"https://bessssssa.com"} />
+        <meta
+          property={"og:title"}
+          content={
+            "Terms | Bessa | FREE gay online dating, chat, social, and listings community"
+          }
+        />
+        <meta
+          property={"og:image"}
+          content={"https://bessssssa.com/images/social.jpg"}
+        />
+        <meta property={"og:type"} content={"website"} />
       </Head>
       <Navigation />
       <div className={"uk-section"}>

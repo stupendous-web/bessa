@@ -38,6 +38,18 @@ export default function Register() {
           Join for FREE! | Bessa | FREE gay online dating, chat, social, and
           listings community
         </title>
+        <meta property={"og:url"} content={"https://bessssssa.com"} />
+        <meta
+          property={"og:title"}
+          content={
+            "Join for FREE! | Bessa | FREE gay online dating, chat, social, and listings community"
+          }
+        />
+        <meta
+          property={"og:image"}
+          content={"https://bessssssa.com/images/social.jpg"}
+        />
+        <meta property={"og:type"} content={"website"} />
       </Head>
       <div className={"uk-grid-collapse uk-flex-middle"} data-uk-grid={""}>
         <div
