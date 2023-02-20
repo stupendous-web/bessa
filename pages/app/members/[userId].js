@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import axios from "axios";
 import dayjs from "dayjs";
 import { formatDistance } from "@/utils/helpers";
-import Link from "next/link";
 let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
@@ -16,7 +16,6 @@ export default function ShowProfile() {
     latitude: undefined,
     longitude: undefined,
   });
-
   const router = useRouter();
   const { userId } = router.query;
 
@@ -48,6 +47,12 @@ export default function ShowProfile() {
         .then((response) => setUser(response.data))
         .catch((error) => console.log(error));
   }, [userId, coords]);
+
+  const follow = () => {
+    axios.patch("/api/follow", {
+      userId: userId,
+    });
+  };
 
   dayjs.extend(relativeTime);
 
@@ -88,11 +93,23 @@ export default function ShowProfile() {
                 <div className={"uk-text-small uk-text-muted"}>
                   {dayjs(user?.lastActiveAt).fromNow()}
                 </div>
-                <Link href={`/app/messages/${user?._id}`} legacyBehavior>
-                  <a className={"uk-button uk-button-primary uk-margin"}>
-                    Message
+                <div className={"uk-margin"}>
+                  <a
+                    className={"uk-button uk-button-primary uk-margin-right"}
+                    onClick={() => follow()}
+                  >
+                    Follow
                   </a>
-                </Link>
+                  <Link href={`/app/messages/${user?._id}`} legacyBehavior>
+                    <a
+                      className={
+                        "uk-button uk-button-primary uk-icon-button uk-inline"
+                      }
+                    >
+                      <i className={"ri-mail-line uk-position-center"} />
+                    </a>
+                  </Link>
+                </div>
               </div>
             </div>
             <div className={"uk-margin"}>{user?.description}</div>
