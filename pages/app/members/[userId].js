@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 import axios from "axios";
 import dayjs from "dayjs";
 import { formatDistance } from "@/utils/helpers";
@@ -8,7 +9,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
-import Head from "next/head";
+import FollowButton from "@/components/app/FollowButton";
 
 export default function ShowProfile() {
   const [user, setUser] = useState({});
@@ -47,12 +48,6 @@ export default function ShowProfile() {
         .then((response) => setUser(response.data))
         .catch((error) => console.log(error));
   }, [userId, coords]);
-
-  const follow = () => {
-    axios.patch("/api/follow", {
-      userId: userId,
-    });
-  };
 
   dayjs.extend(relativeTime);
 
@@ -94,12 +89,7 @@ export default function ShowProfile() {
                   {dayjs(user?.lastActiveAt).fromNow()}
                 </div>
                 <div className={"uk-margin"}>
-                  <a
-                    className={"uk-button uk-button-primary uk-margin-right"}
-                    onClick={() => follow()}
-                  >
-                    Follow
-                  </a>
+                  <FollowButton userId={userId} />
                   <Link href={`/app/messages/${user?._id}`} legacyBehavior>
                     <a
                       className={

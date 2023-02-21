@@ -81,7 +81,35 @@ export default function Notifications() {
                           >
                             {notification?.authorMeta?.[0]?.name}
                           </Link>{" "}
-                          commented on one of your posts
+                          commented on one of your posts.
+                        </div>
+                        <div>{notification?.preview}</div>
+                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                      </>
+                    )}{" "}
+                    {notification?.type === "comment" && (
+                      <>
+                        <div>
+                          <Link
+                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                          >
+                            {notification?.authorMeta?.[0]?.name}
+                          </Link>{" "}
+                          commented on one of your posts.
+                        </div>
+                        <div>{notification?.preview}</div>
+                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                      </>
+                    )}
+                    {notification?.type === "follow" && (
+                      <>
+                        <div>
+                          <Link
+                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                          >
+                            {notification?.authorMeta?.[0]?.name}
+                          </Link>{" "}
+                          followed you.
                         </div>
                         <div>{notification?.preview}</div>
                         <div>{dayjs(notification?.createdAt).fromNow()}</div>
