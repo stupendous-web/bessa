@@ -50,9 +50,6 @@ export default async function handler(request, response) {
     case "GET":
       await collection
         .aggregate([
-          ...(query?.postId
-            ? [{ $match: { _id: new ObjectId(query?.postId) } }]
-            : []),
           ...(query?.searchQuery
             ? [
                 {
