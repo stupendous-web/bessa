@@ -1,8 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 
 import Navigation from "../components/Navigation";
 import Footer from "@/components/Footer";
+
+import mockup from "../images/mockup.png";
 
 export default function Home() {
   const sections = [
@@ -63,42 +66,39 @@ export default function Home() {
         className={"uk-section uk-section-xlarge uk-background-cover"}
         style={{ backgroundImage: "url('/images/splash.jpg')" }}
       >
-        <div className={"uk-container"}>
-          <div
-            className={"uk-child-width-1-2@s uk-grid-match"}
-            data-uk-grid={""}
-          >
-            <div className={"uk-flex-middle"}>
-              <h1>Welcome to the gay supper club.</h1>
-              <p className={"uk-text-large"}>
-                FREE gay online dating, chat, social, and listings community.
-              </p>
-              <p>
-                <Link href={"/register"} legacyBehavior>
-                  <a
-                    className={
-                      "uk-button uk-button-secondary uk-button-large uk-margin-right"
-                    }
-                  >
-                    Join for FREE 😈
-                  </a>
-                </Link>
-                <Link href={"/login"} legacyBehavior>
-                  <a className={"uk-text-muted uk-text-uppercase"}>Login</a>
-                </Link>
-              </p>
-            </div>
-            <div className={"uk-flex-bottom uk-flex-center uk-visible@s"}>
-              <img
-                src={"../images/mockup.png"}
-                alt={"Bessa"}
-                style={{ maxWidth: "250px", marginBottom: "-13rem" }}
-              />
-            </div>
+        <div className={"uk-container uk-container-xsmall"}>
+          <div className={"uk-flex-middle"}>
+            <h1>Welcome to the gay supper club.</h1>
+            <p className={"uk-text-large"}>
+              FREE gay online dating, chat, social, and listings community.
+            </p>
+            <p>
+              <Link href={"/register"} legacyBehavior>
+                <a
+                  className={
+                    "uk-button uk-button-secondary uk-button-large uk-margin-right"
+                  }
+                >
+                  Join for FREE 😈
+                </a>
+              </Link>
+              <Link href={"/login"} legacyBehavior>
+                <a className={"uk-text-muted uk-text-uppercase"}>Login</a>
+              </Link>
+            </p>
           </div>
         </div>
       </div>
-      <div className={"uk-section uk-section-xlarge"}>
+      <div
+        className={"uk-container uk-container-xsmall"}
+        style={{ marginTop: "-81px" }}
+      >
+        <Image
+          src={mockup}
+          alt={"FREE gay online dating, chat, social, and listings community"}
+        />
+      </div>
+      <div className={"uk-section"}>
         <div className={"uk-container uk-container-xsmall"}>
           <div className={"uk-child-width-1-3@s"} data-uk-grid={""}>
             {sections.map((section) => (
