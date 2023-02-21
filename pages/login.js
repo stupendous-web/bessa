@@ -59,7 +59,10 @@ export default function Login() {
           style={{ backgroundImage: "url('/images/splash.jpg')" }}
           data-uk-height-viewport={""}
         />
-        <div className={"uk-width-1-3@s"}>
+        <div
+          className={"uk-width-1-3@s"}
+          style={{ maxHeight: "100vh", overflowX: "auto" }}
+        >
           <div className={"uk-section"}>
             <div className={"uk-container"}>
               <Link href={"/"} legacyBehavior>
