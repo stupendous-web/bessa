@@ -10,7 +10,7 @@ import Navigation from "@/components/app/Navigation";
 import Head from "next/head";
 
 export default function Members() {
-  const [users, setUsers] = useState();
+  const [users, setUsers] = useState([]);
   const [isPermissionDenied, setIsPermissionDenied] = useState(false);
   const [coords, setCoords] = useState({
     latitude: undefined,
@@ -47,6 +47,21 @@ export default function Members() {
         .catch((error) => console.log(error));
   }, [coords]);
 
+  const handleSort = (criteria) => {
+    criteria === "distance" &&
+      setUsers([...users.sort((a, b) => a.distance - b.distance)]);
+    criteria === "online" &&
+      setUsers([
+        ...users.sort(
+          (a, b) => new Date(b.lastActiveAt) - new Date(a.lastActiveAt)
+        ),
+      ]);
+    criteria === "new" &&
+      setUsers([
+        ...users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+      ]);
+  };
+
   dayjs.extend(relativeTime);
 
   return (
@@ -58,6 +73,26 @@ export default function Members() {
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>
           <div className={"uk-container"}>
+            <div className={"uk-margin"}>
+              <a
+                className={"uk-button uk-button-default uk-margin-right"}
+                onClick={() => handleSort("distance")}
+              >
+                Distance
+              </a>
+              <a
+                className={"uk-button uk-button-default uk-margin-right"}
+                onClick={() => handleSort("online")}
+              >
+                Online
+              </a>
+              <a
+                className={"uk-button uk-button-default"}
+                onClick={() => handleSort("new")}
+              >
+                New
+              </a>
+            </div>
             {!isPermissionDenied ? (
               <>
                 {!!users?.map ? (
