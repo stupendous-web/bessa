@@ -10,6 +10,7 @@ let relativeTime = require("dayjs/plugin/relativeTime");
 import Authentication from "@/components/app/Authentication";
 import Navigation from "@/components/app/Navigation";
 import FollowButton from "@/components/app/FollowButton";
+import Posts from "@/components/app/Posts";
 
 export default function ShowProfile() {
   const [user, setUser] = useState({});
@@ -17,6 +18,8 @@ export default function ShowProfile() {
     latitude: undefined,
     longitude: undefined,
   });
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { userId } = router.query;
 
@@ -49,6 +52,17 @@ export default function ShowProfile() {
         .catch((error) => console.log(error));
   }, [userId, coords]);
 
+  useEffect(() => {
+    user &&
+      axios
+        .get("/api/posts", { params: { userId: user?._id } })
+        .then((response) => {
+          setPosts(response.data);
+          setIsLoading(false);
+        })
+        .catch((error) => console.log(error));
+  }, [user]);
+
   dayjs.extend(relativeTime);
 
   return (
@@ -59,7 +73,7 @@ export default function ShowProfile() {
       <Authentication>
         <Navigation />
         <div className={"uk-section uk-section-xsmall"}>
-          <div className={"uk-container uk-container-small"}>
+          <div className={"uk-container uk-container-xsmall"}>
             <div className={"uk-flex-middle"} data-uk-grid={""}>
               <div className={"uk-width-auto"}>
                 <div>
@@ -103,6 +117,17 @@ export default function ShowProfile() {
               </div>
             </div>
             <div className={"uk-margin"}>{user?.description}</div>
+            {!isLoading ? (
+              <>
+                <Posts posts={posts} setPosts={setPosts} />
+              </>
+            ) : (
+              <>
+                <div className={"uk-text-center"}>
+                  <div data-uk-spinner={""} />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </Authentication>

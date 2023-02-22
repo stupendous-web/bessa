@@ -50,12 +50,19 @@ export default async function handler(request, response) {
     case "GET":
       await collection
         .aggregate([
+          ...(query?.userId
+            ? [
+                {
+                  $match: { userId: new ObjectId(query.userId) },
+                },
+              ]
+            : []),
           ...(query?.searchQuery
             ? [
                 {
                   $match: {
                     $text: {
-                      $search: query?.searchQuery,
+                      $search: query.searchQuery,
                     },
                   },
                 },
