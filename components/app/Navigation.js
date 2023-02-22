@@ -89,18 +89,20 @@ export default function Navigation() {
   }, [authorId, messages]);
 
   useEffect(() => {
-    Notification.requestPermission();
+    "Notification" in window && Notification.requestPermission();
   }, []);
 
   const sendNotification = () => {
-    if (Notification.permission === "granted") {
-      const notification = new Notification("New Messages!");
-    } else {
-      Notification.requestPermission().then((permission) => {
-        if (permission === "granted") {
-          const notification = new Notification("New Messages!");
-        }
-      });
+    if ("Notification" in window) {
+      if (Notification.permission === "granted") {
+        const notification = new Notification("New Messages!");
+      } else {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            const notification = new Notification("New Messages!");
+          }
+        });
+      }
     }
   };
 
