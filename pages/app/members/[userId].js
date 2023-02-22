@@ -53,7 +53,7 @@ export default function ShowProfile() {
   }, [userId, coords]);
 
   useEffect(() => {
-    user &&
+    user?._id &&
       axios
         .get("/api/posts", { params: { userId: user?._id } })
         .then((response) => {
