@@ -103,7 +103,7 @@ export default function ShowProfile() {
                   {dayjs(user?.lastActiveAt).fromNow()}
                 </div>
                 <div className={"uk-margin"}>
-                  <FollowButton userId={userId} />
+                  <FollowButton userId={userId} followers={user?.followers} />
                   <Link href={`/app/messages/${user?._id}`} legacyBehavior>
                     <a
                       className={

@@ -11,6 +11,7 @@ export default function Authentication({ children }) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         axios.patch("/api/users", {
+          userId: session?.user?._id,
           location: {
             type: "Point",
             coordinates: [position.coords.longitude, position.coords.latitude],

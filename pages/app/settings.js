@@ -33,7 +33,7 @@ export default function Settings() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .patch("/api/users", { settings: settings })
+      .patch("/api/users", { userId: session?.user?._id, settings: settings })
       .then(() =>
         UIkit.notification({
           message: "Saved!",

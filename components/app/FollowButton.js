@@ -2,27 +2,23 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function FollowButton({ userId }) {
+export default function FollowButton({ userId, followers = [] }) {
   const [isFollowing, setIsFollowing] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
 
   useEffect(() => {
     session &&
-      axios
-        .get("/api/users", { params: { userId: session?.user?._id } })
-        .then((response) => {
-          setIsFollowing(!!response.data?.accounts?.includes(userId));
-          setIsLoading(false);
-        })
-        .catch((error) => console.log(error));
-  }, [session]);
+      followers &&
+      setIsFollowing(!!followers?.includes(session?.user?._id));
+  }, [session, followers]);
 
   const follow = () => {
     setIsLoading(true);
     axios
-      .patch("/api/follow", {
+      .patch("/api/users", {
         userId: userId,
+        followers: [...followers, session?.user?._id],
       })
       .then(() => {
         setIsFollowing(true);
@@ -32,10 +28,17 @@ export default function FollowButton({ userId }) {
 
   const unfollow = () => {
     setIsLoading(true);
-    axios.delete("/api/follow", { params: { userId: userId } }).then(() => {
-      setIsFollowing(false);
-      setIsLoading(false);
-    });
+    axios
+      .patch("/api/users", {
+        userId: userId,
+        followers: followers?.filter(
+          (follower) => follower !== session?.user?._id
+        ),
+      })
+      .then(() => {
+        setIsFollowing(false);
+        setIsLoading(false);
+      });
   };
 
   return (

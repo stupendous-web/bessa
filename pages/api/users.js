@@ -92,7 +92,7 @@ export default async function handler(request, response) {
     case "PATCH":
       await collection
         .updateOne(
-          { _id: new ObjectId(session?.user?._id) },
+          { _id: new ObjectId(body?.userId) },
           { $set: { ...body, lastActiveAt: new Date() } }
         )
         .then(() => {

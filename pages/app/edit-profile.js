@@ -28,7 +28,11 @@ export default function EditProfile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .patch("/api/users", { name: name, description: description })
+      .patch("/api/users", {
+        userId: session?.user?._id,
+        name: name,
+        description: description,
+      })
       .then(() =>
         UIkit.notification({
           message: "Saved!",
