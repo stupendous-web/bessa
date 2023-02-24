@@ -102,6 +102,10 @@ export default function ShowProfile() {
                 <div className={"uk-text-small uk-text-muted"}>
                   {dayjs(user?.lastActiveAt).fromNow()}
                 </div>
+                <div>
+                  {user?.followers?.length || 0} follower
+                  {user?.followers?.length !== 1 && "s"}
+                </div>
                 <div className={"uk-margin"}>
                   <FollowButton userId={userId} followers={user?.followers} />
                   <Link href={`/app/messages/${user?._id}`} legacyBehavior>
