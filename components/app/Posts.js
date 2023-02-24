@@ -26,7 +26,7 @@ export default function Posts({ posts, setPosts }) {
         <div className={"uk-margin"} key={post._id}>
           <div className={"uk-flex-middle uk-grid-small"} data-uk-grid={""}>
             <div className={"uk-width-auto"}>
-              <Link href={`/app/members/${post?.user[0]?._id}`}>
+              <Link href={`/app/members/${post?.user?.[0]?._id}`}>
                 <div
                   className={"uk-cover-container uk-border-circle"}
                   style={{ height: 40, width: 40 }}
@@ -42,8 +42,8 @@ export default function Posts({ posts, setPosts }) {
               </Link>
             </div>
             <div className={"uk-width-expand"}>
-              <Link href={`/app/members/${post?.user[0]?._id}`}>
-                {post?.user[0]?.name}
+              <Link href={`/app/members/${post?.user?.[0]?._id}`}>
+                {post?.user?.[0]?.name}
               </Link>{" "}
               &middot; {dayjs(post?.createdAt).fromNow()}
             </div>
@@ -75,17 +75,17 @@ export default function Posts({ posts, setPosts }) {
                 : "uk-flex uk-flex-middle uk-margin-top"
             }
           >
-            <CommentButton postId={post?._id} userId={post?.user[0]?._id} />
+            <CommentButton postId={post?._id} userId={post?.user?.[0]?._id} />
             <LikeButton
               postId={post?._id}
-              userId={post?.user[0]?._id}
+              userId={post?.user?.[0]?._id}
               likes={post?.likes}
             />
           </div>
           <div>{post?.body}</div>
           {post?.comments?.map((comment) => (
             <div key={comment?._id}>
-              <Link href={`/app/members/${comment?.users[0]?._id}`}>
+              <Link href={`/app/members/${comment?.users?.[0]?._id}`}>
                 {comment?.users[0]?.name}
               </Link>{" "}
               {comment?.body}

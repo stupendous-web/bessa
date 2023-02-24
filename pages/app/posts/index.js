@@ -36,12 +36,17 @@ export default function Index() {
   };
 
   const handleSort = (criteria) => {
-    criteria === "hot" &&
-      setPosts([...posts.sort((a, b) => b.likes.length - a.likes.length)]);
-    criteria === "recent" &&
-      setPosts([
-        ...posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
-      ]);
+    setIsLoading(true);
+    axios
+      .get(
+        "/api/posts",
+        ...(criteria === "likes" ? [{ params: { likes: true } }] : [])
+      )
+      .then((response) => {
+        setPosts(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => console.log(error));
   };
 
   dayjs.extend(relativeTime);
@@ -77,7 +82,7 @@ export default function Index() {
             </form>
             <a
               className={"uk-button uk-button-default uk-margin-right"}
-              onClick={() => handleSort("hot")}
+              onClick={() => handleSort("likes")}
             >
               <div className={"uk-flex"}>
                 <i className={"ri-fire-fill"} />

@@ -83,6 +83,7 @@ export default async function handler(request, response) {
               localField: "_id",
               foreignField: "postId",
               as: "likes",
+              pipeline: [{ $count: "count" }],
             },
           },
           {
@@ -104,7 +105,9 @@ export default async function handler(request, response) {
               ],
             },
           },
-          { $sort: { createdAt: -1 } },
+          ...(query?.likes
+            ? [{ $sort: { "likes.count": -1 } }]
+            : [{ $sort: { createdAt: -1 } }]),
         ])
         .toArray()
         .then((results) => response.status(200).send(results))
