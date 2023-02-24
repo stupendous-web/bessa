@@ -17,7 +17,7 @@ export default function CommentButton({ postId, userId }) {
       })
       .then(() => {
         setComment("");
-        UIkit.modal("#modal").hide();
+        UIkit.modal(`#comment-modal-${postId}`).hide();
         UIkit.notification({
           message: "Sent!",
           status: "success",
@@ -42,7 +42,7 @@ export default function CommentButton({ postId, userId }) {
       >
         <i className={"ri-chat-1-line"} />
       </a>
-      <div id={"modal"} data-uk-modal={""}>
+      <div id={`comment-modal-${postId}`} data-uk-modal={""}>
         <div className={"uk-modal-dialog uk-modal-body"}>
           <form onSubmit={(event) => handleSubmit(event)}>
             <div className={"uk-margin"}>

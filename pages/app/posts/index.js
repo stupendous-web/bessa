@@ -29,6 +29,7 @@ export default function Index() {
     axios
       .get("/api/posts", { params: { searchQuery: query } })
       .then((response) => {
+        setQuery("");
         setPosts(response.data);
         setIsLoading(false);
       })
@@ -37,11 +38,15 @@ export default function Index() {
 
   const handleSort = (criteria) => {
     setIsLoading(true);
+    let params;
+    if (criteria === "likes") {
+      params = { params: { likes: true } };
+    }
+    if (criteria === "discover") {
+      params = { params: { discover: true } };
+    }
     axios
-      .get(
-        "/api/posts",
-        ...(criteria === "likes" ? [{ params: { likes: true } }] : [])
-      )
+      .get("/api/posts", params)
       .then((response) => {
         setPosts(response.data);
         setIsLoading(false);
@@ -90,12 +95,21 @@ export default function Index() {
               </div>
             </a>
             <a
-              className={"uk-button uk-button-default"}
+              className={"uk-button uk-button-default uk-margin-right"}
               onClick={() => handleSort("recent")}
             >
               <div className={"uk-flex"}>
                 <i className={"ri-time-fill"} />
                 &nbsp;Recent
+              </div>
+            </a>
+            <a
+              className={"uk-button uk-button-default"}
+              onClick={() => handleSort("discover")}
+            >
+              <div className={"uk-flex"}>
+                <i className={"ri-compass-fill"} />
+                &nbsp;Discover
               </div>
             </a>
             {!isLoading ? (
@@ -105,16 +119,16 @@ export default function Index() {
                 ) : (
                   <div className={"uk-text-center uk-margin"}>
                     <p className={"uk-text-bold"}>Nothing turned up!</p>
-                    <p>
-                      Try something else. Or... maybe it&apos;s time to publish
-                      something...
-                    </p>
+                    <div>
+                      Search or use the Discover tab to find people to follow.
+                    </div>
+                    <div>Or publish your own posts to see them here...</div>
                   </div>
                 )}
               </>
             ) : (
               <>
-                <div className={"uk-text-center"}>
+                <div className={"uk-text-center uk-margin"}>
                   <div data-uk-spinner={""} />
                 </div>
               </>

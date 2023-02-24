@@ -74,9 +74,17 @@ export default async function handler(request, response) {
               localField: "userId",
               foreignField: "_id",
               as: "user",
-              pipeline: [{ $project: { _id: 1, name: 1 } }],
+              pipeline: [{ $project: { _id: 1, name: 1, followers: 1 } }],
             },
           },
+          { $set: { user: { $arrayElemAt: ["$user", 0] } } },
+          ...(!query?.discover && !query?.userId && !query?.searchQuery
+            ? [
+                {
+                  $match: { "user.followers": { $in: [session?.user?._id] } },
+                },
+              ]
+            : []),
           {
             $lookup: {
               from: "likes",
@@ -98,10 +106,11 @@ export default async function handler(request, response) {
                     from: "users",
                     localField: "userId",
                     foreignField: "_id",
-                    as: "users",
+                    as: "user",
                     pipeline: [{ $project: { _id: 1, name: 1 } }],
                   },
                 },
+                { $set: { user: { $arrayElemAt: ["$user", 0] } } },
               ],
             },
           },
