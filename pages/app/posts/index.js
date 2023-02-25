@@ -89,28 +89,19 @@ export default function Index() {
               className={"uk-button uk-button-default uk-margin-right"}
               onClick={() => handleSort("likes")}
             >
-              <div className={"uk-flex"}>
-                <i className={"ri-fire-fill"} />
-                &nbsp;Hot
-              </div>
+              <div>Hot</div>
             </a>
             <a
               className={"uk-button uk-button-default uk-margin-right"}
               onClick={() => handleSort("recent")}
             >
-              <div className={"uk-flex"}>
-                <i className={"ri-time-fill"} />
-                &nbsp;Recent
-              </div>
+              <div>Recent</div>
             </a>
             <a
               className={"uk-button uk-button-default"}
               onClick={() => handleSort("discover")}
             >
-              <div className={"uk-flex"}>
-                <i className={"ri-compass-fill"} />
-                &nbsp;Discover
-              </div>
+              <div>Discover</div>
             </a>
             {!isLoading ? (
               <>
