@@ -12,7 +12,7 @@ html {
   font-family: bilo, sans-serif;
   font-size: 18px;
   font-weight: normal;
-  line-height: 2;
+  line-height: 1.5;
   /* 2 */
   -webkit-text-size-adjust: 100%;
   /* 3 */
@@ -742,8 +742,8 @@ a.uk-link-reset,
   position: relative;
   left: -30px;
   width: 30px;
-  height: 2em;
-  margin-bottom: -2em;
+  height: 1.5em;
+  margin-bottom: -1.5em;
   display: list-item;
   list-style-position: inside;
   text-align: right;
@@ -789,8 +789,8 @@ a.uk-link-reset,
   position: relative;
   left: -30px;
   width: 30px;
-  height: 2em;
-  margin-bottom: -2em;
+  height: 1.5em;
+  margin-bottom: -1.5em;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23c6c6c6%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -1993,7 +1993,7 @@ select.uk-form-width-xsmall {
 .uk-button-text {
   /* 1 */
   padding: 0;
-  line-height: 2;
+  line-height: 1.5;
   background: none;
   /* 2 */
   color: #e0e0e0;
@@ -2014,7 +2014,7 @@ select.uk-form-width-xsmall {
 .uk-button-link {
   /* 1 */
   padding: 0;
-  line-height: 2;
+  line-height: 1.5;
   background: none;
   /* 2 */
   color: #e0e0e0;
@@ -2821,7 +2821,7 @@ select.uk-form-width-xsmall {
   display: inline-block;
   padding: 0 16px;
   background: #8a3ffc;
-  line-height: 2;
+  line-height: 1.5;
   font-size: 16px;
   color: #000;
   vertical-align: middle;
@@ -4647,7 +4647,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-nav-default {
   font-size: 18px;
-  line-height: 2;
+  line-height: 1.5;
 }
 /*
  * Items
@@ -4686,7 +4686,7 @@ ul.uk-nav-sub {
  */
 .uk-nav-default .uk-nav-sub {
   font-size: 18px;
-  line-height: 2;
+  line-height: 1.5;
 }
 .uk-nav-default .uk-nav-sub a {
   color: #a8a8a8;
@@ -4701,7 +4701,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-nav-primary {
   font-size: 2rem;
-  line-height: 2;
+  line-height: 1.5;
 }
 /*
  * Items
@@ -4740,7 +4740,7 @@ ul.uk-nav-sub {
  */
 .uk-nav-primary .uk-nav-sub {
   font-size: 1rem;
-  line-height: 2;
+  line-height: 1.5;
 }
 .uk-nav-primary .uk-nav-sub a {
   color: #a8a8a8;
@@ -4755,7 +4755,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-nav-secondary {
   font-size: 18px;
-  line-height: 2;
+  line-height: 1.5;
 }
 /*
  * Items
@@ -4803,7 +4803,7 @@ ul.uk-nav-sub {
  */
 .uk-nav-secondary .uk-nav-sub {
   font-size: 16px;
-  line-height: 2;
+  line-height: 1.5;
 }
 .uk-nav-secondary .uk-nav-sub a {
   color: #a8a8a8;
@@ -6907,7 +6907,7 @@ ul.uk-nav-sub {
 }
 .uk-text-default {
   font-size: 18px;
-  line-height: 2;
+  line-height: 1.5;
 }
 /* Weight modifier
  ========================================================================== */
@@ -7876,7 +7876,7 @@ iframe[data-uk-cover] {
   display: block;
   margin-right: 10px;
   float: left;
-  font-size: 6em;
+  font-size: 4.5em;
   line-height: 1;
 }
 /* 2 */
@@ -11889,7 +11889,7 @@ iframe[data-uk-cover] {
   font-family: 'Material Symbols Sharp';
   font-style: normal;
   font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialsymbolssharp/v83/gNNBW2J8Roq16WD5tFNRaeLQk6-SHQ_R00k4c2_whPnoY9ruReYU3rHmz74m0ZkGH-VBYe1x0TV6x4yFH8F-HxOezEL3sVTgJtfbYxOLojCO.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/materialsymbolssharp/v84/gNNBW2J8Roq16WD5tFNRaeLQk6-SHQ_R00k4c2_whPnoY9ruReYU3rHmz74m0ZkGH-VBYe1x0TV6x4yFH8F-HxOezEL3sVTgJtfbYxOLojCO.ttf) format('truetype');
 }
 .material-symbols-sharp {
   font-family: 'Material Symbols Sharp';

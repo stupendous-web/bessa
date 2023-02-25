@@ -29,94 +29,66 @@ export default function Notifications() {
           <div className={"uk-container uk-container-xsmall"}>
             <p className={"uk-text-bold"}>Notifications</p>
             {notifications?.map((notification) => (
-              <div key={notification?._id}>
-                <div
-                  className={"uk-flex-middle uk-grid-small uk-margin"}
-                  data-uk-grid={""}
-                >
-                  <div style={{ width: "5px" }}>
-                    {!notification?.isRead && (
-                      <span className={"uk-text-bold uk-text-primary"}>
-                        &middot;
-                      </span>
-                    )}
-                  </div>
-                  <div className={"uk-width-auto"}>
-                    <Link
-                      href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+              <div key={notification?._id} className={"uk-margin"}>
+                <div>
+                  <Link
+                    href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                  >
+                    <div
+                      className={"uk-cover-container uk-border-circle"}
+                      style={{ height: 40, width: 40 }}
                     >
-                      <div
-                        className={"uk-cover-container uk-border-circle"}
-                        style={{ height: 40, width: 40 }}
-                      >
-                        <img
-                          src={`https://cdn.bessssssa.com/avatars/${notification?.authorId}`}
-                          onError={(event) => {
-                            event.currentTarget.src = "/images/avatar.jpg";
-                          }}
-                          data-uk-cover={""}
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                  <div className={"uk-width-expand"}>
-                    {notification?.type === "like" && (
-                      <>
-                        <div>
-                          <Link
-                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
-                          >
-                            {notification?.authorMeta?.[0]?.name}
-                          </Link>{" "}
-                          liked one of your posts
-                        </div>
-                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
-                      </>
-                    )}
-                    {notification?.type === "comment" && (
-                      <>
-                        <div>
-                          <Link
-                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
-                          >
-                            {notification?.authorMeta?.[0]?.name}
-                          </Link>{" "}
-                          commented on one of your posts.
-                        </div>
-                        <div>{notification?.preview}</div>
-                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
-                      </>
-                    )}{" "}
-                    {notification?.type === "comment" && (
-                      <>
-                        <div>
-                          <Link
-                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
-                          >
-                            {notification?.authorMeta?.[0]?.name}
-                          </Link>{" "}
-                          commented on one of your posts.
-                        </div>
-                        <div>{notification?.preview}</div>
-                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
-                      </>
-                    )}
-                    {notification?.type === "follow" && (
-                      <>
-                        <div>
-                          <Link
-                            href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
-                          >
-                            {notification?.authorMeta?.[0]?.name}
-                          </Link>{" "}
-                          followed you.
-                        </div>
-                        <div>{notification?.preview}</div>
-                        <div>{dayjs(notification?.createdAt).fromNow()}</div>
-                      </>
-                    )}
-                  </div>
+                      <img
+                        src={`https://cdn.bessssssa.com/avatars/${notification?.authorId}`}
+                        onError={(event) => {
+                          event.currentTarget.src = "/images/avatar.jpg";
+                        }}
+                        data-uk-cover={""}
+                      />
+                    </div>
+                  </Link>
                 </div>
+                {notification?.type === "like" && (
+                  <>
+                    <div>
+                      <Link
+                        href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                      >
+                        {notification?.authorMeta?.[0]?.name}
+                      </Link>{" "}
+                      liked one of your posts
+                    </div>
+                    <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                  </>
+                )}
+                {notification?.type === "comment" && (
+                  <>
+                    <div>
+                      <Link
+                        href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                      >
+                        {notification?.authorMeta?.[0]?.name}
+                      </Link>{" "}
+                      commented on one of your posts.
+                    </div>
+                    <div>{notification?.preview}</div>
+                    <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                  </>
+                )}
+                {notification?.type === "follow" && (
+                  <>
+                    <div>
+                      <Link
+                        href={`/app/members/${notification?.authorMeta?.[0]?._id}`}
+                      >
+                        {notification?.authorMeta?.[0]?.name}
+                      </Link>{" "}
+                      followed you.
+                    </div>
+                    <div>{notification?.preview}</div>
+                    <div>{dayjs(notification?.createdAt).fromNow()}</div>
+                  </>
+                )}
               </div>
             ))}
           </div>
