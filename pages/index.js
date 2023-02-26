@@ -5,39 +5,17 @@ import Image from "next/image";
 import Navigation from "../components/Navigation";
 import Footer from "@/components/Footer";
 
-import mockup from "../images/mockup.png";
+import profiles from "../images/profiles.png";
+import chat from "../images/chat.png";
+import members from "../images/members.png";
 
 export default function Home() {
   const sections = [
     {
-      heading: "Profiles",
-      body: "Be seen by uploading a few selfies and a little about yourself to your Bessa profile.",
-      icon: "ri-user-fill",
-    },
-    {
-      heading: "DM",
-      body: "Make friends by sending private messages to other members.",
-      icon: "ri-chat-1-fill",
-    },
-    {
-      heading: "Social",
-      body: "Get the convo going by posting pictures and videos to your social feed.",
-      icon: "ri-image-fill",
-    },
-    {
-      heading: "Services",
-      body: "Share your work and support the work of others in the community.",
-      icon: "ri-service-fill",
-    },
-    {
-      heading: "Travel",
       body: "Meet people from other parts of the world by listing your room or staying with other gays.",
-      icon: "ri-road-map-fill",
     },
     {
-      heading: "Events",
       body: "Share your next event with others in your area.",
-      icon: "ri-calendar-event-fill",
     },
   ];
 
@@ -89,24 +67,65 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div
-        className={"uk-container uk-container-xsmall"}
-        style={{ marginTop: "-81px" }}
-      >
-        <Image
-          src={mockup}
-          alt={"FREE gay online dating, chat, social, and listings community"}
-        />
+      <div className={"uk-section"}>
+        <div className={"uk-container uk-container-xsmall"}>
+          <div
+            className={"uk-child-width-1-2@s uk-flex-middle"}
+            data-uk-grid={""}
+          >
+            <div>
+              <Image src={profiles} />
+            </div>
+            <div>
+              <p>
+                Upload a few selfies, share a little about yourself, and post
+                content to your profile.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={"uk-section uk-section-primary"}>
+        <div className={"uk-container uk-container-xsmall"}>
+          <div
+            className={"uk-child-width-1-2@s uk-flex-middle"}
+            data-uk-grid={""}
+          >
+            <div>
+              <p>
+                Make friends by sending unlimited messages with read receipts to
+                other members.
+              </p>
+            </div>
+            <div>
+              <Image src={chat} />
+            </div>
+          </div>
+        </div>
       </div>
       <div className={"uk-section"}>
         <div className={"uk-container uk-container-xsmall"}>
-          <div className={"uk-child-width-1-3@s"} data-uk-grid={""}>
-            {sections.map((section) => (
-              <div key={section.heading}>
-                <h3 className={"uk-flex"}>
-                  <i className={`${section.icon} uk-margin-right`} />
-                  {section.heading}
-                </h3>
+          <div
+            className={"uk-child-width-1-2@s uk-flex-middle"}
+            data-uk-grid={""}
+          >
+            <div>
+              <Image src={members} />
+            </div>
+            <div>
+              <p>
+                Expand your network by browsing and following other member
+                profiles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={"uk-section uk-section-primary"}>
+        <div className={"uk-container uk-container-xsmall"}>
+          <div className={"uk-child-width-1-2@s"} data-uk-grid={""}>
+            {sections.map((section, key) => (
+              <div key={key}>
                 <p>{section.body}</p>
               </div>
             ))}
