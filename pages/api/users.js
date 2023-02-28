@@ -41,6 +41,8 @@ export default async function handler(request, response) {
           },
         },
       ];
+      const onlineSort = [{ $sort: { lastActiveAt: -1 } }];
+      const newSort = [{ $sort: { createdAt: -1 } }];
       const match = [
         {
           $match: {
@@ -50,7 +52,9 @@ export default async function handler(request, response) {
       ];
       await collection
         .aggregate([
-          ...(query?.latitude && query?.longitude ? geoNear : []),
+          ...(query?.sort === "distance" ? geoNear : []),
+          ...(query?.sort === "online" ? onlineSort : []),
+          ...(query?.sort === "new" ? newSort : []),
           ...(query?.userId ? match : []),
         ])
         .toArray()
@@ -122,8 +126,6 @@ export default async function handler(request, response) {
           recipientId: new ObjectId(session?.user?._id),
         });
 
-      // TODO: Delete Profile Picture
-
       await client
         .db("bessa")
         .collection("posts")
@@ -142,6 +144,8 @@ export default async function handler(request, response) {
             { recipientId: new ObjectId(session?.user?._id) },
           ],
         });
+
+      // TODO: Delete Following ID's
 
       await collection
         .deleteOne({ _id: new ObjectId(session?.user?._id) })

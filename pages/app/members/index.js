@@ -16,6 +16,8 @@ export default function Members() {
     latitude: undefined,
     longitude: undefined,
   });
+  const [sort, setSort] = useState("distance");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -34,33 +36,26 @@ export default function Members() {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     coords?.latitude &&
       coords?.longitude &&
       axios
         .get("/api/users", {
           params: {
+            sort: sort,
             latitude: coords.latitude,
             longitude: coords.longitude,
           },
         })
-        .then((response) => setUsers(response.data))
-        .catch((error) => console.log(error));
-  }, [coords]);
-
-  const handleSort = (criteria) => {
-    criteria === "distance" &&
-      setUsers([...users.sort((a, b) => a.distance - b.distance)]);
-    criteria === "online" &&
-      setUsers([
-        ...users.sort(
-          (a, b) => new Date(b.lastActiveAt) - new Date(a.lastActiveAt)
-        ),
-      ]);
-    criteria === "new" &&
-      setUsers([
-        ...users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
-      ]);
-  };
+        .then((response) => {
+          setUsers(response.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+  }, [coords, sort]);
 
   dayjs.extend(relativeTime);
 
@@ -76,26 +71,26 @@ export default function Members() {
             <div className={"uk-margin"}>
               <a
                 className={"uk-button uk-button-default uk-margin-right"}
-                onClick={() => handleSort("distance")}
+                onClick={() => setSort("distance")}
               >
                 Distance
               </a>
               <a
                 className={"uk-button uk-button-default uk-margin-right"}
-                onClick={() => handleSort("online")}
+                onClick={() => setSort("online")}
               >
                 Online
               </a>
               <a
                 className={"uk-button uk-button-default"}
-                onClick={() => handleSort("new")}
+                onClick={() => setSort("new")}
               >
                 New
               </a>
             </div>
             {!isPermissionDenied ? (
               <>
-                {!!users?.map ? (
+                {!isLoading ? (
                   <div
                     className={
                       "uk-child-width-1-2 uk-child-width-1-6@s uk-grid-small uk-grid-match"
