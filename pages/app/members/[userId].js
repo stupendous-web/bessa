@@ -38,12 +38,11 @@ export default function ShowProfile() {
 
   useEffect(() => {
     userId &&
-      coords?.latitude &&
-      coords?.longitude &&
       axios
         .get("/api/users", {
           params: {
             userId: userId,
+            sort: coords.latitude && coords.longitude && "distance",
             latitude: coords.latitude,
             longitude: coords.longitude,
           },
