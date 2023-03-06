@@ -90,6 +90,12 @@ export default function Members() {
                 New
               </a>
             </div>
+            {!coords?.latitude && !coords?.longitude && (
+              <div className={"uk-alert-danger"} data-uk-alert={""}>
+                <a className={"uk-alert-close"} data-uk-close={""}></a>
+                <p>Enable location services to see members nearby.</p>
+              </div>
+            )}
             {!isLoading ? (
               <div
                 className={
