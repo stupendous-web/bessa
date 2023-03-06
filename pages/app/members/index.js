@@ -20,12 +20,11 @@ export default function Members() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      (position) =>
         setCoords({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        });
-      },
+        }),
       (error) => {
         error.code === 1 && setSort("online");
         console.log(error);

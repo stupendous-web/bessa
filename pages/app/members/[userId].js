@@ -19,6 +19,7 @@ export default function ShowProfile() {
     longitude: undefined,
   });
   const [posts, setPosts] = useState([]);
+  const [isFetchingGeolocation, setIsFetchingGeolocation] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { userId } = router.query;
@@ -30,14 +31,19 @@ export default function ShowProfile() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
+        setIsFetchingGeolocation(false);
       },
-      (error) => console.log(error),
+      (error) => {
+        console.log(error);
+        setIsFetchingGeolocation(false);
+      },
       { enableHighAccuracy: true, timeout: 10000 }
     );
   }, []);
 
   useEffect(() => {
     userId &&
+      !isFetchingGeolocation &&
       axios
         .get("/api/users", {
           params: {
@@ -49,7 +55,7 @@ export default function ShowProfile() {
         })
         .then((response) => setUser(response.data))
         .catch((error) => console.log(error));
-  }, [userId, coords]);
+  }, [userId, isFetchingGeolocation]);
 
   useEffect(() => {
     user?._id &&
